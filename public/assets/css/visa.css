@@ -371,3 +371,11 @@ a:hover {
     margin-right: 8px;
     margin-top: 4px;
 }
+
+.main-author {
+    font-size: 11px;
+    margin-left: 18px;
+    font-weight: 500;
+    color: #9b9999;
+    cursor: pointer;
+}

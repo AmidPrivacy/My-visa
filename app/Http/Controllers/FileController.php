@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\filePaths;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ArchiveController;
 use Illuminate\Support\Facades\DB;
 
 class FileController extends Controller
@@ -31,6 +32,9 @@ class FileController extends Controller
         $new_file->file = $imageName; 
         
         if($new_file->save()) {
+
+            (new ArchiveController())->create(4, $new_file->id, 0);
+
             return back()->with('success','Məlumat əlavə edildi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
@@ -45,6 +49,7 @@ class FileController extends Controller
         $file->status = 0;
 
         if($file->save()) {
+            (new ArchiveController())->create(4, $id, 3);
             return back()->with('success','Məlumat silindi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');

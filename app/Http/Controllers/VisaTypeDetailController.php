@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\VisaTypeDetails;
+use App\Http\Controllers\ArchiveController;
 use App\Models\Countries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +24,18 @@ class VisaTypeDetailController extends Controller
 
         $selectedCountry = Countries::find($id);
 
-        $types = DB::select("select id, name from visa_types where country_id = ?", [$id]);
+        $types = DB::select("select v.id, v.name, u.name as user from visa_types v left join users u on v.user_id=u.id where v.country_id = ?", [$id]);
+
+        $all = [];
+
+        foreach($types as $type) {
+            $type->children = DB::select("select v_t.id, v_t.name, v_t.content, u.name as user from visa_type_details v_t left join users u on v_t.user_id=u.id where v_t.type_id = ?", [$type->id]);
+            array_push($all, $type);
+        }
+
+        // dd($all);
     
-        return view('admin.index')->with(["list" => $list, "selected" => $selectedCountry, "types"=>$types]);
+        return view('admin.index')->with(["list" => $list, "selected" => $selectedCountry, "types"=>$all]);
 
     }
 
@@ -44,8 +54,10 @@ class VisaTypeDetailController extends Controller
         $faq->name = $request->name; 
         $faq->type_id = $request->type; 
         $faq->content = $request->content; 
+        $faq->user_id = auth()->user()->id; 
         
         if($faq->save()) {
+            (new ArchiveController())->create(3, $faq->id, 0);
             return back()->with('success','Məlumat əlavə edildi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
@@ -73,6 +85,7 @@ class VisaTypeDetailController extends Controller
         $faq->content = $request->content; 
 
         if($faq->save()) {
+            (new ArchiveController())->create(3, $id, 2);
             return back()->with('success','Məlumat yeniləndi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
@@ -87,6 +100,7 @@ class VisaTypeDetailController extends Controller
         $faq->status = 0;
 
         if($faq->save()) {
+            (new ArchiveController())->create(3, $id, 3);
             return back()->with('success','Məlumat silindi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');

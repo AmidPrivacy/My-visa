@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Countries;
+use App\Http\Controllers\ArchiveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,9 +29,13 @@ class CountryController extends Controller
         
         $new_country = new Countries();
         $new_country->name = $request->name; 
+        $new_country->user_id = auth()->user()->id;
         $new_country->picture = $imageName; 
-        
+
         if($new_country->save()) {
+
+            (new ArchiveController())->create(1, $new_country->id, 0);
+
             return back()->with('success','Məlumat əlavə edildi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
@@ -45,6 +50,7 @@ class CountryController extends Controller
         $country->status = 0;
 
         if($country->save()) {
+            (new ArchiveController())->create(1, $id, 3);
             return back()->with('success','Məlumat silindi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
@@ -52,5 +58,7 @@ class CountryController extends Controller
 
     }
 
+
+    
 
 }
