@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                             <h3 class="visatype-cardlbox_title">
-                                                {{ $type->name }} <span class="main-author"> {{ $type->user }} </span>
+                                                {{ $type->name }} <span class="main-author" onclick="checkAuthors(2, {{ $type->id }})"> {{ $type->user }} </span>
                                             </h3>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                             <div class="col-lg-12 content">
                                 @foreach($type->children as $item) 
                                 <div class="tab-pane visatype-cardrbox_text" id="faq-{{ $item->id }}">
-                                    <h4>{{ $item->name }} <span class="main-author"> {{ $type->user }} </span></h4>
+                                    <h4>{{ $item->name }} <span class="main-author" onclick="checkAuthors(3, {{ $item->id }})"> {{ $type->user }} </span></h4>
                                     
                                     {{ $item->content }}
 
@@ -149,8 +149,48 @@
                     </div>
                 </div>
             </section> -->
+            <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                    <div class="toast-header">
+                        <strong class="mr-auto">İsdifadəçi əməliyyatları</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
+                    </div>
+                </div>
+            </div>
     </main>
     
+    <script src="{!! url('assets/js/jquery-3.5.1.min.js') !!}"></script>
+    <script src="{!! url('assets/js/bootstrap.bundle.min.js') !!}"></script>
+    <script>
+        function checkAuthors(category, rowId) {
+            
+            fetch(`/admin/archive/${rowId}/${category}`).then(response => response.json()).then(res => {
+                if(res.length>0) {
+
+                    let str = "";
+                    res.forEach(item=>{
+                        str += `
+                            <tr style="border-bottom: solid 1px #ccc"> 
+                                <th>${item.user}</th> 
+                                <th>${item.operation}</th> 
+                                <th>${item.created_at}</th> 
+                            </tr>
+                        `
+                    })
+                    document.querySelector(".toast-body").innerHTML = "<table>"+str+"</table>";
+                    $('.toast').toast('show');
+
+                } else {
+                    document.querySelector(".toast-body").innerHTML = "";
+                }
+            })
+        }
+    </script>
   
 </body>
 </html>

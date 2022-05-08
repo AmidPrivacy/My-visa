@@ -10,3 +10,21 @@
 .table-describe {
   width: 70px;
 }
+
+.file-lists {
+  min-height: 125px !important;
+  border: solid 1px #ccc !important;
+}
+
+.file-lists h2 {
+  width: 98%;
+  border: solid 1px #ccc;
+  margin-top: 5px;
+  margin-left: 1%;
+}
+
+.file-lists .list-group li span {
+  margin-left: 40px;
+  border-left: solid 1px #ccc;
+  padding-left: 6px;
+}

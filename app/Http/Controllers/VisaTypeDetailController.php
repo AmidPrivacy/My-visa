@@ -43,15 +43,16 @@ class VisaTypeDetailController extends Controller
     {
         $list = DB::select("select d.id, d.name, t.name as type from visa_type_details d inner join visa_types t on d.type_id = t.id where d.status=1");
         $types = DB::select("select t.id, t.name from visa_types t where t.status=1");
- 
-        return view('admin.faq.index')->with(["list" => $list, "types" => $types]);
+        $files = DB::select("select id, name, file from file_paths where status=1");
+
+        return view('admin.faq.index')->with(["list" => $list, "types" => $types, "files" => $files]);
     }
 
     public function create(Request $request)
     {
  
         $faq = new VisaTypeDetails();
-        $faq->name = $request->name; 
+        $faq->name = $request->title; 
         $faq->type_id = $request->type; 
         $faq->content = $request->content; 
         $faq->user_id = auth()->user()->id; 

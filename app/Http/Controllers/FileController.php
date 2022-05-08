@@ -34,10 +34,23 @@ class FileController extends Controller
         if($new_file->save()) {
 
             (new ArchiveController())->create(4, $new_file->id, 0);
-
-            return back()->with('success','Məlumat əlavə edildi');
+            if($request->check_place==1){
+                return back()->with('success','Məlumat əlavə edildi');
+            } else {
+                return response()->json([
+                    'data' => $new_file,
+                    'error' => null,
+                ]);
+            }
         } else {
-            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            if($request->check_place==1){
+                return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            } else {
+                return response()->json([
+                    'data' => null,
+                    'error' => "Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin",
+                ]);
+            }
         }
 
     }

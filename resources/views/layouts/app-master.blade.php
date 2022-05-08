@@ -35,16 +35,19 @@
 </head>
 <body>
     
-    @include('layouts.partials.navbar')
+    
 
-    <main class="container">
+    
         @auth
+        @include('layouts.partials.navbar')
+        <main class="container">
           @yield('admin-content')
+        </main>
         @endauth
         @guest
           @yield('public-content')
         @endguest
-    </main>
+    
     
     <script src="{!! url('assets/js/bootstrap.bundle.min.js') !!}"></script>
     

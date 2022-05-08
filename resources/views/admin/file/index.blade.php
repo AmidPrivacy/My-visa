@@ -69,6 +69,7 @@
                                                         <input class="form-control" type="file" id="formFile" name="file">
                                                 </div>
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                <input type="hidden" name="check_place" value="1" />
                                         </div>
                                         <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Göndər</button>

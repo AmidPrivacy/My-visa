@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Archives;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ArchiveController extends Controller
@@ -14,6 +15,13 @@ class ArchiveController extends Controller
             'Məlumat yeniləndi',
             'Məlumat silindi',
         ];
+    }
+
+    function list($id, $category) {
+
+        $list = DB::select("select a.id, a.operation, a.created_at, u.name as user from archives a inner join users u on a.user_id=u.id where a.row_id=? and a.category=?", [$id, $category]);
+
+        return $list;
     }
    
     

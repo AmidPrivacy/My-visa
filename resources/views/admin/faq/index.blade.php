@@ -57,7 +57,7 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Viza növü əlavəsi</h5>
                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form method="post" action="/admin/faq-add" id="my-form" enctype="multipart/form-data">
+                                <form method="post" action="/admin/faq-add" id="my-form" enctype="multipart/form-data" id="my-form">
                                         <div class="modal-body">
                                                 <div class="mb-3">
                                                         <label for="formFile" class="form-label">Viza növü seçin</label>
@@ -69,7 +69,33 @@
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Başlıq</label>
-                                                        <input type="text" class="form-control" name="name" id="type" required placeholder="Kontent başlığını daxil edin">
+                                                        <input type="text" class="form-control" name="title" id="type" required placeholder="Kontent başlığını daxil edin">
+                                                </div>
+                                                <div class="file-lists">
+                                                        <div class="input-group" style="margin-top: 7px; width: 98%; margin-left: 1%;">
+                                                                <input type="file" class="form-control" id="inputGroupFile04" name="file" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                                                <input type="text" class="form-control" name="name" id="special-file-name" placeholder="Fayl başlığı" />
+                                                                <input type="hidden" name="check_place" value="0"/>
+                                                                <button class="btn btn-outline-secondary addition-file-upload" type="button" id="inputGroupFileAddon04">Yüklə</button>
+                                                        </div>
+                                                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                                <div class="accordion-item">
+                                                                        <h2 class="accordion-header" id="flush-headingOne">
+                                                                                <button class="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                                                        Bütün fayllar
+                                                                                </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-parent="#accordionFlushExample">
+                                                                                <div class="accordion-body" style="max-height: 210px; overflow-y: scroll">
+                                                                                        <ul class="list-group">
+                                                                                                @foreach($files as $file)
+                                                                                                <li class="list-group-item">{{ $file->file }} <span>{{ $file->name }}</span></li>
+                                                                                                @endforeach
+                                                                                        </ul>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>  
+                                                        </div>
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Kontent</label>
@@ -88,15 +114,17 @@
 </div>
 
 <script src="{!! url('assets/js/summernote.min.js') !!}"></script>
+
+
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({
-        placeholder: 'Kontent daxil edin',
-        tabsize: 2,
-        height: 500,
-        focus: true
-        // airMode: true
-      });
+                placeholder: 'Kontent daxil edin',
+                tabsize: 2,
+                height: 500,
+                focus: true
+                // airMode: true
+        });
 
       $(".add-new-row").click(function(){  
         $("#my-form").attr("action", "/admin/faq-add");
@@ -127,6 +155,31 @@
                 myModal.show();
       })
 
+      $(".addition-file-upload").click(function() {
+              if(($("#special-file-name").val()).length>0 && document.getElementById("inputGroupFile04").files.length > 0) {
+                var form = $('#my-form')[0];
+                var formData = new FormData(form);
+                $.ajax({
+                        url: "/admin/file-add",
+                        method: "post",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (res) {
+                                $(".file-lists .list-group").prepend("<li class='list-group-item'>"+res.data.file+" <span>"+res.data.name+"</span></li>")
+                                alert("Fayl uğurla əlavə edildi");
+                                $("#special-file-name").val("");
+                                $("#inputGroupFile04").val("");
+                        },
+                        error: function (e) {
+                                alert("Uğursuz")
+                        }
+                })
+
+              } else {
+                      alert("Zəhmət olmasa fayl və başlıq daxil edin");
+              }
+      })
 
     });
 </script>

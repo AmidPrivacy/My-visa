@@ -38,6 +38,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/faq/{id}', 'VisaTypeDetailController@update');
     Route::get('/admin/faq-remove/{id}', 'VisaTypeDetailController@delete');
 
+    Route::get('/admin/archive/{id}/{category}', 'ArchiveController@list');
+
     Route::get('/', 'HomeController@index')->name('home.index');
 
     Route::get('/admin/home', 'VisaTypeDetailController@all');
