@@ -10,9 +10,12 @@ class CountryController extends Controller
 {
     public function index() 
     {
-        $list = DB::select("select id, name, picture from countries where status=1");
+
+        $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        $colors = DB::select("select id, name, type from visa_colors where status=1");
  
-        return view('admin.country.index')->with(["list" => $list]);
+        return view('admin.country.index')->with(["list" => $list, "colors" => $colors]);
+
     }
 
 
@@ -31,6 +34,8 @@ class CountryController extends Controller
         $new_country->name = $request->name; 
         $new_country->user_id = auth()->user()->id;
         $new_country->picture = $imageName; 
+        $new_country->visa_color_id = isset($request->color)?$request->color:0; 
+        
 
         if($new_country->save()) {
 
@@ -40,6 +45,17 @@ class CountryController extends Controller
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
         }
+
+    }
+
+    public function search($name) {
+    
+        $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type FROM `countries` c left join visa_colors v on c.visa_color_id = v.id WHERE c.name LIKE '%".$name."%' AND c.status = 1");
+    
+        return response()->json([
+            'data' => $list,
+            'error' => null,
+        ]);
 
     }
 

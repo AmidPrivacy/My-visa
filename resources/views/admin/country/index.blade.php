@@ -24,6 +24,11 @@
             </div>
         @endif
 
+        <div class="country-filter">
+                <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Ölkə axtar...">
+                </div>
+        </div>
         <button type="button" class="btn btn-primary add-new-row" data-toggle="modal" data-target="#exampleModal">Yeni ölkə</button>
         <table class="table">
                 <thead class="table-dark">
@@ -31,18 +36,20 @@
                                 <th class="table-primary">№</th>
                                 <th class="table-primary">Ölkə</th>
                                 <th class="table-primary">Şəkil</th>
+                                <th class="table-primary">Rəng</th>
                                 <th class="table-primary"></th>
                         </tr>
                 </thead>
                 <tbody>
                         @foreach($list as $index => $item)
-                        <tr> 
-                                <th class="table-light">{{ $index+1 }}</th>
-                                <td class="table-light"> {{ $item->name }} </td>
-                                <td class="table-light">
-                                        <img src="../assets/uploads/flags/{{ $item->picture }}" class="table-describe" />
+                        <tr style="background-color: {{ $item->color }}"> 
+                                <th class="">{{ $index+1 }}</th>
+                                <td class=""> <a href="/country/{{ $item->id }}" target="_blank" style="color: black"> {{ $item->name }} </a> </td>
+                                <td class="">
+                                        <img src="../public/assets/uploads/flags/{{ $item->picture }}" class="table-describe" />
                                 </td>
-                                <td class="table-light table-edit-field">
+                                <td class=""> {{ $item->color." - ".$item->type }} </td>
+                                <td class="table-edit-field">
                                         <!-- <button type="button" class="btn btn-primary">düzəliş et</button> -->
                                         <button type="button" class="btn btn-danger" onClick="removeRow({{ $item->id }}, '/admin/country-remove/')">sil</button> 
                                 </td>
@@ -66,6 +73,15 @@
                                                         <input type="text" class="form-control" name="name" id="countryName" placeholder="Ad daxil edin">
                                                 </div>
                                                 <div class="mb-3">
+                                                        <label for="countryName" class="form-label">Ölkə üçün rəng seçimi</label>
+                                                        <select class="form-select" aria-label="Default select example" name="color">
+                                                                <option selected value="0">Rəng seçin</option>
+                                                                @foreach($colors as $color)
+                                                                        <option value="{{ $color->id }}" style="background-color: {{ $color->name }}">{{ $color->type }}</option>
+                                                                @endforeach
+                                                        </select>
+                                                </div>
+                                                <div class="mb-3">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
@@ -79,4 +95,53 @@
                 </div>
         </div>
 </div>
+
+
+        <script>
+
+                $(function(){
+
+                        $(".country-filter input").keypress(function(event){
+                            let val = $(this).val();
+                            
+                            var keycode = (event.keyCode ? event.keyCode : event.which);
+
+                            if(val.length>0 && keycode == '13') {
+                                        $.ajax({
+                                                url: "/admin/country-search/"+val,
+                                                method: "get",
+                                                success: (res)=>{
+                                                        console.log(res.data);
+
+
+                                                        let str = "";
+
+                                                        (res.data).forEach((item, index)=>{
+                                                                str += `
+                                                                        <tr style="background-color: ${ item.color }"> 
+                                                                                <th class="">${index+1}</th>
+                                                                                <td class=""> <a href="/country/${item.id}" target="_blank" style="color: black"> ${item.name} </a> </td>
+                                                                                <td class="">
+                                                                                        <img src="../public/assets/uploads/flags/${item.picture}" class="table-describe" />
+                                                                                </td>
+                                                                                <td class="">${item.color != null ? item.color : ""} - ${ item.type != null ? item.type : "" } </td>
+                                                                                <td class="table-edit-field">
+                                                                                        <button type="button" class="btn btn-danger" onClick="removeRow( ${ item.id }, '/admin/country-remove/')">sil</button> 
+                                                                                </td>
+                                                                        </tr>
+                                                                `;
+                                                        })
+
+                                                        $(".table tbody").html(str);
+                                                }
+                                        })
+                                } 
+                        })
+
+
+                })
+
+        </script>
+
+
 @endsection

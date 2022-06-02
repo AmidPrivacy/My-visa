@@ -1,8 +1,87 @@
 @extends('layouts.app-master')
-
+@section('css')
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link href="{!! url('assets/css/style.css') !!}" rel="stylesheet">
+	<link href="{!! url('assets/css/visa.css') !!}" rel="stylesheet">
+	<link href="{!! url('assets/css/all.min.css') !!}" rel="stylesheet">
+@endsection
 @section('public-content')
- 
-        <h1>Homepage</h1>
-        <p class="lead">Your viewing the home page. Please login to view the restricted data.</p>
-    
+	<header>
+		<div class="header-top">
+			<div class="main-container">
+				<div class="leftcontact-info">
+					<div class="mail">
+						<i class="fas fa-envelope"></i>
+						<span>info@myvisa.com</span>
+					</div>
+					<div class="telnum">
+						<i class="fas fa-phone"></i>
+						<span>+123 345 56</span>
+					</div>
+				</div>
+				<div class="rightcontact-info">
+					<a href="#">
+						<i class="fab fa-facebook-square"></i>
+					</a>
+					<a href="#">
+						<i class="fab fa-pinterest"></i>			
+					</a>
+					<a href="#">
+						<i class="fab fa-twitter-square"></i>			
+					</a>
+					<a href="#">
+						<i class="fab fa-vimeo-square"></i>			
+					</a>
+					<a href="#">
+						<i class="fab fa-instagram"></i>			
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="header-menu">
+			<div class="main-container">
+				<div class="logoname">
+					<i class="far fa-compass"></i>
+					<span>AsanVisa</span>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<div class="main-container">
+		
+			<h1 id="dest">My Visa</h1>
+
+			<div class="azecon">
+				<h3 class="continents">Pilot layihə olaraq pulsuz viza xidmətləri</h3>
+				@if ($message = Session::get('success'))
+					<div class="alert alert-success alert-block"> 
+						<strong>{{ $message }}</strong>
+					</div> 
+				@endif
+				<div class="forms-cont">
+					<form method="post" action="/appeal">
+						<input class="inputs" type="text" name="name" placeholder="Ad" required>
+						<input class="inputs" type="text" name="surname" placeholder="Soyad" required>
+						<input class="inputs" type="text" name="number" placeholder="Əlaqə nömrəsi" required>
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<button class="Subm-Button">MÜRACİƏT ET</button>
+					</form>
+				</div>
+				<h3 class="continents">Şikayət və təklifləriniz olarsa bu nömrəyə yaza bilərsiniz</h3>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<div class="footercontent">
+			<div class="main-container">
+				<div class="firstlayer">
+				</div>
+				<div class="logoname" id="logo-bottom">
+					<i class="far fa-compass"></i>
+					<span>AsanVisa</span>
+				</div>
+			</div>
+		</div>
+	</footer>
 @endsection

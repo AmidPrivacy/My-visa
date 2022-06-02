@@ -36,22 +36,23 @@
         <section class="visitcountry">
                 <div class="wrapper-container wrapper-container_mobile section-title">
                     <h2>
-                    {{ $selected->name }} ölkəsinə səyahət üçün viza almalısınızmı?
+                        {{ $selected->name }} ölkəsinə səyahət üçün viza almalısınızmı?
                     </h2>
                     <div id="viza-teleb-olunur" class="visitcountry-card">
                         <div class="row visitcountry-card_title">
                             <h3 class="col-md-12">
-                            Viza tələb olunur
+                                Viza tələb olunur
                             </h3>
                         </div>
                         <div class="row visitcountry-card_text countrylist-graycard">
                             
                             @foreach($list as $item)
                                 <div class="col-md-3 col-6 mb-2 d-flex align-items-start">
-                                    <img src="/assets/uploads/flags/{{ $item->picture }}" alt="" srcset="">
-                                    <a href="/admin/country/{{ $item->id }}" class="countrylist-card_val">{{ $item->name }}</a>
+                                    <img src="/public/assets/uploads/flags/{{ $item->picture }}" alt="" srcset="">
+                                    <a href="/country/{{ $item->id }}" class="countrylist-card_val">{{ $item->name }}</a>
                                 </div>
                             @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -60,6 +61,11 @@
                 <div class="wrapper-container section-title px-3 px-md-0">
                     <h2>Viza Növləri</h2> 
                     <div class="container">
+                        <div class="btn-group stay-period-style" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary {{ isset($_GET['period'])?'':'active-tab' }}" data-id="0">Hamısı</button>
+                            <button type="button" class="btn btn-primary {{ isset($_GET['period']) && $_GET['period']==1 ?'active-tab':'' }}" data-id="1">Long stay</button>
+                            <button type="button" class="btn btn-primary {{ isset($_GET['period']) && $_GET['period']==2 ?'active-tab':'' }}" data-id="2">Short stay</button>
+                        </div>
                         <div class="row justify-content-start d-none d-md-flex">
                            
                             @foreach($types as $item)
@@ -73,9 +79,6 @@
                            
                         </div>
 
-          
-
-
                         @foreach($types as $type) 
                         
                         <div id="visa-type-{{ $type->id }}" class="row visatype-card">
@@ -83,18 +86,20 @@
                                 <div class="row pt-4 bg-white">
                                     <div class="col-lg-12">
                                         <div class="visatype-cardlbox">
-                                        <div>
-                                            <div class="visatype-headerbox_icon">
-                                            <img alt="{{ $type->name }} Qısamüddətli Viza" src="/assets/img/1.svg">
+                                            <div>
+                                                <div class="visatype-headerbox_icon">
+                                                <img alt="{{ $type->name }} Qısamüddətli Viza" src="/assets/img/1.svg">
+                                                </div>
                                             </div>
-                                        </div>
                                             <h3 class="visatype-cardlbox_title">
                                                 {{ $type->name }} <span class="main-author" onclick="checkAuthors(2, {{ $type->id }})"> {{ $type->user }} </span>
                                             </h3>
+
+                                            <button type="button" class="btn btn-primary type-collapse" data-count="{{ count($type->children) }}">{{ count($type->children)>0 ? "+" : "-" }}</button>
                                         </div>
                                     </div>
                                     @if(count($type->children)>1)
-                                    <div class="col-lg-12 visapolicy-horizantal-menu ">
+                                    <div class="col-lg-12 visapolicy-horizantal-menu">
                                         <ul class="nav">
 
                                         @foreach($type->children as $item) 
@@ -111,12 +116,12 @@
                                 </div>
                                 <div class=" visatype-card_boxbottom"></div>
                             </div>
-                            <div class="col-lg-12 content">
+                            <div class="col-lg-12 content type-faqs">
                                 @foreach($type->children as $item) 
                                 <div class="tab-pane visatype-cardrbox_text" id="faq-{{ $item->id }}">
                                     <h4>{{ $item->name }} <span class="main-author" onclick="checkAuthors(3, {{ $item->id }})"> {{ $type->user }} </span></h4>
                                     
-                                    {{ $item->content }}
+                                    {!! $item->content !!}
 
                                 </div>
                                 @endforeach
@@ -190,6 +195,52 @@
                 }
             })
         }
+
+
+        $(function(){
+
+            $(".type-collapse").click(function(){
+                if($(this).attr("data-count") !== "0") {
+                    var parent = $(this).parent().parent().parent().parent().parent();
+                    if($(this).text()==="+"){
+                        $(parent).find(".type-faqs").css("display","block")
+                        $(this).text("-")
+                    } else {
+                        $(parent).find(".type-faqs").css("display","none")
+                        $(this).text("+")
+                    }
+                }
+            })
+
+            $(".visatype-headerbox").click(function() {
+                let id = $(this).attr("href"); 
+                let dataCheck = $(id).find(".visatype-cardlbox .type-collapse").attr("data-count");
+                // alert(dataCheck);
+                if(dataCheck==1) {
+                    $(id).find(".visatype-cardlbox .type-collapse").html("-");
+                }
+            })
+
+            $(".stay-period-style button").click(function(){
+
+                let path = location.pathname.split("/");
+ 
+                let tempPath = '/'+path[1]+'/'+path[2];
+
+                let period = $(this).attr("data-id");
+ 
+
+                let currentPath = period==0 ? tempPath : tempPath+'?period='+period;
+                
+
+                console.log(path)
+                console.log(period)
+
+                window.location.assign(currentPath);
+            })
+
+
+        })
     </script>
   
 </body>

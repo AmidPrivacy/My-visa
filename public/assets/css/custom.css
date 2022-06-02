@@ -9,6 +9,8 @@
 
 .table-describe {
   width: 70px;
+  height: 70px;
+  object-fit: contain;
 }
 
 .file-lists {
@@ -28,3 +30,49 @@
   border-left: solid 1px #ccc;
   padding-left: 6px;
 }
+
+#add-inheritance {
+  position: absolute;
+  right: 19px;
+  top: 94px;
+  padding: 0 6px;
+}
+
+.addition-field {
+  margin-top: 35px;
+}
+
+.addition-field button {
+  position: absolute;
+  right: 17px;
+}
+
+.addition-field input {
+  padding-right: 35px;
+}
+
+.country-filter {
+  float: left;
+  width: 70%;
+}
+
+.faq-search-area {
+  width: 70%;
+  float: left;
+}
+
+.faq-search-area input, 
+.faq-search-area select {
+  width: 49%;
+  float: left;
+  margin-left: 1%;
+}
+
+.faq-search-area select {
+  margin-left: 1%;
+}
+
+.faq-search-area select option {
+  width: 150px !important;
+}
+ 

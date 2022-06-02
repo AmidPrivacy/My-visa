@@ -1,5 +1,7 @@
 @extends('layouts.app-master')
-
+@section('css')
+<link href="{!! url('assets/css/summernote.min.css') !!}" rel="stylesheet">
+@endsection
 @section('admin-content')
 <div class="bg-light p-5 rounded">
         @if ($message = Session::get('success'))
@@ -23,7 +25,15 @@
                 </ul>
             </div>
         @endif
-        
+        <div class="faq-search-area">
+                <input class="form-control" type="text" placeholder="başlıq axtar...">
+                <select class="form-select">
+                        <option value="0">Viza növü seçin</option>
+                        @foreach($types as $item)
+                                <option value="{{ $item->id }}"> {{ \Illuminate\Support\Str::limit($item->name, 28, '...')."(".$item->country.")" }} </option> 
+                        @endforeach
+                </select>
+        </div>
         <button type="button" class="btn btn-primary add-new-row" data-toggle="modal" data-target="#exampleModal">Yeni FAQ</button>
         <table class="table">
                 <thead class="table-dark">
@@ -61,15 +71,15 @@
                                         <div class="modal-body">
                                                 <div class="mb-3">
                                                         <label for="formFile" class="form-label">Viza növü seçin</label>
-                                                        <select class="form-select" name="type" required>
+                                                        <select class="form-select" name="type" required id="visa-type">
                                                                 @foreach($types as $item)
-                                                                   <option value="{{ $item->id }}"> {{ $item->name }} </option> 
+                                                                   <option value="{{ $item->id }}"> {{ $item->name."(".$item->country.")" }} </option> 
                                                                 @endforeach
                                                         </select>                                                
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Başlıq</label>
-                                                        <input type="text" class="form-control" name="title" id="type" required placeholder="Kontent başlığını daxil edin">
+                                                        <input type="text" class="form-control" name="title" id="type" placeholder="Kontent başlığını daxil edin">
                                                 </div>
                                                 <div class="file-lists">
                                                         <div class="input-group" style="margin-top: 7px; width: 98%; margin-left: 1%;">
@@ -89,7 +99,7 @@
                                                                                 <div class="accordion-body" style="max-height: 210px; overflow-y: scroll">
                                                                                         <ul class="list-group">
                                                                                                 @foreach($files as $file)
-                                                                                                <li class="list-group-item">{{ $file->file }} <span>{{ $file->name }}</span></li>
+                                                                                                <li class="list-group-item">{{URL::to('/')}}/../public/assets/uploads/files/{{ $file->file }} <span>{{ $file->name }}</span></li>
                                                                                                 @endforeach
                                                                                         </ul>
                                                                                 </div>
@@ -132,7 +142,7 @@
         $("#summernote").summernote("code", "")
       });
 
-      $(".faq-edit").click(function(){
+      $(document).on("click", ".faq-edit", function(){
 
                 let id = $(this).attr("data-id");
 
@@ -143,10 +153,8 @@
                 $.ajax({
                         url: "/admin/faq/"+id,
                         method: "get",
-                        success: (res)=> {
-                                console.log(res.data)
-
-                                // $(".mb-3 textarea").val(res.data.data.content)
+                        success: (res)=> { 
+                                $("#visa-type").val(res.data.type_id)
                                 $("#type").val(res.data.name)
                                 $("#summernote").summernote("code",res.data.content)
                         }
@@ -166,7 +174,7 @@
                         processData: false,
                         contentType: false,
                         success: function (res) {
-                                $(".file-lists .list-group").prepend("<li class='list-group-item'>"+res.data.file+" <span>"+res.data.name+"</span></li>")
+                                $(".file-lists .list-group").prepend("<li class='list-group-item'>https://visa.e-beledci.az/../public/assets/uploads/files/"+res.data.file+" <span>"+res.data.name+"</span></li>")
                                 alert("Fayl uğurla əlavə edildi");
                                 $("#special-file-name").val("");
                                 $("#inputGroupFile04").val("");
@@ -180,6 +188,53 @@
                       alert("Zəhmət olmasa fayl və başlıq daxil edin");
               }
       })
+
+
+        $(".faq-search-area input").keypress(function(event){
+                
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+
+                if(keycode == '13') {
+                        api();
+                } 
+        })
+
+        $(".faq-search-area select").change(api)
+
+        function api() {
+
+                let title = $(".faq-search-area input").val();
+                let type = $('.faq-search-area select').val();
+
+                $.ajax({
+                        url: "/admin/faq-search/",
+                        method: "get",
+                        data: { title, type },
+                        success: (res)=>{
+
+                                let str = "";
+
+                                (res.data).forEach((item, index)=>{
+                                        str += `
+                                                <tr> 
+                                                        <th class="table-light">${index+1}</th>
+                                                        <td class="table-light"> ${item.name==null?"":item.name} </td>
+                                                        <td class="table-light"> ${item.type } </td>
+                                                        <td class="table-light table-edit-field">
+                                                                <button type="button" class="btn btn-primary faq-edit" data-id="${item.id}">düzəliş et</button>
+                                                                <button type="button" class="btn btn-danger" onClick="removeRow(${item.id}, '/admin/faq-remove/')">sil</button> 
+                                                        </td>
+                                                </tr>
+                                        `;
+                                })
+
+                                $(".table tbody").html(str);
+                        }
+                })
+
+        }
+
+
 
     });
 </script>

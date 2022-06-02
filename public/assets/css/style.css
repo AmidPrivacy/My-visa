@@ -1,0 +1,555 @@
+* {
+	margin: 0%;
+	padding: 0%;
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background-color: #fafafa;
+}
+
+header {
+	box-shadow: 0 10px 9px -1px #ccc;
+}
+
+.header-top {
+	width: 100%;
+	height: 40px;
+	background-color: #2D4DA6;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+}
+
+.main-container {
+	width: 95%;
+	margin: 0 auto;
+}
+
+.leftcontact-info {
+	height: 40px;
+	line-height: 41px;
+	color: #fff;
+	width: 24%;
+	float: left;
+	font-size: 12px;
+}
+
+.leftcontact-info span {
+	margin-left: 7px
+}
+
+.mail {
+	width: 55%;
+	float: left;
+}
+
+.telnum {
+	width: 43%;
+	float: left;
+	margin-left: 2%;
+}
+
+.rightcontact-info {
+	height: 40px;
+	line-height: 41px;
+	color: #fff;
+	width: 15%;
+	float: right;
+}
+
+.rightcontact-info a {
+	text-decoration: none;
+	color: #fff;
+	margin: 8px;
+}
+
+
+.fb,
+.pint,
+.twitt,
+.vi,
+.inst,
+.goo {
+	width: 50%;
+	float: right;
+}
+
+.header-menu {
+	width: 100%;
+	height: 100px;
+	background-color: #4253db;
+	line-height: 100px;
+	box-shadow: 1px 1px #ccc;
+}
+
+.logoname {
+	color: #fff;
+	width: 100%;
+	text-align: center;
+	float: left;
+	font-size: 30px;
+	font-weight: 800;
+	font-family: 'Roboto';
+}
+
+#logo-bottom{
+	color: #fff;
+    width: 100%;
+    text-align: center;
+    float: left;
+    font-size: 30px;
+    font-weight: 800;
+    margin-top: 80px;
+    font-family: 'Roboto';
+}
+
+.mainmenu {
+	width: 35%;
+	float: right;
+}
+ 
+.mainmenu .icon {
+	display: none;
+}
+
+.mainmenu a {
+	text-decoration: none;
+	color: #fff;
+	text-transform: uppercase;
+	margin: 25px;
+	font-family: 'Roboto';
+
+}
+
+.pagenavigation {
+	margin-top: 20px;
+}
+
+.pagenavigation a {
+	text-decoration: none;
+	font-family: 'Roboto';
+	color: #fb4381;
+}
+
+.pagenavigation i {
+	color: #c0c0c0;
+	margin-left: 2px;
+	font-size: 13px;
+	width: 16px;
+}
+
+#dest {
+	font-family: 'Roboto';
+	font-weight: lighter;
+	margin-top: 25px;
+	text-align: center;
+}
+
+.continents {
+	font-family: 'Roboto';
+	font-weight: lighter;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.forms-cont {
+	/* text-align: center;
+	padding-top: 20px; */
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.inputs {
+	/* line-height: 30px;
+	width: 25%; */
+	/* color: white !important; */
+	/* padding-left: 10px; */
+	/* border: solid; */
+	/* border-color: #008BFE;
+	padding: 10px 5px;
+	margin-top: 5px;
+	border-width: 1px;
+	background-color: #00ABFF; */
+
+
+
+	/* position: relative;
+	display: block;
+	width: 100%;
+	font-size: 15px;
+	line-height: 30px;
+	color: #3c4858;
+	font-weight: 500;
+	padding: 10px 5px;
+	letter-spacing: 0.5px;
+	border-bottom: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-top: 1px solid #cccccc; */
+	    /* color: white !important; */
+    /* padding-left: 10px; */
+    /* border: solid; */
+    width: 100%;
+    position: relative;
+    display: block;
+    /* width: 100%; */
+    font-size: 15px;
+    line-height: 30px;
+    color: #3c4858;
+    font-weight: 500;
+    padding: 10px 0px;
+    letter-spacing: 0.5px;
+    border-bottom: 0.5px solid #cccccc;
+    border-left: 0.5px solid #cccccc;
+    border-right: 0.5px solid #cccccc;
+    border-top: 0.5px solid #cccccc;
+    /* align-items: center; */
+    /* align-content: center; */
+    /* justify-content: center; */
+    text-align: center;
+
+}
+
+.inputs:focus-visible {
+	outline: none;
+}
+
+.Subm-Button {
+	/* position: relative;
+	font-size: 15px;
+	color: #ffffff;
+	line-height: 24px;
+	padding: 10px 35px;
+	text-transform: capitalize;
+	background: #f44438;
+	border: 2px solid #f44438;
+	font-weight: 500;
+	/* text-align: center; */
+	/* width: 559px; */
+	/* cursor: pointer; */ 
+	    position: relative;
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 24px;
+    padding: 10px 35px;
+    text-transform: capitalize;
+    background: #2d4da6;
+    border: 2px solid #4154DB;
+	
+    font-weight: 500;
+    /* text-align: center; */
+    width: 100%;
+    cursor: pointer;
+}
+
+.azecon,
+.asiacon {
+	min-height: 200px;
+	border-bottom: solid 1px #9e9c9c;
+	padding-bottom: 60px;
+}
+
+.text {
+	margin-top: 30px;
+	font-family: 'Roboto';
+	font-size: 15px;
+	font-weight: lighter;
+	color: #b5b1b1;
+}
+
+.card {
+	width: 100%;
+	margin-top: 38px;
+}
+
+.carditem {
+	width: 31%;
+	margin: 1%;
+	float: left;
+	height: 460px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 3px 9px -1px #ccc;
+}
+
+.carditem img {
+	width: 100%;
+	height: 244px;
+}
+
+.carditem h3 {
+	font-family: 'Roboto';
+	font-weight: normal;
+	font-size: 16px;
+}
+
+.carditem h3 span {
+	color: #653eb3;
+}
+
+.carditem p {
+	color: #b5b1b1;
+	font-size: 15px;
+}
+
+.carditemcontent {
+	margin-top: 25px;
+	width: 95%;
+	margin-left: 23px;
+}
+
+.carditemcontent p {}
+
+.citydescr {
+	margin-top: 25px;
+}
+
+.buttonabout {
+	height: 42px;
+	border-style: solid;
+	border-width: 0px;
+	background: #fb4381;
+	cursor: pointer;
+	width: 155px;
+	text-align: center;
+	line-height: 42px;
+	border-radius: 4px;
+	margin-top: 22px;
+}
+
+.buttonabout p {
+	color: #fff;
+	margin-left: 2px;
+}
+
+#asiahead {
+	margin-top: 60px;
+}
+
+.americacon {
+	margin-bottom: 1px;
+	height: 650px;
+}
+
+footer {
+	clear: both;
+	margin-top: 115px;
+}
+
+.firstlayer {
+	border-bottom: solid 1px #9e9c9c;
+}
+
+.footercontent {
+	height: 237px;
+	background-color: #4253db;
+}
+
+.footernav a {
+	text-decoration: none;
+	height: 40px;
+	float: left;
+	font-size: 14px;
+	margin-top: 60px;
+	text-transform: uppercase;
+	line-height: 20px;
+	margin-right: 35px;
+	color: #fff;
+
+}
+
+.footersocial a {
+	text-decoration: none;
+	height: 40px;
+	float: right;
+	font-size: 14px;
+	margin-top: 60px;
+	text-transform: uppercase;
+	line-height: 20px;
+	margin-right: 35px;
+	color: #fff;
+}
+
+
+
+
+@media screen and (max-width: 1365px) {
+	.mainmenu a {
+		display: none;
+	}
+
+	.mainmenu a.icon {
+		float: right;
+		margin-top: 0px;
+		display: block;
+		font-size: 25px;
+	}
+}
+
+@media screen and (max-width: 1175px){
+.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 17%;
+    float: right;
+}
+}
+
+@media screen and (max-width: 1140px){
+	.logoname span{
+	font-size: 25px;
+}
+}
+
+@media screen and (max-width: 1060px){
+	.mail span{
+	font-size: 10px;
+}
+.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 20%;
+    float: right;
+}
+}
+
+@media screen and (max-width: 994px){
+	.logoname {
+    color: #fff;
+    width: 100%;
+	text-align: center;
+    float: left;
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'Roboto';
+}
+}
+
+@media screen and (max-width: 994px){
+	.leftcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 35%;
+    float: left;
+    font-size: 12px;
+}
+}
+
+@media screen and (max-width: 881px){
+.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 25%;
+    float: right;
+}
+}
+
+@media screen and (max-width: 705px){
+	.leftcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 40%;
+    float: left;
+    font-size: 12px;
+}
+	.rightcontact-info {
+		height: 40px;
+		line-height: 41px;
+		color: #fff;
+		width: 30%;
+		float: right;
+	}
+}
+
+@media screen and (max-width: 587px){
+	.leftcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 45%;
+    float: left;
+    font-size: 12px;
+}
+	.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 35%;
+    float: right;
+}
+}
+
+@media screen and (max-width: 420px){
+	.leftcontact-info span {
+    margin-left: 7px;
+    font-size: 8px;
+}
+	.mail span {
+    font-size: 7px;
+}
+	.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 50%;
+    float: right;
+}
+}
+
+
+
+@media screen and (max-width: 390px){
+	.leftcontact-info span {
+    margin-left: 7px;
+    font-size: 8px;
+}
+	.mail span {
+    font-size: 7px;
+}
+	.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 50%;
+    float: right;
+}
+}
+
+/* @media screen and (max-width: 2500px){
+	.rightcontact-info {
+    height: 40px;
+    line-height: 41px;
+    color: #fff;
+    width: 9%;
+    float: right;
+}
+.mainmenu {
+    width: 20%;
+    float: right;
+}
+
+.Subm-Button {
+    position: relative;
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 24px;
+    padding: 10px 35px;
+    text-transform: capitalize;
+    background: #f44438;
+    border: 2px solid #f44438;
+    font-weight: 500;
+    /* text-align: center; */
+    /* width: 962px;
+    cursor: pointer;
+}
+} */
+
+/* {
+	width: 32%;
+} */ 

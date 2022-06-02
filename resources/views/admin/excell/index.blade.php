@@ -23,11 +23,7 @@
                 </ul>
             </div>
         @endif
-        <div class="country-filter">
-                <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Fayl axtar...">
-                </div>
-        </div>
+        
         <button type="button" class="btn btn-primary add-new-row" data-toggle="modal" data-target="#exampleModal">Yeni fayl</button>
         <table class="table">
                 <thead class="table-dark">
@@ -44,10 +40,10 @@
                                 <th class="table-light">{{ $index+1 }}</th>
                                 <td class="table-light"> {{ $item->name }} </td>
                                 <td class="table-light">
-                                        <a href="../assets/uploads/files/{{ $item->file }}" target="_blank">{{URL::to('/')}}/../assets/uploads/files/{{ $item->file }}</a>
+                                        <a href="https://view.officeapps.live.com/op/view.aspx?src={{URL::to('/')}}/../public/assets/uploads/excell/{{ $item->file }}" target="_blank">https://view.officeapps.live.com/op/view.aspx?src={{URL::to('/')}}/../public/assets/uploads/excell/{{ $item->file }}</a>
                                 </td>
                                 <td class="table-light table-edit-field">
-                                        <button type="button" class="btn btn-danger" onClick="removeRow({{ $item->id }}, '/admin/file-remove/')">sil</button> 
+                                        <button type="button" class="btn btn-danger" onClick="removeRow({{ $item->id }}, '/admin/excell-remove/')">sil</button> 
                                 </td>
                         </tr>
                         @endforeach
@@ -62,7 +58,7 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Fayl əlavəsi</h5>
                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form method="post" action="/admin/file-add" enctype="multipart/form-data">
+                                <form method="post" action="/admin/excell-add" enctype="multipart/form-data">
                                         <div class="modal-body">
                                                 <div class="mb-3">
                                                         <label for="countryName" class="form-label">Fayl adı</label>
@@ -83,49 +79,4 @@
                 </div>
         </div>
 </div>
-
-<script>
-
-        $(function(){
-
-                $(".country-filter input").keypress(function(event){
-                        let val = $(this).val();
-                        
-                        var keycode = (event.keyCode ? event.keyCode : event.which);
-
-                        if(val.length>0 && keycode == '13') {
-                                $.ajax({
-                                        url: "/admin/file-search/"+val,
-                                        method: "get",
-                                        success: (res)=>{
-                                                console.log(res.data);
-
-                                                let baseUrl = window.location.host;
-                                                let str = "";
-
-                                                (res.data).forEach((item, index)=>{
-                                                        str += `
-                                                                <tr> 
-                                                                        <th class="table-light">${index+1}</th>
-                                                                        <td class="table-light"> ${item.name} </td>
-                                                                        <td class="table-light">
-                                                                                <a href="../assets/uploads/files/${ item.file }" target="_blank">${baseUrl}/../assets/uploads/files/${ item.file }</a>
-                                                                        </td>
-                                                                        <td class="table-light table-edit-field">
-                                                                                <button type="button" class="btn btn-danger" onClick="removeRow( ${ item.id }, '/admin/file-remove/')">sil</button> 
-                                                                        </td>
-                                                                </tr>
-                                                        `;
-                                                })
-
-                                                $(".table tbody").html(str);
-                                        }
-                                })
-                        } 
-                })
-
-
-        })
-
-</script>
 @endsection
