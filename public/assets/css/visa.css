@@ -411,3 +411,62 @@ a:hover {
 .active-tab {
     background-color: #004691 !important;
 }
+
+.phone-num-inpcont {
+    height: 50px;
+    border: solid #c1c4c7 1px;
+}
+
+.phone-num-inpcont #ccode {
+    height: 48px;
+    width: 50px;
+    padding-left: 7px;
+    border: none;
+    outline: none;
+}
+
+.phone-num-inpcont select {
+    width: 72px;
+    height: 48px;
+    border: none;
+}
+
+.phone-num-inpcont ._ph7num{    
+    width: 63%;
+    height: 48px;
+    border: none;
+    text-align: center;
+}
+
+.phone-num-inpcont input:focus, .phone-num-inpcont select:focus {
+    outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.appeal-types { 
+    height: 75px;
+    width: 100%;
+    border: solid 1px #ccc;
+    display: flex;
+    flex-direction: row;
+}
+
+.appeal-types .form-check-inline { 
+    width: 19%;
+    margin-left: 3%;
+    margin-top: 9px;
+}
+
+.appeal-types .form-check-inline a { 
+    display: block;
+}

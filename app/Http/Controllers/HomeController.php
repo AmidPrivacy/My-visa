@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class HomeController extends Controller
 {
     public function index() 
     {
-        return view('home.index');
+        $types = DB::select("select id, name, path from appeal_types where is_deleted=0");
+        return view('home.index')->with(["types"=>$types]);
     }
 
     public function setStatus(Request $request) {

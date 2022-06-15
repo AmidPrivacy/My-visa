@@ -76,3 +76,46 @@
   width: 150px !important;
 }
  
+
+.appeal-search-area .search-fields { 
+  margin-bottom: 8px;
+  height: 40px;
+}
+
+.appeal-search-area .input-daterange {
+  width: 40%;
+  float: left; 
+}
+
+.appeal-search-area input, .appeal-search-area select {
+  width: 10%;
+  float: left;
+  margin-left: 1.5%;
+  padding-left: 3px;
+  height: 38px;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+}
+
+.appeal-search-area input:focus, 
+.appeal-search-area select:focus {
+  outline: none
+}
+
+.appeal-search-area button {
+  width: 100px;
+  height: 37px;
+  border: none;
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.appeal-search-area button:hover { 
+  background-color: #0452c7;
+}
+
+.appeal-type-list {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}

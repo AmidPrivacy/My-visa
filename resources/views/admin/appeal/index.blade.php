@@ -1,6 +1,6 @@
 @extends('layouts.app-master')
-@section('css')
-<link href="{!! url('assets/css/summernote.min.css') !!}" rel="stylesheet">
+@section('css') 
+<link href="{!! url('assets/css/bootstrap-datepicker.min.css') !!}" rel="stylesheet" /> 
 @endsection
 @section('admin-content')
 <div class="bg-light p-5 rounded">
@@ -25,8 +25,24 @@
                 </ul>
             </div>
         @endif
-        <div class="faq-search-area">
+        <div class="appeal-search-area">
                <h3> Müraciətlər </h3> 
+               <div class="search-fields">
+                        <input id="search-fist-name" placeholder="Ad" />
+                        <input id="search-last-name" placeholder="Soyad" />
+                        <input id="search-number" placeholder="Nömrə"/>
+                        <select id="search-step" style="width: 15%">
+                                @foreach($steps as $item)
+                                        <option value="{{ $item->id }}"> {{ $item->name }} </option> 
+                                @endforeach
+                        </select>  
+                        <div class="input-group input-daterange">
+                                <input type="text" class="form-control range-first" placeholder="Başlama tarixi" data-date-format="yyyy-mm-dd">
+                                <div class="input-group-addon">-</div>
+                                <input type="text" class="form-control range-second" placeholder="Son  tarix" data-date-format="yyyy-mm-dd">
+                        </div>
+                        <button>Axtar</button>
+               </div>
         </div>
         <table class="table">
                 <thead class="table-dark">
@@ -35,8 +51,10 @@
                                 <th class="table-primary">Ad</th>
                                 <th class="table-primary">Soyad</th>
                                 <th class="table-primary">Nömrə</th>
-                                <th class="table-primary">Status</th>
-                                <th class="table-primary"></th>
+                                <th class="table-primary">Müraciət tipləri</th>
+                                <th class="table-primary">Status</th> 
+                                <th class="table-primary">Tarix</th> 
+                                <th class="table-primary"></th> 
                         </tr>
                 </thead>
                 <tbody>
@@ -46,12 +64,18 @@
                                 <td class="table-light"> {{ $item->name }} </td>
                                 <td class="table-light"> {{ $item->surname }} </td>
                                 <td class="table-light"> {{ $item->number }} </td>
-                                <td class="table-light table-edit-field">
-                                        <button type="button" class="btn btn-primary step-edit" data-id="{{ $item->id }}"> {{ $item->step }} </button>
+                                <td class="table-light"> 
+                                        @foreach($item->types as $type) 
+                                                <a href="{{ $type->path }}" class="appeal-type-list" target="_blank"> {{ $type->name }} </a>
+                                        @endforeach
                                 </td>
+                                <td class="table-light table-edit-field">
+                                        <button type="button" {{ $item->stepId != 1 ? "disabled" : null  }} class="btn btn-primary step-edit" data-id="{{ $item->id }}"> {{ $item->step }} </button>
+                                </td>
+                                <td class="table-light"> {{ $item->date }} </td>
                                 <td class="table-light table-edit-field">
                                         <button type="button" class="btn btn-danger appoint-user" data-id="{{ $item->id }}">Köçür</button> 
-                                </td>
+                                </td> 
                         </tr>
                         @endforeach
                 </tbody>
@@ -90,8 +114,8 @@
                 </div>
         </div>
 </div>
-
-<script src="{!! url('assets/js/summernote.min.js') !!}"></script>
+ 
+<script src="{!! url('assets/js/bootstrap-datepicker.min.js') !!}"></script>
 
 
 <script>
@@ -123,7 +147,62 @@
                 myModal.show();
 
         })
+
+        $(".appeal-search-area button").click(function(){
+                let name = $("#search-fist-name").val();
+                let surName = $("#search-last-name").val();
+                let number = $("#search-number").val();
+                let status = $("#search-step").val();
+                let startDate = $(".input-daterange .range-first").val();
+                let endDate = $(".input-daterange .range-second").val();
+
+                if(name.length>0 || surName.length>0 || number.length>0 || status.length>0 || startDate.length>0 || endDate.length>0) {
+                        
+                        $.ajax({
+                                url: "/admin/appeal-search",
+                                method: "get",
+                                data: {
+                                        name, surName, number, status, startDate, endDate
+                                },
+                                success: (res)=>{
+                                        console.log(res.data);
+
+
+                                        let str = "";
+
+                                        (res.data).forEach((item, index)=>{
+                                                let types="";
+                                                item.types.forEach(function(type){           
+                                                        types += "<a href="+type.path+" class='appeal-type-list' target='_blank'>"+type.name+" </a>";
+                                                });  
+                                                str += `<tr> 
+                                                        <th class="table-light"> ${ index+1 }</th>
+                                                        <td class="table-light"> ${ item.name } </td>
+                                                        <td class="table-light"> ${ item.surname } </td>
+                                                        <td class="table-light"> ${ item.number } </td>
+                                                        <td class="table-light"> 
+                                                             ${types}
+                                                        </td>
+                                                        <td class="table-light table-edit-field">
+                                                                <button type="button" class="btn btn-primary step-edit" data-id="${ item.id }"> ${ item.step } </button>
+                                                        </td>
+                                                        <td class="table-light"> ${ item.date } </td>
+                                                        <td class="table-light table-edit-field">
+                                                                <button type="button" class="btn btn-danger appoint-user" data-id="${ item.id }">Köçür</button> 
+                                                        </td> 
+                                                </tr>`;
+                                        })
+
+                                        $(".table tbody").html(str);
+                                }
+                        })
+
+                }
+        })
  
+        $(".input-daterange input").each(function () {
+                $(this).datepicker("clearDates");
+        });
  
     });
 </script>

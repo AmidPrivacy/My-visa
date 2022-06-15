@@ -58,6 +58,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/appeal', 'AppealController@create');
     Route::post('/admin/edit-status', 'AppealController@editStatus');
     Route::post('/admin/appoint-user', 'AppealController@appointUser');
+    Route::get('/admin/appeal-search', 'AppealController@search');
 
     //User status
     Route::put('/set-status', 'HomeController@setStatus');

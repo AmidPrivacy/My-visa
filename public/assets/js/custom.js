@@ -13,7 +13,7 @@ $(function(){
     let status = this.checked ? 1 : 0;
     let conf = confirm("İş statusunu dəyişmək istədiyinizə əminsiniz?");
     let userId = $("#user-activate").attr("data-id");
-    
+     
     if(conf) {
       $.ajax({
         url: "/set-status",
@@ -34,10 +34,15 @@ $(function(){
         }, 
         error: (err) => {
           console.log(err)
+          this.checked = !this.checked
           alert("Sistem xətası")
         }
       })
-    } 
+    } else { 
+
+      this.checked = !this.checked
+
+    }
 
   })
 
