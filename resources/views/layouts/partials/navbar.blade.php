@@ -14,11 +14,19 @@
         <li><a href="/admin/faq-list" class="nav-link px-2 text-white">FAQ kontent</a></li>
         <li><a href="/admin/faq-list" class="nav-link px-2 text-white"></a></li>
       </ul>
+      
       <div class="form-check form-switch" id="user-activate" data-id="{{auth()->user()->id}}" style="margin-right: 22px; width: 100px; padding: 6px;">
         <input type="hidden" name="_token" id="request_csrf" value="{{ csrf_token() }}" />
         <label class="form-check-label" >{{auth()->user()->status==0? 'Offline': 'Online'}}</label>
         <input class="form-check-input" type="checkbox" {{auth()->user()->status==0? '': 'checked'}} role="switch" id="flexSwitchCheckDefault">
       </div>
+      @if(auth()->user()->role_id !== 1)
+      <div style="position: relative; right: 25px">
+        <a href="/admin/users">
+          <img src="/assets/img/user.png" alt="" style="width: 40px">
+        </a>
+      </div>
+      @endif
       <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
         <a href="/home" target="_blank"
           style=" color: #fff;

@@ -62,6 +62,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     //User status
     Route::put('/set-status', 'HomeController@setStatus');
+    Route::get('/admin/users', 'HomeController@users');
+    Route::post('/admin/admin-role-edit', 'HomeController@editAdminRole');
+    Route::post('/admin/appeal-role-edit', 'HomeController@editAppealRole');
+    Route::get('/admin/appeal-role-delete/{id}', 'HomeController@deleteAppealRole');
+    Route::get('/admin/delete-user/{id}', 'HomeController@deleteUser');
 
     Route::group(['middleware' => ['guest']], function() {
         /**
