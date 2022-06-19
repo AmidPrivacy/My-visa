@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\UserAppealRoles;
+use App\Models\UserAppeals;
 
 class HomeController extends Controller
 {
@@ -14,8 +15,56 @@ class HomeController extends Controller
         return view('home.index')->with(["types"=>$types]);
     }
 
+    // public function setStatus(Request $request) {
+
+    //     $user = User::find($request->id); 
+    //     $user->status = $request->status; 
+
+    //     if($user->save()) {
+    //         return response()->json([
+    //             'data' => null,
+    //             'error' => null,
+    //         ]);
+    //     } else {
+    //         return response()->json([
+    //             'data' => null,
+    //             'error' => "Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin",
+    //         ]);
+    //     }
+
+    // }
+
     public function setStatus(Request $request) {
 
+        // dd($request->status);
+        if(isset($request->status) && $request->status !=="0"){
+            $roles = DB::select("select appeal_type_id as type from user_appeal_roles where user_id=".$request->id);
+
+            $appeals = [];
+
+            if(count($roles)>0) {
+    
+                foreach ($roles as $key => $role) {
+                $newAppeals = DB::select("select id from user_appeals where type_id=? and user_id IS NULL and is_deleted=0 order by id desc limit 4",[$role->type]);
+    
+                if(count($newAppeals)>0) {
+                        $appeals = array_merge($appeals, $newAppeals);
+                    }
+                }
+            } else {
+                $generalAppeals = DB::select("select id from user_appeals where type_id IS NULL and user_id IS NULL and is_deleted=0 order by id desc limit 4");
+                if(count($generalAppeals)>0) {
+                    $appeals = array_merge($appeals, $generalAppeals);
+                }
+            }
+    
+            if(count($appeals)>0) {
+                $ids = array_column($appeals, 'id');
+                UserAppeals::whereIn('id', $ids)->update(['user_id' => $request->id]);
+            }
+            
+        }
+       
         $user = User::find($request->id); 
         $user->status = $request->status; 
 

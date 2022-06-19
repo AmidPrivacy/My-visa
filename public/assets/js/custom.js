@@ -29,6 +29,11 @@ $(function(){
               $("#user-activate label").text("Offline")
             } else {
               $("#user-activate label").text("Online")
+              if(status===1) {
+                setTimeout(()=>{
+                  window.location.assign("/admin/appeals");
+                },1000)
+              }
             }
           }
         }, 

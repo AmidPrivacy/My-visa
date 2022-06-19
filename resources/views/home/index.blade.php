@@ -61,8 +61,8 @@
 				@endif
 				<div class="forms-cont">
 					<form method="post" action="/appeal">
-						<input class="inputs" type="text" name="name" placeholder="Ad" required>
-						<input class="inputs" type="text" name="surname" placeholder="Soyad" required>
+						<input class="inputs" type="text" name="name" maxlength="22" placeholder="Ad" required>
+						<input class="inputs" type="text" name="surname" placeholder="Soyad" maxlength="22" required>
 						<div class="phone-num-inpcont">
 							<input class="input" id="ccode" name="c_code" value="+994" readonly="">
 							<select name="c_preffix" id="pref" class="input">
@@ -75,7 +75,9 @@
 								<option value="099">099</option>
 								<option value="060">060</option>
 							</select>
-							<input type="number" class="input _ph7num" name="c_number" placeholder="555 55 55" required>
+							<input type="number" class="input _ph7num" maxlength="7" 
+								oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+								name="c_number" placeholder="555 55 55" required>
 						</div>
 						<div class="appeal-types">
 							@foreach($types as $type)

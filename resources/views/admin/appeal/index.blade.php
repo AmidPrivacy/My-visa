@@ -70,7 +70,7 @@
                                         @endforeach
                                 </td>
                                 <td class="table-light table-edit-field">
-                                        <button type="button" {{ $item->stepId != 1 ? "disabled" : null  }} class="btn btn-primary step-edit" data-id="{{ $item->id }}"> {{ $item->step }} </button>
+                                        <button type="button"  class="btn btn-primary step-edit" data-id="{{ $item->id }}"> {{ $item->step }} </button>
                                 </td>
                                 <td class="table-light"> {{ $item->date }} </td>
                                 <td class="table-light table-edit-field">
