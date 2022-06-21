@@ -467,6 +467,74 @@ input[type=number] {
     margin-top: 9px;
 }
 
-.appeal-types .form-check-inline a { 
+.appeal-types .form-check-inline a {
     display: block;
+}
+
+.main-container .azecon .continents {
+    margin-top: 80px;
+}
+
+
+@media only  screen and (max-width: 1671px) {
+
+    .appeal-types .form-check-inline {
+        font-size: 13px;
+    }
+
+    .azecon .forms-cont {
+        font-size: 14px;
+    }
+
+}
+
+@media only  screen and (max-width: 922px) {
+
+    .phone-num-inpcont ._ph7num {
+        width: 55%;
+    }
+
+    .appeal-types {
+        display: inherit;
+        height: 150px;
+    }
+
+    .appeal-types .form-check-inline {
+        width: 41%;
+        float: left;
+        margin-top: 16px;
+    }
+
+    .main-container .continents{
+        font-size: 18px;
+    }
+    
+     
+}
+
+@media only  screen and (max-width: 769px) {
+    .phone-num-inpcont ._ph7num {
+        width: 39% !important;
+    }
+
+    .appeal-types .form-check-inline {
+        width: 40%;
+    }
+
+    .azecon .forms-cont {
+        width: 60%;
+    }
+}
+
+@media only  screen and (max-width: 648px) {
+    /* .appeal-types { 
+        height: 250px !important;
+    }
+    .appeal-types .form-check-inline {
+        width: 90%;
+    } */
+
+    .azecon .forms-cont {
+        width: 84%;
+    }
 }

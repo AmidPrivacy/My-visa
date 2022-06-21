@@ -50,13 +50,22 @@
 	<main>
 		<div class="main-container">
 		
-			<h1 id="dest">My Visa</h1>
+			<!-- <h1 id="dest">My Visa</h1> -->
 
 			<div class="azecon">
 				<h3 class="continents">Pilot layihə olaraq pulsuz viza xidmətləri</h3>
 				@if ($message = Session::get('success'))
 					<div class="alert alert-success alert-block"> 
 						<strong>{{ $message }}</strong>
+					</div>
+				@endif
+				@if (count($errors) > 0)
+					<div class="alert alert-danger"> 
+						<ul>
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
 					</div>
 				@endif
 				<div class="forms-cont">
@@ -66,14 +75,14 @@
 						<div class="phone-num-inpcont">
 							<input class="input" id="ccode" name="c_code" value="+994" readonly="">
 							<select name="c_preffix" id="pref" class="input">
-								<option value="050" selected>050</option>
-								<option value="051">051</option>
-								<option value="010">010</option>
-								<option value="055">055</option>
-								<option value="070">070</option>
-								<option value="077">077</option>
-								<option value="099">099</option>
-								<option value="060">060</option>
+								<option value="50" selected>050</option>
+								<option value="51">051</option>
+								<option value="10">010</option>
+								<option value="55">055</option>
+								<option value="70">070</option>
+								<option value="77">077</option>
+								<option value="99">099</option>
+								<option value="60">060</option>
 							</select>
 							<input type="number" class="input _ph7num" maxlength="7" 
 								oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
