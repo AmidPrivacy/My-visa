@@ -28,6 +28,14 @@
                 <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Ölkə axtar...">
                 </div>
+                <div class="input-group mb-3">
+                        <select class="form-select" aria-label="Default select example">
+                                <option selected value="0">Rəng seçin</option>
+                                @foreach($colors as $color)
+                                        <option value="{{ $color->id }}" style="background-color: {{ $color->name }}">{{ $color->type }}</option>
+                                @endforeach
+                        </select>
+                </div>
         </div>
         <button type="button" class="btn btn-primary add-new-row" data-toggle="modal" data-target="#exampleModal">Yeni ölkə</button>
         <table class="table">
@@ -102,41 +110,51 @@
                 $(function(){
 
                         $(".country-filter input").keypress(function(event){
-                            let val = $(this).val();
-                            
-                            var keycode = (event.keyCode ? event.keyCode : event.which);
+                                let val = $(this).val();
+                                var keycode = (event.keyCode ? event.keyCode : event.which);
 
-                            if(val.length>0 && keycode == '13') {
-                                        $.ajax({
-                                                url: "/admin/country-search/"+val,
-                                                method: "get",
-                                                success: (res)=>{
-                                                        console.log(res.data);
-
-
-                                                        let str = "";
-
-                                                        (res.data).forEach((item, index)=>{
-                                                                str += `
-                                                                        <tr style="background-color: ${ item.color }"> 
-                                                                                <th class="">${index+1}</th>
-                                                                                <td class=""> <a href="/country/${item.id}" target="_blank" style="color: black"> ${item.name} </a> </td>
-                                                                                <td class="">
-                                                                                        <img src="../public/assets/uploads/flags/${item.picture}" class="table-describe" />
-                                                                                </td>
-                                                                                <td class="">${item.color != null ? item.color : ""} - ${ item.type != null ? item.type : "" } </td>
-                                                                                <td class="table-edit-field">
-                                                                                        <button type="button" class="btn btn-danger" onClick="removeRow( ${ item.id }, '/admin/country-remove/')">sil</button> 
-                                                                                </td>
-                                                                        </tr>
-                                                                `;
-                                                        })
-
-                                                        $(".table tbody").html(str);
-                                                }
-                                        })
+                                if(val.length>0 && keycode == '13') {
+                                        api(); 
                                 } 
                         })
+
+                        $(".country-filter .mb-3 select").change(api)
+
+                        function api() {
+
+                                let name = $(".country-filter .mb-3 input").val();
+                                let color = $(".country-filter .mb-3 select").val();
+
+                                $.ajax({
+                                        url: "/admin/country-search",
+                                        method: "get",
+                                        data: {
+                                                name, color
+                                        },
+                                        success: (res)=>{ 
+                                                let str = "";
+
+                                                (res.data).forEach((item, index)=>{
+                                                        str += `
+                                                                <tr style="background-color: ${ item.color }"> 
+                                                                        <th class="">${index+1}</th>
+                                                                        <td class=""> <a href="/country/${item.id}" target="_blank" style="color: black"> ${item.name} </a> </td>
+                                                                        <td class="">
+                                                                                <img src="../public/assets/uploads/flags/${item.picture}" class="table-describe" />
+                                                                        </td>
+                                                                        <td class="">${item.color != null ? item.color : ""} - ${ item.type != null ? item.type : "" } </td>
+                                                                        <td class="table-edit-field">
+                                                                                <button type="button" class="btn btn-danger" onClick="removeRow( ${ item.id }, '/admin/country-remove/')">sil</button> 
+                                                                        </td>
+                                                                </tr>
+                                                        `;
+                                                })
+
+                                                $(".table tbody").html(str);
+                                        }
+                                });
+
+                        }
 
 
                 })

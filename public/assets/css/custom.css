@@ -53,7 +53,16 @@
 
 .country-filter {
   float: left;
-  width: 70%;
+  width: 80%;
+}
+
+.country-filter .mb-3 {
+    width: 49%;
+    float: left;
+}
+
+.country-filter .mb-3 select {
+  margin-left: 5px;
 }
 
 .faq-search-area {

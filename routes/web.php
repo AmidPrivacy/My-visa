@@ -21,7 +21,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      **/
      
     Route::get('/admin/country-list', 'CountryController@index')->name('home.index'); 
-    Route::get('/admin/country-search/{name}', 'CountryController@search'); 
+    Route::get('/admin/country-search', 'CountryController@search'); 
     Route::post('/admin/country-add', 'CountryController@create');
     Route::get('/admin/country-remove/{id}', 'CountryController@delete');
 

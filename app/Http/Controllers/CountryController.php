@@ -48,9 +48,18 @@ class CountryController extends Controller
 
     }
 
-    public function search($name) {
-    
-        $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type FROM `countries` c left join visa_colors v on c.visa_color_id = v.id WHERE c.name LIKE '%".$name."%' AND c.status = 1");
+    public function search(Request $request) {
+
+        $query = "";
+        if(strlen($request->name)>0) {
+            $query .=  " and c.name LIKE '%".$request->name."%'";
+        }
+
+        if($request->color != 0) {
+            $query .= " and c.visa_color_id = ".$request->color;
+        }
+        // dd($query);
+        $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type FROM `countries` c left join visa_colors v on c.visa_color_id = v.id WHERE c.status = 1".$query);
     
         return response()->json([
             'data' => $list,

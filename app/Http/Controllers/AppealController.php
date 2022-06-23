@@ -76,7 +76,7 @@ class AppealController extends Controller
             "c_preffix.max" => "Prefix 2 simvol daxil edilməlidir!",
             "c_code.min" => "Ölkə kodu 4 simvol daxil edilməlidir!",
             "c_code.max" => "Ölkə kodu 4 simvol daxil edilməlidir!",
-            "appeal_types.integer" => "Müraciət tipi dəyəri rəqəm olmalıdır!",
+            // "appeal_types.integer" => "Müraciət tipi dəyəri rəqəm olmalıdır!",
         ];
 
         $validator = Validator::make($request->all(),[
@@ -85,7 +85,7 @@ class AppealController extends Controller
             "c_number"=> "required|min:3|max:7",
             "c_code"=> "required|min:4|max:4",
             "c_preffix"=> "required|min:2|max:2",
-            "appeal_types"=> "integer",
+            // "appeal_types"=> "integer",
         ], $messages)->validate();
 
         if($validator) {
@@ -95,19 +95,21 @@ class AppealController extends Controller
             $appeal->surname = $request->surname;
             $appeal->number = $request->c_code.$request->c_preffix.$request->c_number;
 
-            $users = DB::select("select u.id, u.name, r.appeal_type_id as type from users u 
+            $usersWithAppeal = DB::select("select u.id, u.name, r.appeal_type_id as type from users u 
                 inner join user_appeal_roles r on r.user_id = u.id where u.is_deleted=0 and u.status=1");
             
-            $userAppealList = [];
+            $usersWithoutAppeal = DB::select("select id, name, status from users where is_deleted=0 and status=1");
 
-            if(!empty($users)) {
+            $userAppealList = [];
+            // dd($usersWithAppeal);
+            if(!empty($usersWithAppeal)) {
 
                 if(isset($request->appeal_types) && count($request->appeal_types)>0) {
                 
                     foreach ($request->appeal_types as $key => $item)
                     {     
                     
-                        $new = array_values(array_filter($users,function ($user) use ($item)
+                        $new = array_values(array_filter($usersWithAppeal,function ($user) use ($item)
                         { 
                             return($user->type ==$item);
                         }));
@@ -127,8 +129,24 @@ class AppealController extends Controller
                 
                 }
     
-            } 
+            } else if(!empty($usersWithoutAppeal)) {
 
+
+                if(isset($request->appeal_types) && count($request->appeal_types)>0) {
+                
+                    foreach ($request->appeal_types as $key => $item)
+                    {     
+                        $randomIndex = rand(0, count($usersWithoutAppeal)-1);
+                        array_push($userAppealList, [
+                            'user_id' => $usersWithoutAppeal[$randomIndex]->id,
+                            'type_id' => $item
+                        ]);
+
+                    } 
+                
+                }  
+            }
+            // dd($userAppealList);
             $appeal->step_id = count($userAppealList)>0 ? 1 : 2;
             
             // dd($request->appeal_types);
@@ -145,20 +163,25 @@ class AppealController extends Controller
                         ]);
 
                     }
+                    
+                    $randomIndex = null;
+                    if(count($usersWithoutAppeal)>0) {
+                        $randomIndex = rand(0, count($usersWithoutAppeal)-1);
+                    }
+                    
 
-                    $userAppealList = count($userAppealList)>0 ? $userAppealList: [
-                        'user_id' => null, 
-                        'type_id' => null
-                    ];
-
-                    $userAppealList = array_map(function ($item) use ($appeal)
+                    $userAppealList = count($userAppealList)>0 ? array_map(function ($item) use ($appeal)
                     {
                         $item["appeal_id"] = $appeal->id;
 
                         return $item;
 
-                    }, $userAppealList);
-    
+                    }, $userAppealList) : [
+                        'user_id' => $randomIndex !== null ? $usersWithoutAppeal[$randomIndex]->id:null, 
+                        'type_id' => null,
+                        "appeal_id" => $appeal->id
+                    ];
+
 
                     $userAppeals = DB::table('user_appeals')->insert($userAppealList);
                     $inserted = DB::table('appeal_selected_types')->insert($appealTypes);
