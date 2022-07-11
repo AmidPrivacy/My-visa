@@ -38,7 +38,7 @@
                     <h2>
                         {{ $selected->name }} ölkəsinə səyahət üçün viza almalısınızmı?
                     </h2>
-                    <div id="viza-teleb-olunur" class="visitcountry-card">
+                    <div id="countries-has-visa" class="visitcountry-card">
                         <div class="row visitcountry-card_title">
                             <h3 class="col-md-12">
                                 Viza tələb olunur

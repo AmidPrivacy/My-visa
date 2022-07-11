@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Appeals;
+use App\Models\AppealNotes;
 use App\Http\Controllers\ArchiveController;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\DB; 
@@ -186,12 +187,12 @@ class AppealController extends Controller
                     $userAppeals = DB::table('user_appeals')->insert($userAppealList);
                     $inserted = DB::table('appeal_selected_types')->insert($appealTypes);
                     if($inserted && $userAppeals) {
-                        return back()->with('success','Müraciət göndərildi!');
+                        return back()->with('success','Müraciətiniz qəbul edildi, whatsapp üzərindən sizə geri dönüş ediləcəkdir');
                     } else {
                         return back()->with('error','Xəta baş verdi(müraciət tipləri!), zəhmət olmasa biraz sora yenidən cəhd edin');
                     }
                 }
-                return back()->with('success','Müraciət göndərildi!');
+                return back()->with('success','Müraciətiniz qəbul edildi, whatsapp üzərindən sizə geri dönüş ediləcəkdir');
             } else {
                 return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
             } 
@@ -231,35 +232,42 @@ class AppealController extends Controller
         $endDate = $request->endDate; 
         $currentDate = date('Y-m-d');
 
-        $str = "";
+        $subQuery = "";
+        $query = "";
         
         if(strlen($name)>0) {
-            $str .= " and a.name LIKE '%".$name."%'";
+            $query .= " and a.name LIKE '%".$name."%'";
         }
 
         if(strlen($surName)>0) {
-            $str .= " and a.surname LIKE '%".$surName."%'";
+            $query .= " and a.surname LIKE '%".$surName."%'";
         }
 
         if(strlen($number)>0) {
-            $str .= " and a.number LIKE '%".$number."%'";
+            $query .= " and a.number LIKE '%".$number."%'";
         }
 
         if(strlen($startDate)>0 && strlen($endDate)>0) {
-            $str .= " and a.created_at BETWEEN '$startDate' AND '$endDate'"; 
+            $query .= " and a.created_at BETWEEN '$startDate' AND '$endDate'"; 
         } elseif(strlen($startDate)>0) {
-            $str .= " and a.created_at BETWEEN '$startDate' AND '$currentDate'";
+            $query .= " and a.created_at BETWEEN '$startDate' AND '$currentDate'";
         } elseif(strlen($endDate)>0) {
-            $str .= " and a.created_at BETWEEN '$currentDate' AND '$endDate'";
+            $query .= " and a.created_at BETWEEN '$currentDate' AND '$endDate'";
         }
 
         if($status !=="0") {
-            $str .= " and s.id = ".$status;
+            $query .= " and a.step_id = ".$status;
         }
- 
-        
-        $list = DB::select("select a.id, a.name, a.surname, a.number, s.name as step, a.created_at as date, s.id as stepId from appeals a inner join appeal_steps s on a.step_id = s.id where a.status=1".$str." and user_id=".auth()->user()->id);
 
+        if(auth()->user()->role_id===1){ 
+            $subQuery = " inner join user_appeals u_a on a.id = u_a.appeal_id ";
+            $query = " and u_a.user_id=".auth()->user()->id;
+        }
+
+ 
+        // dd("select a.id, a.name, a.surname, a.number, s.name as step, a.created_at as date, s.id as stepId from appeals a inner join appeal_steps s on a.step_id = s.id where a.status=1".$str);
+        // $list = DB::select("select a.id, a.name, a.surname, a.number, s.name as step, a.created_at as date, s.id as stepId from appeals a inner join appeal_steps s on a.step_id = s.id where a.status=1".$str." and user_id=".auth()->user()->id);
+        $list = DB::select("select a.id, a.name, a.surname, a.number, s.name as step, a.created_at as date, s.id as stepId from appeals a inner join appeal_steps s on a.step_id = s.id".$subQuery." where a.status=1".$query);
         if(count($list)>0) {
             foreach($list as $item) {
                 $item->types = DB::select("select t.name, t.path from appeal_selected_types a inner join appeal_types t on a.type_id=t.id where a.appeal_id=".$item->id);
@@ -307,6 +315,31 @@ class AppealController extends Controller
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
             
         }
+    }
+
+    public function fetchNotes ($appealId) {
+        $list = DB::select("select * from appeal_notes where appeal_id=?",[$appealId]);
+        return $list;
+    }
+
+
+    public function addNote (Request $request) {
+
+        $note = new AppealNotes();
+        $note->user_id = auth()->user()->id;
+        $note->appeal_id = $request->id;
+        $note->note = $request->note;
+
+        if($note->save()) {
+ 
+            return back()->with('success','Qeyd əlavə olundu');
+
+        } else {
+
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            
+        }
+
     }
 
 

@@ -49,6 +49,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/archive/{id}/{category}', 'ArchiveController@list');
 
     Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/admin/crm', 'HomeController@crm');
+    Route::post('/crm/create-call', 'HomeController@setCall');
 
     Route::get('/home', 'VisaTypeDetailController@all');
     Route::get('/country/{id}', 'VisaTypeDetailController@selectedCountry');
@@ -57,15 +59,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/appeals', 'AppealController@index');
     Route::post('/appeal', 'AppealController@create');
     Route::post('/admin/edit-status', 'AppealController@editStatus');
+    Route::post('/admin/appeal-note-add', 'AppealController@addNote');
     Route::post('/admin/appoint-user', 'AppealController@appointUser');
     Route::get('/admin/appeal-search', 'AppealController@search');
+    Route::get('/admin/appeal-note-list/{id}', 'AppealController@fetchNotes');
 
     //User status
     Route::put('/set-status', 'HomeController@setStatus');
     Route::get('/admin/users', 'HomeController@users');
     Route::post('/admin/admin-role-edit', 'HomeController@editAdminRole');
     Route::post('/admin/appeal-role-edit', 'HomeController@editAppealRole');
-    Route::get('/admin/appeal-role-delete/{id}', 'HomeController@deleteAppealRole');
+    Route::get('/admin/appeal-role-delete/{id}', 'HomeController@deleteAppealRole'); 
+
     Route::get('/admin/delete-user/{id}', 'HomeController@deleteUser');
 
     Route::group(['middleware' => ['guest']], function() {
@@ -80,7 +85,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-
+        
     });
 
     Route::group(['middleware' => ['auth']], function() {

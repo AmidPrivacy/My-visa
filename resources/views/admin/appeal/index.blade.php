@@ -75,6 +75,7 @@
                                 <td class="table-light"> {{ $item->date }} </td>
                                 <td class="table-light table-edit-field">
                                         <button type="button" class="btn btn-danger appoint-user" data-id="{{ $item->id }}">Köçür</button> 
+                                        <button type="button" class="btn btn-info user-notes" data-id="{{ $item->id }}">Qeyd</button> 
                                 </td> 
                         </tr>
                         @endforeach
@@ -89,7 +90,7 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Müraciət növü seçin</h5>
                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form method="post" action="/admin/edit-status" id="my-form" enctype="multipart/form-data" id="my-form">
+                                <form method="post" action="/admin/edit-status" id="my-form" enctype="multipart/form-data">
                                         <div class="modal-body"> 
                                                 <div class="mb-3">
                                                         <select class="form-select" name="step" required id="visa-type">
@@ -113,6 +114,37 @@
                         </div>
                 </div>
         </div>
+
+        <!-- Note Modal -->
+        <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                        <div class="modal-content" style="width:900px; margin-left: -180px">
+                                <div class="modal-header">
+                                        <h5 class="modal-title" id="noteModalLabel">Müraciətin qeydləri</h5>
+                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="old-notes">
+
+                                <ul class="list-group appeal-old-note-list">
+                                        
+                                </ul>
+
+                                </div>
+                                <form method="post" action="/admin/appeal-note-add">
+                                        <div class="modal-body"> 
+                                                <div class="mb-3">
+                                                       <Textarea name="note" placeholder="Yeni qeyd yazın" class="form-control" required></Textarea>                                             
+                                                </div>
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                <input type="hidden" id="selected-appeal-row" name="id" value="" />
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Göndər</button>
+                                        </div>
+                                </form>
+                        </div>
+                </div>
+        </div>
 </div>
  
 <script src="{!! url('assets/js/bootstrap-datepicker.min.js') !!}"></script>
@@ -127,7 +159,7 @@
 
                 $("#my-form").attr("action", "/admin/edit-status");
                 $("#selected-row").val(id);
-
+                $("#exampleModalLabel").text("Müraciət növü seçin");
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
                 $("#visa-type").css("display", "block");
                 $("#selected-user").css("display", "none");
@@ -140,13 +172,43 @@
 
                 $("#my-form").attr("action", "/admin/appoint-user");
                 $("#selected-row").val(id);
-
+                $("#exampleModalLabel").text("İstifadəçi seçin");
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
                 $("#visa-type").css("display", "none");
                 $("#selected-user").css("display", "block");
                 myModal.show();
 
         })
+
+
+        $(document).on("click", ".user-notes", function(){
+
+                let id = $(this).attr("data-id");
+
+                $("#my-form").attr("action", "/admin/edit-status");
+                $("#selected-appeal-row").val(id);
+                $("#exampleModalLabel").text("Müraciətin qeydləri");
+                var myModal = new bootstrap.Modal(document.getElementById("noteModal"), {}); 
+                myModal.show();
+
+                $.ajax({
+                        url: "/admin/appeal-note-list/"+id,
+                        method: "get", 
+                        success: (res)=>{ 
+
+                                let str = "";
+
+                                (res).forEach((item, index)=>{
+                                        str+= `<li class="list-group-item"> ${item.note} <span style="float: right"> ${item.created_at} </span></li> `;
+                                })
+
+                                $(".appeal-old-note-list").html(str);
+                        }
+                });
+
+                
+        })
+        
 
         $(".appeal-search-area button").click(function(){
                 let name = $("#search-fist-name").val();

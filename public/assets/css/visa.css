@@ -475,6 +475,26 @@ input[type=number] {
     margin-top: 80px;
 }
 
+.appeal-footer-number {
+    text-align: center;
+    position: relative;
+    top: 49px;
+    font-weight: 700;
+}
+
+.appeal-footer-number i {
+    font-size: 22px;
+    color: green;
+}
+
+.logoname img {
+    width: 40px;
+    margin-right: 6px;
+}
+
+/* #countries-has-visa {
+    display: none;
+} */
 
 @media only  screen and (max-width: 1671px) {
 
