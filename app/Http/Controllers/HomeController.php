@@ -37,10 +37,9 @@ class HomeController extends Controller
 
     public function crm() { 
 
-        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v.name as type, 
+        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city,
             v_c.citizen_number, v_c.note, c.name as country, v_c.created_at from visa_calls v_c 
-            left join countries c on v_c.country_id = c.id left join visa_types v on  
-            v_c.visa_type_id=v.id left join users u on v_c.operator_number=u.internal_number where v_c.is_deleted=0");
+            left join countries c on v_c.country_id = c.id left join users u on v_c.operator_number=u.internal_number where v_c.is_deleted=0");
 
         $countries = DB::select("select c.id, c.name from countries c where c.status=1 ORDER BY c.name");
         // dd($calls);
@@ -48,7 +47,7 @@ class HomeController extends Controller
 
     }
 
-    public function setCall(Request $request) {
+    public function createCall(Request $request) {
 
         $call = new visaCalls();
 
@@ -67,6 +66,42 @@ class HomeController extends Controller
             ]);
         }
 
+    }
+
+    public function updateCall(Request $request) {
+
+        $call = visaCalls::find($request->id);
+
+        $call->document_date = $request->document_date;
+        $call->country_id = $request->country==0 ? null : $request->country; 
+        $call->city = !isset($request->city) ? null : $request->city; 
+        $call->address = !isset($request->address) ? null : $request->address; 
+        $call->note = !isset($request->note) ? null : $request->note; 
+        $call->has_travel = !isset($request->has_travel) ? null : $request->has_travel; 
+        $call->family_case = !isset($request->family_case) ? null : $request->family_case; 
+        $call->has_work = !isset($request->has_work) ? null : $request->has_work; 
+        $call->has_bank_account = !isset($request->has_bank_account) ? null : $request->has_bank_account; 
+
+        if($call->save()) {
+    
+            return back()->with('success','Məlumat yeniləndi');
+
+        } else {
+
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            
+        }
+
+    }
+
+    public function getCall($id) {
+
+        $calls = DB::select("select * from visa_calls where is_deleted = 0 and id=?",[$id]);
+
+        return response()->json([
+            'data' => $calls,
+            'error' => null,
+        ]);
     }
 
     public function setStatus(Request $request) {

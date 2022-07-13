@@ -128,3 +128,40 @@
   text-align: center;
   text-decoration: none;
 }
+
+
+.call-form { 
+  display: none;
+}
+
+.is-active { 
+  display: block !important;
+}
+
+.form-all-radios {
+  display: inline-flex;
+  background: #dc3545ad;
+  margin: 14px;
+  color: #fff;
+  border-radius: 5px;
+  flex-wrap: wrap; 
+}
+
+
+.form-all-radios>span {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.form-all-radios>div {
+  margin-bottom: 4px;
+}
+
+
+
+
+
+
