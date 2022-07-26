@@ -62,10 +62,10 @@
                             let val = $(this).val();
                             
                             var keycode = (event.keyCode ? event.keyCode : event.which);
-
+                            console.log(keycode)
                             if(val.length>0 && keycode == '13') {
                                     $.ajax({
-                                            url: "/admin/country-search/"+val,
+                                            url: "/admin/country-search?name="+val,
                                             method: "get",
                                             success: (res)=>{
                                                     console.log(res.data);

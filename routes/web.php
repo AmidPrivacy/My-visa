@@ -51,7 +51,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/', 'HomeController@index')->name('home.index');
     Route::get('/admin/crm', 'HomeController@crm');
     Route::get('/admin/get-call/{id}', 'HomeController@getCall');
-    Route::post('/crm/create-call', 'HomeController@createCall');
+    Route::get('/admin/get-calls', 'HomeController@getCalls');
+    Route::get('/crm/create-call', 'HomeController@createCall');
     Route::post('/crm/update-call', 'HomeController@updateCall');
 
     Route::get('/home', 'VisaTypeDetailController@all');

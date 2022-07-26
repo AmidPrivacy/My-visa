@@ -149,7 +149,7 @@
                 </div>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="hidden" id="selected-call-row" name="id" value="" />
-                <button type="button" class="btn btn-danger" style="float: right">Məlumatları yenilə</button>
+                <button type="submit" class="btn btn-danger" style="float: right">Məlumatları yenilə</button>
                 <button type="button" class="btn btn-secondary" id="close-form" style="float: right; margin-right: 5px">Bağla</button> 
         </form>
 
@@ -255,42 +255,39 @@
 
                         })
 
-                        $(".country-filter input").keypress(function(event){
-                            let val = $(this).val();
-                            
-                            var keycode = (event.keyCode ? event.keyCode : event.which);
-
-                            if(val.length>0 && keycode == '13') {
-                                        $.ajax({
-                                                url: "/admin/country-search/"+val,
-                                                method: "get",
-                                                success: (res)=>{
-                                                        console.log(res.data);
+                        setInterval(() => {
+                                 
+                                $.ajax({
+                                        url: "/admin/get-calls",
+                                        method: "get",
+                                        success: (res)=>{
+                                                console.log(res.data);
 
 
-                                                        let str = "";
+                                                let str = "";
 
-                                                        (res.data).forEach((item, index)=>{
-                                                                str += `
-                                                                        <tr style="background-color: ${ item.color }"> 
-                                                                                <th class="">${index+1}</th>
-                                                                                <td class=""> <a href="/country/${item.id}" target="_blank" style="color: black"> ${item.name} </a> </td>
-                                                                                <td class="">
-                                                                                        <img src="../public/assets/uploads/flags/${item.picture}" class="table-describe" />
-                                                                                </td>
-                                                                                <td class="">${item.color != null ? item.color : ""} - ${ item.type != null ? item.type : "" } </td>
-                                                                                <td class="table-edit-field">
-                                                                                        <button type="button" class="btn btn-danger" onClick="removeRow( ${ item.id }, '/admin/country-remove/')">sil</button> 
-                                                                                </td>
-                                                                        </tr>
-                                                                `;
-                                                        })
+                                                (res.data).forEach((item, index)=>{
+                                                        str += `
 
-                                                        $(".table tbody").html(str);
-                                                }
-                                        })
-                                } 
-                        })
+
+
+
+                                                        <tr> 
+                                                                <th> ${index+1} </th>
+                                                                <th> ${ item.country==null ? "" : item.country } </th>
+                                                                <th> ${ item.city==null ? "" : item.city } </th>
+                                                                <th> ${item.citizen_number==null ? "" : item.citizen_number} </th>
+                                                                <th> ${item.note==null ? "" : item.note} </th>
+                                                                <th> ${item.created_at} </th> 
+                                                                <th><button type="button" class="btn btn-danger call-edit" data-id="${item.id}">Düzəliş et</button> </th> 
+                                                        </tr> 
+                                                        `;
+                                                })
+
+                                                $(".table tbody").html(str);
+                                        }
+                                }) 
+                        }, 5000);
 
 
                 })

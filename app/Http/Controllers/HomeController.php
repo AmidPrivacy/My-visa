@@ -37,9 +37,18 @@ class HomeController extends Controller
 
     public function crm() { 
 
+        $currentDateTime = date("Y-m-d");
+
+        $query = "";
+
+        if(isset(auth()->user()->id) && auth()->user()->role==0) {
+            $query .= " and v_c.operator_number=".auth()->user()->internal_number;
+        }
+
         $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city,
             v_c.citizen_number, v_c.note, c.name as country, v_c.created_at from visa_calls v_c 
-            left join countries c on v_c.country_id = c.id left join users u on v_c.operator_number=u.internal_number where v_c.is_deleted=0");
+            left join countries c on v_c.country_id = c.id left join users u on 
+            v_c.operator_number=u.internal_number where v_c.is_deleted=0 and v_c.created_at LIKE '%".$currentDateTime."%'".$query);
 
         $countries = DB::select("select c.id, c.name from countries c where c.status=1 ORDER BY c.name");
         // dd($calls);
@@ -47,22 +56,29 @@ class HomeController extends Controller
 
     }
 
-    public function createCall(Request $request) {
+    public function createCall(Request $request) { 
 
-        $call = new visaCalls();
+        if(isset($request->token) && $request->token==='$2y$10$LiGhb4Dcpj3LDSgjm7q.auPu5clSdWLslv2cnz1QzRZU5J20Dbdqa') {
+            $call = new visaCalls();
 
-        $call->citizen_number = $request->citizenNumber;
-        $call->operator_number = $request->internalNumber; 
+            $call->citizen_number = base64_decode($request->citizenNumber);
+            $call->operator_number = $request->internalNumber; 
 
-        if($call->save()) {
-            return response()->json([
-                'data' => ["status"=>200, "message"=>"Uğurlu əməliyyat"],
-                'error' => null,
-            ]);
+            if($call->save()) {
+                return response()->json([
+                    'data' => ["status"=>200, "message"=>"Uğurlu əməliyyat"],
+                    'error' => null,
+                ]);
+            } else {
+                return response()->json([
+                    'data' => null,
+                    'error' => ["status"=>500, "message"=>"Sistem xətası, zəhmət olmasa yenidən cəhd edin"],
+                ]);
+            }
         } else {
             return response()->json([
                 'data' => null,
-                'error' => ["status"=>500, "message"=>"Sistem xətası, zəhmət olmasa yenidən cəhd edin"],
+                'error' => ["status"=>419, "message"=>"Authorization error"],
             ]);
         }
 
@@ -103,6 +119,28 @@ class HomeController extends Controller
             'error' => null,
         ]);
     }
+
+    public function getCalls() {
+
+        $currentDateTime = date("Y-m-d");
+
+        $query = "";
+
+        if(isset(auth()->user()->id) && auth()->user()->role==0) {
+            $query .= " and v_c.operator_number=".auth()->user()->internal_number;
+        }
+
+        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city,
+            v_c.citizen_number, v_c.note, c.name as country, v_c.created_at from visa_calls v_c 
+            left join countries c on v_c.country_id = c.id left join users u on 
+            v_c.operator_number=u.internal_number where v_c.is_deleted=0 and v_c.created_at LIKE '%".$currentDateTime."%'".$query);
+
+        return response()->json([
+            'data' => $calls,
+            'error' => null,
+        ]);
+    }
+
 
     public function setStatus(Request $request) {
 
