@@ -25,134 +25,179 @@
                 </ul>
             </div>
         @endif
-
-        <form action="/crm/update-call" method="post" class="call-form">
-                <div class="row">
-                        <div class="col">
-                                <select class="form-select" id="selected-country" name="country">
-                                        <option selected value="0">Ölkə seçin</option>
-                                        @foreach($countries as $country)
-                                                <option value="{{ $country->id }}">{{ $country->name }}</option> 
-                                        @endforeach
-                                </select>
-                        </div>
-                        <div class="col">
-                                <div class="input-group date" id="document-date">
-                                        <input type="text" class="form-control" name="document_date" placeholder="Pasportun bitmə tarixi" data-date-format="dd-mm-yyyy">
-                                        <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
+        <div class="call-form">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ümumi</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Xaricdə iş</button>
+                        </li> 
+                </ul>
+                <div class="tab-content" id="myTabContent" style="padding-top: 25px">
+                        <form action="/crm/update-call" method="post" >
+                                <div class="row">
+                                        <div class="col">
+                                                <select class="form-select" id="selected-country" name="country">
+                                                        <option selected value="0">Ölkə seçin</option>
+                                                        @foreach($countries as $country)
+                                                                <option value="{{ $country->id }}">{{ $country->name }}</option> 
+                                                        @endforeach
+                                                </select>
+                                        </div> 
+                                        <div class="col"> 
+                                                <input type="number" name="wp_number" class="form-control" placeholder="Whatsapp nömrəsi">
+                                        </div>
+                                </div> 
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        
+                                        <div class="row" style="margin-top: 8px"> 
+                                                <div class="col">
+                                                        <div class="input-group date" id="document-date">
+                                                                <input type="text" class="form-control" name="document_date" placeholder="Pasportun bitmə tarixi" data-date-format="dd-mm-yyyy">
+                                                                <div class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-th"></span>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <div class="col"> 
+                                                        <input type="number" name="number" readonly class="form-control" placeholder="050 522 17 86">
+                                                </div>
+                                        </div> 
+                                        
+                                        <div class="row" style="margin-top: 8px">
+                                                <div class="col form-all-radios">
+                                                        <span>
+                                                                3-5 İL erzində səyahət(shengen vizaları .UK.ABŞ.Kanada) 
+                                                        </span>
+                                                        <div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_travel" checked value="">
+                                                                        <label class="form-check-label" >Seçilməyib</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_travel" value="1">
+                                                                        <label class="form-check-label">Bəli</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_travel" value="0">
+                                                                        <label class="form-check-label">Xeyr</label>
+                                                                </div>
+                                                        </div>  
+                                                </div>
+                                                <div class="col form-all-radios">
+                                                        <span>
+                                                                Aile veziyyəti 
+                                                        </span>
+                                                        <div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="family_case" checked value="">
+                                                                        <label class="form-check-label">Seçilməyib</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="family_case" value="1">
+                                                                        <label class="form-check-label">Evli</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="family_case" value="0">
+                                                                        <label class="form-check-label">Subay</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="family_case" value="2">
+                                                                        <label class="form-check-label">Boşanmış</label>
+                                                                </div>
+                                                        </div>  
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 8px">
+                                                <div class="col form-all-radios">
+                                                        <span>
+                                                                İş yeri 
+                                                        </span>
+                                                        <div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_work" checked value="">
+                                                                        <label class="form-check-label">Seçilməyib</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_work" value="1">
+                                                                        <label class="form-check-label">Var</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_work" value="0">
+                                                                        <label class="form-check-label">Yoxdur</label>
+                                                                </div>
+                                                        </div>  
+                                                </div>
+                                                <div class="col form-all-radios">
+                                                        <span>
+                                                                Bank hesabı  
+                                                        </span>
+                                                        <div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_bank_account" checked value="">
+                                                                        <label class="form-check-label">Seçilməyib</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_bank_account" value="1">
+                                                                        <label class="form-check-label">Bəli</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="has_bank_account" value="0">
+                                                                        <label class="form-check-label">Xeyr</label>
+                                                                </div> 
+                                                        </div>  
+                                                </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 15px">
+                                                <div class="col"> 
+                                                        <label class="form-label">Şəhər daxil edin</label>
+                                                        <input type="text" class="form-control" name="city"> 
+                                                </div>
+                                                <div class="col">  
+                                                        <label class="form-label">Qeydiyyat ünvanı</label>
+                                                        <input type="text" class="form-control" name="address">
+                                                </div>
+                                        </div>
+                                        
+                                        
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row" style="margin-top: 8px"> 
+                                                <div class="col"> 
+                                                        <input type="text" name="full_name" class="form-control" placeholder="Ad soyad, ata adı">
+                                                </div>
+                                                <div class="col">
+                                                        <div class="input-group date" id="document-date">
+                                                                <input type="text" class="form-control" name="birth_date" placeholder="Doğum tarixi" data-date-format="dd-mm-yyyy">
+                                                                <div class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-th"></span>
+                                                                </div>
+                                                        </div>
+                                                </div> 
+                                        </div> 
+                                        <div class="row" style="margin-top: 8px"> 
+                                                <div class="col"> 
+                                                        <input type="text" name="education" class="form-control" placeholder="Təhsili">
+                                                </div>
+                                                <div class="col"> 
+                                                        <input type="text" name="document" class="form-control" placeholder="Sənədi">
+                                                </div>
                                         </div>
                                 </div>
-                        </div>
-                        <div class="col"> 
-                                <input type="number" name="number" readonly class="form-control" placeholder="050 522 17 86">
-                        </div>
-                </div> 
-                
-                <div class="row" style="margin-top: 8px">
-                        <div class="col form-all-radios">
-                                <span>
-                                        3-5 İL erzində səyahət(shengen vizaları .UK.ABŞ.Kanada) 
-                                </span>
-                                <div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_travel" checked value="">
-                                                <label class="form-check-label" >Seçilməyib</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_travel" value="1">
-                                                <label class="form-check-label">Bəli</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_travel" value="0">
-                                                <label class="form-check-label">Xeyr</label>
-                                        </div>
-                                </div>  
-                        </div>
-                        <div class="col form-all-radios">
-                                <span>
-                                        Aile veziyyəti 
-                                </span>
-                                <div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="family_case" checked value="">
-                                                <label class="form-check-label">Seçilməyib</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="family_case" value="1">
-                                                <label class="form-check-label">Evli</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="family_case" value="0">
-                                                <label class="form-check-label">Subay</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="family_case" value="2">
-                                                <label class="form-check-label">Boşanmış</label>
-                                        </div>
-                                </div>  
-                        </div>
+                                <div class="mb-3" style="margin-top: 15px">
+                                        <label class="form-label">Qeyd</label>
+                                        <textarea class="form-control" id="call-note" name="note" rows="3"></textarea>
+                                </div>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                <input type="hidden" id="selected-call-row" name="id" value="" />
+                                <button type="submit" class="btn btn-danger" style="float: right">Məlumatları yenilə</button>
+                                <button type="button" class="btn btn-secondary" id="close-form" style="float: right; margin-right: 5px">Bağla</button> 
+                        </form>
                 </div>
-                <div class="row" style="margin-top: 8px">
-                        <div class="col form-all-radios">
-                                <span>
-                                        İş yeri 
-                                </span>
-                                <div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_work" checked value="">
-                                                <label class="form-check-label">Seçilməyib</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_work" value="1">
-                                                <label class="form-check-label">Var</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_work" value="0">
-                                                <label class="form-check-label">Yoxdur</label>
-                                        </div>
-                                </div>  
-                        </div>
-                        <div class="col form-all-radios">
-                                <span>
-                                        Bank hesabı  
-                                </span>
-                                <div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_bank_account" checked value="">
-                                                <label class="form-check-label">Seçilməyib</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_bank_account" value="1">
-                                                <label class="form-check-label">Bəli</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="has_bank_account" value="0">
-                                                <label class="form-check-label">Xeyr</label>
-                                        </div> 
-                                </div>  
-                        </div>
-                </div>
-                <div class="row" style="margin-top: 15px">
-                        <div class="col"> 
-                                <label class="form-label">Şəhər daxil edin</label>
-                                <input type="text" class="form-control" name="city"> 
-                        </div>
-                        <div class="col">  
-                                <label class="form-label">Qeydiyyat ünvanı</label>
-                                <input type="text" class="form-control" name="address">
-                        </div>
-                </div>
-                <div class="mb-3" style="margin-top: 15px">
-                        <label class="form-label">Qeyd</label>
-                        <textarea class="form-control" id="call-note" name="note" rows="3"></textarea>
-                </div>
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                <input type="hidden" id="selected-call-row" name="id" value="" />
-                <button type="submit" class="btn btn-danger" style="float: right">Məlumatları yenilə</button>
-                <button type="button" class="btn btn-secondary" id="close-form" style="float: right; margin-right: 5px">Bağla</button> 
-        </form>
-
+        </div>
+        
+         
         <table class="table" style="margin-top: 120px">
                 <thead class="table-dark">
                         <tr> 

@@ -160,8 +160,12 @@
   margin-bottom: 4px;
 }
 
+.tab-content .tab-pane {
+  display: none;
+}
 
-
-
+.tab-content .active {
+  display: block !important;
+}
 
 
