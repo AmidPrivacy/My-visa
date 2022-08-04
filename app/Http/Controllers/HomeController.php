@@ -45,7 +45,7 @@ class HomeController extends Controller
             $query .= " and v_c.operator_number=".auth()->user()->internal_number;
         }
 
-        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city,
+        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city, v_c.type,
             v_c.citizen_number, v_c.note, c.name as country, v_c.created_at from visa_calls v_c 
             left join countries c on v_c.country_id = c.id left join users u on 
             v_c.operator_number=u.internal_number where v_c.is_deleted=0 and v_c.created_at LIKE '%".$currentDateTime."%'".$query);
@@ -85,18 +85,30 @@ class HomeController extends Controller
     }
 
     public function updateCall(Request $request) {
-
+ 
         $call = visaCalls::find($request->id);
 
-        $call->document_date = $request->document_date;
-        $call->country_id = $request->country==0 ? null : $request->country; 
-        $call->city = !isset($request->city) ? null : $request->city; 
-        $call->address = !isset($request->address) ? null : $request->address; 
+        $call->type	= $request->request_type;
+        $call->country_id = $request->country==0 ? null : $request->country;  
         $call->note = !isset($request->note) ? null : $request->note; 
-        $call->has_travel = !isset($request->has_travel) ? null : $request->has_travel; 
-        $call->family_case = !isset($request->family_case) ? null : $request->family_case; 
-        $call->has_work = !isset($request->has_work) ? null : $request->has_work; 
-        $call->has_bank_account = !isset($request->has_bank_account) ? null : $request->has_bank_account; 
+        $call->wp_number = !isset($request->wp_number) ? null : $request->wp_number; 
+
+        if($request->request_type == "1") {
+            $call->document_date = $request->document_date;
+            $call->city = !isset($request->city) ? null : $request->city; 
+            $call->address = !isset($request->address) ? null : $request->address; 
+            $call->has_travel = !isset($request->has_travel) ? null : $request->has_travel; 
+            $call->family_case = !isset($request->family_case) ? null : $request->family_case; 
+            $call->has_work = !isset($request->has_work) ? null : $request->has_work; 
+            $call->has_bank_account = !isset($request->has_bank_account) ? null : $request->has_bank_account; 
+        } else {
+            $call->birthday = $request->birth_date;
+            $call->full_name = !isset($request->full_name) ? null : $request->full_name; 
+            $call->education = !isset($request->education) ? null : $request->education; 
+            $call->document = !isset($request->document) ? null : $request->document; 
+        }
+
+         
 
         if($call->save()) {
     
@@ -130,7 +142,7 @@ class HomeController extends Controller
             $query .= " and v_c.operator_number=".auth()->user()->internal_number;
         }
 
-        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city,
+        $calls = DB::select("select v_c.id as id, v_c.citizen_number, u.name, v_c.city, v_c.type,
             v_c.citizen_number, v_c.note, c.name as country, v_c.created_at from visa_calls v_c 
             left join countries c on v_c.country_id = c.id left join users u on 
             v_c.operator_number=u.internal_number where v_c.is_deleted=0 and v_c.created_at LIKE '%".$currentDateTime."%'".$query);

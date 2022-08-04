@@ -28,14 +28,14 @@
         <div class="call-form">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ümumi</button>
+                                <button class="nav-link active" id="home-tab" data-request="1" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ümumi</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Xaricdə iş</button>
+                                <button class="nav-link" id="work-tab" data-request="2" data-toggle="tab" data-target="#work" type="button" role="tab" aria-controls="work" aria-selected="false">Xaricdə iş</button>
                         </li> 
                 </ul>
                 <div class="tab-content" id="myTabContent" style="padding-top: 25px">
-                        <form action="/crm/update-call" method="post" >
+                        <form action="/crm/update-call" method="post">
                                 <div class="row">
                                         <div class="col">
                                                 <select class="form-select" id="selected-country" name="country">
@@ -159,10 +159,9 @@
                                                         <input type="text" class="form-control" name="address">
                                                 </div>
                                         </div>
-                                        
-                                        
+                                         
                                 </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="tab-pane fade" id="work" role="tabpanel" aria-labelledby="work-tab">
                                         <div class="row" style="margin-top: 8px"> 
                                                 <div class="col"> 
                                                         <input type="text" name="full_name" class="form-control" placeholder="Ad soyad, ata adı">
@@ -183,12 +182,14 @@
                                                 <div class="col"> 
                                                         <input type="text" name="document" class="form-control" placeholder="Sənədi">
                                                 </div>
-                                        </div>
+                                        </div> 
                                 </div>
                                 <div class="mb-3" style="margin-top: 15px">
                                         <label class="form-label">Qeyd</label>
                                         <textarea class="form-control" id="call-note" name="note" rows="3"></textarea>
                                 </div>
+
+                                <input type="hidden" name="request_type" id="request-type" value="1" />
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <input type="hidden" id="selected-call-row" name="id" value="" />
                                 <button type="submit" class="btn btn-danger" style="float: right">Məlumatları yenilə</button>
@@ -206,6 +207,7 @@
                                 <th class="table-primary">Şəhər</th>
                                 <th class="table-primary">Nömrə</th>
                                 <th class="table-primary">Qeyd</th>
+                                <th class="table-primary">Müraciət</th>
                                 <th class="table-primary">Tarix</th> 
                                 <th class="table-primary"></th> 
                         </tr>
@@ -218,24 +220,29 @@
                                 <th>{{ $item->city }}</th>
                                 <th>{{ $item->citizen_number }}</th>
                                 <th>{{ $item->note }}</th>
+                                <th>{{ $item->type==2 ? "Xarici iş" : "Ümumi" }}</th>
                                 <th>{{ $item->created_at }}</th> 
                                 <th><button type="button" class="btn btn-danger call-edit" data-id="{{ $item->id }}">Düzəliş et</button> </th> 
                         </tr>
                         @endforeach
                 </tbody>
         </table>
-
-
-        
  
 </div>
         <script src="{!! url('assets/js/bootstrap-datepicker.min.js') !!}"></script>
         <script>
 
                 $(function(){
+
+                        $("#myTab .nav-link").click(function() {
+                                let val = $(this).attr("data-request"); 
+                                $("#request-type").val(val);
+                        })
+
                         $(".date input").each(function () {
                                 $(this).datepicker("clearDates");
                         });
+
                         $(document).on("click", ".call-form #close-form", function(){
 
 
@@ -250,7 +257,12 @@
                                 $("#call-note").val("");
                                 $("#document-date").val("");
                                 $("#selected-country").val("0");
-                                $(`input[name="number"]`).val("");
+                                $(`input[name="number"]`).val(""); 
+                                $(`input[name="wp_number"]`).val("");
+                                $(`input[name="full_name"]`).val("");
+                                $(`input[name="birth_date"]`).val("");
+                                $(`input[name="education"]`).val("");
+                                $(`input[name="document"]`).val(""); 
                                 $(`input[name="address"]`).val("");
                                 $(`input[name="city"]`).val("");
                                 $(`input[name="has_bank_account"]`).each((index, item)=> item.checked = index===0)
@@ -275,11 +287,22 @@
                                         url: "/admin/get-call/"+id,
                                         method: "get",
                                         success: (res)=>{
-                                                console.log(res.data);
                                                 if(res.data.length>0){
-                                                        let { note, document_date, country_id, citizen_number, address, city,
-                                                                has_bank_account, has_work, family_case, has_travel
+
+                                                        let { note, document_date, country_id, citizen_number, address, city, birthday, education,
+                                                                has_bank_account, has_work, family_case, has_travel, wp_number, document, full_name, type
                                                         } = res.data[0];
+
+                                                        $("#myTab .nav-link").removeClass("active");
+                                                        $(".tab-content .tab-pane").removeClass("active");
+
+                                                        if(type==2) {
+                                                                $("#work-tab").addClass("active");
+                                                                $(".tab-content #work").addClass("active").addClass("show");
+                                                        } else {
+                                                                $("#home-tab").addClass("active");
+                                                                $(".tab-content #home").addClass("active").addClass("show");
+                                                        }
                      
                                                         $("#call-note").val(note !==null ? note : "");
                                                         $("#document-date input").val(document_date !==null ? document_date : "");
@@ -287,7 +310,13 @@
                                                         $(`input[name="number"]`).val(citizen_number !==null ? citizen_number : "");
                                                         $(`input[name="address"]`).val(address !==null ? address : "");
                                                         $(`input[name="city"]`).val(city !==null ? city : "");
-                                                       
+
+                                                        $(`input[name="education"]`).val(education !==null ? education : "");
+                                                        $(`input[name="birthday"]`).val(birthday !==null ? birthday : "");
+                                                        $(`input[name="document"]`).val(document !==null ? document : "");
+                                                        $(`input[name="full_name"]`).val(full_name !==null ? full_name : "");
+                                                        $(`input[name="wp_number"]`).val(wp_number !==null ? wp_number : "");
+                                                        
                                                         $(`input[name="has_bank_account"]`).each((index, item)=> { item.checked = has_bank_account ===null ? index===0 : $(item).val()==has_bank_account })
                                                         $(`input[name="has_work"]`).each((index, item)=> { item.checked = has_work ===null ? index===0 : $(item).val()==has_work })
                                                         $(`input[name="family_case"]`).each((index, item)=> { item.checked = family_case ===null ? index===0 : $(item).val()==family_case })
@@ -323,6 +352,7 @@
                                                                 <th> ${ item.city==null ? "" : item.city } </th>
                                                                 <th> ${item.citizen_number==null ? "" : item.citizen_number} </th>
                                                                 <th> ${item.note==null ? "" : item.note} </th>
+                                                                <th> ${item.type==2 ? "Xarici iş" : "Ümumi"} </th> 
                                                                 <th> ${item.created_at} </th> 
                                                                 <th><button type="button" class="btn btn-danger call-edit" data-id="${item.id}">Düzəliş et</button> </th> 
                                                         </tr> 
@@ -333,7 +363,6 @@
                                         }
                                 }) 
                         }, 5000);
-
 
                 })
 
