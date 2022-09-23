@@ -48,7 +48,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/admin/archive/{id}/{category}', 'ArchiveController@list');
 
-    Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/', 'HomeController@index');
+    Route::get('/tours', 'HomeController@tours');
+    Route::get('/visa-services', 'HomeController@visaServices');
+    Route::get('/visa-appeal/{id}', 'HomeController@visaAppeal');
+    Route::get('/faq', 'HomeController@faq');
+    Route::get('/blog', 'HomeController@blog');
+
+    // Route::get('/appeal', 'HomeController@index')->name('home.index');
+    Route::get('/appeal', 'HomeController@appeal')->name('home.index');
     Route::get('/admin/crm', 'HomeController@crm');
     Route::get('/admin/get-call/{id}', 'HomeController@getCall');
     Route::get('/admin/get-calls', 'HomeController@getCalls');

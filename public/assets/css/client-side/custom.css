@@ -1,0 +1,629 @@
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("../font/Poppins-Regular.ttf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: "Poppins-Regular";
+}
+
+header {
+    width: 100%;
+    height: 110px;
+    line-height: 110px;
+}
+
+header .brand {
+    width: 15%;
+    float: left;
+}
+
+header .brand img {
+    width: 100%;
+    margin-top: 30px;
+}
+
+header nav {
+    width: 40%;
+    float: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #555555;
+    width: 25%;
+    font-family: "Poppins-Regular";
+}
+#active{
+    background: linear-gradient(270deg, #D14C92 15.87%, #F6B426 43.05%, #4E9437 64.5%, #8EC9EE 84.52%);
+    transform: rotate(180deg);
+    height: 3px;
+    position: relative;
+    bottom: 40%;  
+}
+header .lang {
+    width: 6%;
+    margin-left: 3%;
+    float: right;
+
+    background: #FFFFFF; 
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+    line-height: 40px;
+    text-align: center; 
+    padding-top: 0px;
+    padding-bottom: 7px;
+    overflow: hidden;
+    margin-top: 36px;
+    height: 26px;
+}
+
+header .lang:hover {
+    height: auto;
+}
+
+header .lang .lang-item {
+    margin-bottom: 4px;
+    cursor: pointer;
+    width: 100%;
+    background-color: #fff;
+}
+
+header .lang .lang-item:last-child {
+    margin-bottom: -8px !important;
+}
+
+header .lang .lang-item:hover {
+    background-color: #ccc;
+}
+
+header .lang .lang-item span {
+    position: relative;
+    right: 3px;
+    bottom: 3px;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+footer {
+    background: #93CCEF;
+    width: 100%;
+    height: 600px; 
+}
+
+footer .footer-main {
+    height: 430px;
+    width: 100%;
+    padding-top: 120px;
+}
+
+footer .footer-main .container {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding-top: 14%;
+}
+
+footer .footer-main .container .footer-item a {
+    text-decoration: none;
+}
+
+footer .footer-main .container .footer-item a img {
+    width: 28px;
+    margin-left: 13px;
+}
+
+footer .footer-bottom {
+    width: 100%;
+    background: #72B9E4;
+    height: 55px;
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 55px;
+    color: #fff;
+}
+.firstSec{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 65px;
+    height: 600px;
+    width: 100%;
+}
+.selection{
+    width: 50%;
+    height: 100%;
+}
+/* .selection span{
+    position: relative;
+    top: 30px;
+} */
+.selection .search-title p{
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 54px;
+    margin: 0;
+    color: #555555;
+}
+.selection  .search-title h3{
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 54px;
+    margin: 0;
+    color: #555555;
+
+}
+.selectionImg{
+    width: 50%;
+}
+.dropdown{
+    width: 55%;
+    height: 80px;
+    line-height: 50px;
+    background: #FFFFFF;
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+    position: relative;
+    display: inline-block;
+    top: 25%;
+    cursor: pointer;
+}
+.drpInp{
+    padding-top: 4%;
+}
+.drpInp input{
+   
+    height: 40px;
+    border: none;
+    padding-left: 15%;
+    width: 70%;
+    border-radius: 50px;
+}
+.drpInp input:focus{
+    outline: none;
+}
+.drpInp input:placeholder-shown{
+    font-family: "Poppins-Regular";
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: #D9D9D9;
+}
+.drpInp img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 35%;
+    left: 5%;
+}
+.arrow{
+    position: relative !important;
+    left: 0px !important;
+    top: 5px !important;
+}
+.iconSearch{
+    width: 20px;
+    height: 20px;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    
+}
+.dropdown-content::-webkit-scrollbar-track{
+    
+	border-radius: 7px;
+	background-color: #F5F5F5;
+}
+.dropdown-content::-webkit-scrollbar{
+    width: 14px;
+}
+.dropdown-content::-webkit-scrollbar-thumb{
+    border-radius: 7px;
+    width: 14px;
+	background-color: #D9D9D9;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: #555555;
+  }
+
+  .dropdown-content a img {
+    position: relative;
+    top: 3px;
+    left: -3px
+  }
+
+.dropdown-content a:hover {
+    background: #FFFFFF;
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.filterFlex{
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 20%;
+}
+.filter{
+    background: #F5F7F9;
+    box-shadow: 0px 3px 5px rgb(176 190 197 / 32%);
+    border-radius: 20px;
+    width: 82px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+}
+.filter:active{
+    box-shadow: 0px 8px 24px rgb(176 190 197 / 32%)
+}
+.filter img{
+    width: 39px;
+    height: 39px;
+}
+.filterBtn{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.confirmRequest{
+    background: #DE7DAF;
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+    width: 460px;
+    height: 82px;
+    position: relative;
+    top: 23%;
+    border: none;
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.confirmRequest:active{
+    box-shadow: 0px 8px 24px rgba(176, 190, 197, 0.32);
+}
+.selectionImg img{
+    position: relative;
+    top: 55px;
+}
+.mainSec{
+    background-color: #F5F7F9;
+    height: 400px;
+}
+.serviceCard{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    
+}
+.serviceSec{
+    position: relative;
+    bottom: 150px;
+
+}
+.serviceSec,.popularSec p{
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #555555;
+}
+.card{
+    width: 22%;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #FFFFFF;
+
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+}
+  
+.card img {
+    width: 56px;
+    height: 50px;
+}
+.card p {
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #555555;
+}
+.card button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.card:hover {
+    box-shadow: 0px 8px 24px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+}
+.popularSec {
+    position: relative;
+    bottom: 12%;
+}
+.popularVisa{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+}
+.popularCard{
+    width: 22%;
+    height: 420px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 3px 5px rgb(176 190 197 / 32%), 0px 8px 24px rgb(176 190 197 / 32%);
+    border-radius: 20px;
+}
+.popularCard img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.popularMore {
+    background: #DE7DAF;
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    width: 250px;
+    outline: none;
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    /* font-weight: 700; */
+    font-size: 17px;
+    letter-spacing: 1px;
+    line-height: 27px;
+    color: #FFFFFF;
+    margin-top: 15px;
+}
+.popularMore:active{
+    box-shadow: 0px 8px 24px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+}
+.cardParent{
+    display: flex;
+}
+.cardChild1,.cardChild2{
+    width: 45%;
+    padding: 5px 24px;
+}
+.divider{
+    border: 1px solid #D9D9D9;
+}
+.cardParent h3{
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+
+    color: #555555;
+
+}
+.cardParent p{
+    font-family: "Poppins-Regular";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+
+    color: #555555;
+}
+
+/******** countries ****************/
+.nameOfCountry {
+    padding-left: 10px;
+}
+.nameOfCountry img {
+    position: absolute;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+}
+.nameOfCountry h1{
+	position: relative;
+    margin-left: 60px;
+    font-size: 36px;
+	margin-top: 70px;
+}
+
+.chooseCont{
+	display: flex;
+	margin-top: 88px;
+}
+
+.chooseVisa h4{
+	font-size: 18px;
+}
+
+.chooseVisa select {
+    width: 100%;
+    height: 55px;
+}
+
+.chooseIns{
+	margin-left: 210px;
+}
+
+.selectBtn{
+	border-radius: 10px;
+	background: #FFFFFF;
+
+box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+border: none;
+    padding: 0px 10px;
+}
+
+.chooseIns h4{
+	font-size: 18px;
+}
+
+.chooseIns select {
+	width: 200px;
+    height: 55px;
+}
+
+.aboutVisaDescr{
+	display: flex;
+	margin-top: 110px;
+	border-bottom: 1px solid #D9D9D9;
+    border-top: 1px solid #D9D9D9;
+	padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.visDescr{
+    width: 43%;
+    display: flex;
+	align-items: center;
+}
+
+.visDescr p {
+	/* float: right; */
+    margin-left: 15px;
+}
+
+.visDescrFirst{
+	margin-right: 150px;
+}
+
+.visDescrSecond{
+	margin-right: 110px;
+}
+
+.formContent {
+	margin-top:90px;
+}
+
+
+
+.formContent .mainContent {
+	height: 700px;
+}
+
+
+.mainContent .chooseVisa {
+    width: 46%;
+    margin: 2%;
+}
+
+.formContent .nameOfService h1 {
+	margin-top: 55px;
+    font-size: 36px;
+	line-height: 54px;
+}
+
+.formContent .aboutService {
+	height: 180px;
+}
+
+.formContent .aboutService p {
+	font-size: 18px;
+    line-height: 27px;
+}
+
+.formContent form {
+    height: 425px;
+}
+
+.formContent form div {
+    float: left;
+    width: 46%;
+    padding: 2%;
+}
+
+.formContent .field {
+    width: 95%;
+    padding: 0px 30px;
+    height: 55px;
+    border-radius: 6px;
+    background-color: #F5F7F9;
+    border: 1px;
+}
+
+.formContent .field:focus-visible {
+    outline: none;
+}
+
+.formContent .valBtn {
+	float: right;
+    width: 20%;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px;
+    background: #DE7DAF;
+    color: #fff;
+	margin-top: 30px;
+	margin-right: 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.formContent form label {
+display: block;
+margin-bottom: 20px;
+}

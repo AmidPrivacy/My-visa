@@ -1,0 +1,32 @@
+.faqSec{
+    height: 700px;
+}
+.faqHead{
+    height: 100px;
+}
+.faqHead p{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 54px;
+
+color: #555555;
+}
+.faqs{
+    background: #FFFFFF;
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+    height: 80px;
+    margin-bottom: 23px;
+    cursor: pointer;
+}
+.faqs p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 80px;
+     color: #555555;
+     padding-left: 55px;
+}

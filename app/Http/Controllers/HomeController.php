@@ -10,7 +10,42 @@ use App\Models\UserAppeals;
 
 class HomeController extends Controller
 {
-    public function index() 
+    public function index()
+    { 
+        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        // dd($countries);
+        return view('client-side.index')->with(["countries"=>$countries]);
+    }
+
+    public function tours()
+    { 
+        return view('client-side.tours');
+    }
+
+    public function visaServices()
+    { 
+        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        return view('client-side.visaServices')->with(["countries"=>$countries]);
+    }
+
+    public function faq()
+    { 
+        return view('client-side.faq');
+    }
+
+    public function blog()
+    { 
+        return view('client-side.blog');
+    }
+    
+    public function visaAppeal($id)
+    { 
+        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.id=?",[$id]);
+        // dd($countries[0]);
+        return view('client-side.visaAppeal')->with("countries", $countries);
+    }
+
+    public function appeal() 
     {
         $types = DB::select("select id, name, path from appeal_types where is_deleted=0");
         return view('home.index')->with(["types"=>$types]);
@@ -35,7 +70,7 @@ class HomeController extends Controller
 
     // }
 
-    public function crm() { 
+    public function crm() {
 
         $currentDateTime = date("Y-m-d");
 

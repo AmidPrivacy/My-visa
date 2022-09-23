@@ -1,0 +1,181 @@
+@font-face {
+    font-family: "Poppins-Regular";
+    src: url("../font/Poppins-Regular.ttf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-family: "Poppins-Regular";
+}
+
+header {
+    width: 100%;
+    height: 110px;
+    line-height: 110px;
+}
+
+header .brand {
+    width: 15%;
+    float: left;
+}
+
+header .brand img {
+    width: 100%;
+    margin-top: 30px;
+}
+
+header nav {
+    width: 40%;
+    float: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #555555;
+    width: 25%;
+}
+
+header .lang {
+    width: 6%;
+    margin-left: 3%;
+    float: right;
+
+    background: #FFFFFF; 
+    box-shadow: 0px 3px 5px rgba(176, 190, 197, 0.32), 0px 8px 24px rgba(176, 190, 197, 0.32);
+    border-radius: 20px;
+    line-height: 40px;
+    text-align: center; 
+    padding-top: 0px;
+    padding-bottom: 7px;
+    overflow: hidden;
+    margin-top: 36px;
+    height: 26px;
+}
+
+header .lang:hover {
+    height: auto;
+}
+
+header .lang .lang-item {
+    margin-bottom: 4px;
+    cursor: pointer;
+    width: 100%;
+    background-color: #fff;
+}
+
+header .lang .lang-item:hover {
+    background-color: #ccc;
+}
+
+header .lang .lang-item span {
+    position: relative;
+    right: 3px;
+    bottom: 3px;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+footer {
+    background: #93CCEF;
+    width: 100%;
+    height: 400px; 
+    margin-top: 400px;
+}
+
+footer .footer-main {
+    height: 235px;
+    width: 100%;
+    padding-top: 120px;
+}
+
+footer .footer-main .container {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+
+footer .footer-main .container .footer-item a {
+    text-decoration: none;
+}
+
+footer .footer-main .container .footer-item a img {
+    width: 28px;
+    margin-left: 13px;
+}
+
+footer .footer-bottom {
+    width: 100%;
+    background: #72B9E4;
+    height: 45px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 45px;
+    color: #fff;
+}
+.mainContent {
+	margin-bottom: 1300px;
+}
+
+.cardsContainer {
+	margin-top: 86px;
+    display: list-item;
+    list-style: none;
+}
+
+.cardsContainer .card {
+    margin-top: 30px;
+    width: 45%;
+    float: left;
+    margin-bottom: 80px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.cardsContent img{
+	width: 100%;
+}
+
+.cardsContent a{
+	text-decoration: none;
+    color: #fff;
+    background: #DE7DAF;
+    /* width: 250px; */
+    padding: 15px 100px;
+    border-radius: 30px;
+    margin-left: 25px;
+    margin-top: 20px;
+    position: absolute;
+}
+
+.descrTourCont{
+	margin-left: 25px;
+}
+
+.descrTourCont h1{
+	font-size: 36px;
+    margin-top: -15px;
+}
+
+.descrTourCont p {
+	font-size: 17px;
+    width: 36%;
+    margin-top: 0;
+    margin-bottom: 1px;
+}
+
+.nameOfServ h1 {
+    font-family: "Poppins-Regular";
+    color: #555555;
+    margin-top: 60px;
+    margin-left: 10px;
+    margin-bottom: -20px;
+}
