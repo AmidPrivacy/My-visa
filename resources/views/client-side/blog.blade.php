@@ -8,41 +8,43 @@
         <div class="blogHead"> 
             <p>Blog</p>
         </div>
+
+        @foreach($list as $index => $item)
+        @if($index%2===0)
         <div class="blogs">
             <div class="blogsInfo">
                 <div class="blogImage">
                     <img src="assets/img/vaduz-castle.png" alt="">
                 </div>
                 <div class="blogParagraphs">
-                    <h3> Lixteynşteynə biznes vizası – Avropanın kiçik ölkəsinə biznes </h3>
+                    <h3> {{ $item->title }} </h3>
                     <p>
-                       
-                        Avropada İsveçrə ilə Avstriyanın sərhədində yerləşən Lixtenşteyn ölkəsi ərazisinə görə dünyanın ən kiçik ölkələrindən biri hesab olunsa da, səyahət üçün bir çox turistin marağındadır. Turistlərdən əlavə isə, ölkəyə il ərzində bir çox biznesmen də işgüzar səfərlər həyata keçirirlər. Əgər siz də Lixtenşteynə bu məqsədlə səyahət edib həm işinizi görmək, həm də gəzib bu ölkəni öz gözlərinizlə görmək istəyirsinizsə, Lixtenşteyn biznes (işgüzar səfər) […]
+                    {{ $item->content }}
                     </p>
                     <p style="margin: 0;">
-                        Vizam.az
+                        myvisa.az
                     </p>
                     <p style="margin: 0;">
-                        10 dekabr 2020
+                        {{ $item->created_at }}
                     </p>
                 </div>
                 
             </div>            
         </div>
+        @else
         <div class="blogs">
             <div class="blogsInfo">
                 
                 <div class="blogParagraphs">
-                    <h3> Lixteynşteynə biznes vizası – Avropanın kiçik ölkəsinə biznes </h3>
+                    <h3> {{ $item->title }} </h3>
                     <p>
-                       
-                        Avropada İsveçrə ilə Avstriyanın sərhədində yerləşən Lixtenşteyn ölkəsi ərazisinə görə dünyanın ən kiçik ölkələrindən biri hesab olunsa da, səyahət üçün bir çox turistin marağındadır. Turistlərdən əlavə isə, ölkəyə il ərzində bir çox biznesmen də işgüzar səfərlər həyata keçirirlər. Əgər siz də Lixtenşteynə bu məqsədlə səyahət edib həm işinizi görmək, həm də gəzib bu ölkəni öz gözlərinizlə görmək istəyirsinizsə, Lixtenşteyn biznes (işgüzar səfər) […]
+                        {{ $item->content }}
                     </p>
                     <p style="margin: 0;">
-                        Vizam.az
+                        myvisa.az
                     </p>
                     <p style="margin: 0;">
-                        10 dekabr 2020
+                        {{ $item->created_at }}
                     </p>
                 </div>
                 <div class="blogImage">
@@ -51,5 +53,7 @@
                 
             </div>            
         </div>
+        @endif
+        @endforeach
     </section>
 @endsection

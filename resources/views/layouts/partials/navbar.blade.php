@@ -13,6 +13,9 @@
         <li><a href="/admin/file-list" class="nav-link px-2 text-white">Fayllar</a></li>
         <li><a href="/admin/excell-list" class="nav-link px-2 text-white">Excell</a></li>
         <li><a href="/admin/faq-list" class="nav-link px-2 text-white">FAQ kontent</a></li> 
+        <li><a href="/admin/tour-list" class="nav-link px-2 text-white">Turlar</a></li> 
+        <li><a href="/admin/blog-list" class="nav-link px-2 text-white">Bloqlar</a></li> 
+        <li><a href="/admin/question-list" class="nav-link px-2 text-white">Suallar</a></li> 
       </ul>
       
       <div class="form-check form-switch" id="user-activate" data-id="{{auth()->user()->id}}" style="margin-right: 22px; width: 100px; padding: 6px;">

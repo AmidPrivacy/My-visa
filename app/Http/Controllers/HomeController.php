@@ -19,7 +19,9 @@ class HomeController extends Controller
 
     public function tours()
     { 
-        return view('client-side.tours');
+        $list = DB::select("select * from tours where is_deleted=0"); 
+  
+        return view('client-side.tours')->with(["list" => $list]);
     }
 
     public function visaServices()
@@ -30,12 +32,15 @@ class HomeController extends Controller
 
     public function faq()
     { 
-        return view('client-side.faq');
+        $list = DB::select("select * from questionnaires where is_deleted=0"); 
+   
+        return view('client-side.faq')->with(["list" => $list]);
     }
 
     public function blog()
     { 
-        return view('client-side.blog');
+        $list = DB::select("select * from blogs where is_deleted=0"); 
+        return view('client-side.blog')->with(["list" => $list]);
     }
     
     public function visaAppeal($id)

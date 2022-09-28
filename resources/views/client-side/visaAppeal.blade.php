@@ -20,6 +20,7 @@
 					<h4>Sığorta</h4>
                     <select class="selectBtn" name="Ins_val">
                         <option value="1">Bəli</option>
+                        <option value="0">Xeyr</option>
                     </select>
 				</div>
 				

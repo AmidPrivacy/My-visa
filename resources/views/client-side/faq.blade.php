@@ -9,24 +9,13 @@
             <div class="faqHead">
                 <p>Ən çox verilən suallar</p>
             </div>
+
+            @foreach($list as $index => $item)
             <div class="faqs">
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin ?</p>
+                <p>{{ $item->title }}</p>
             </div>
-            <div class="faqs">
-                <p>
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin ?
-                </p>
-            </div>
-            <div class="faqs">
-                <p>
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin ?
-                </p>
-            </div>
-            <div class="faqs">
-                <p>
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin ?
-                </p>
-            </div>
+            @endforeach
+            
         </div>
     </section>
 @endsection

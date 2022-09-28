@@ -22,11 +22,11 @@
                     <img src="/assets/img/az.svg" alt="">
                 </div>
                 <div class="lang-item">
-                    <span>Ru</span>
+                    <span>En</span>
                     <img src="/assets/img/ru.svg" alt="">
                 </div>
-                <div class="lang-item">
-                    <span>En</span>
+                <div class="lang-item"> 
+                    <span>Ru</span>
                     <img src="/assets/img/en.svg" alt="">
                 </div>
             </div>

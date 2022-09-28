@@ -84,6 +84,31 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/admin/delete-user/{id}', 'HomeController@deleteUser');
 
+
+    //Tours
+    Route::get('/admin/tour-list', 'TourController@index');
+    Route::post('/admin/tour-add', 'TourController@create');
+    Route::get('/admin/tour/{id}', 'TourController@fetchById');
+    Route::post('/admin/tour/{id}', 'TourController@update');
+    Route::get('/admin/tour-search/{name}', 'TourController@search'); 
+    Route::get('/admin/tour-remove/{id}', 'TourController@delete');
+
+    //Blogs
+    Route::get('/admin/blog-list', 'BlogController@index');
+    Route::post('/admin/blog-add', 'BlogController@create');
+    Route::get('/admin/blog/{id}', 'BlogController@fetchById');
+    Route::post('/admin/blog/{id}', 'BlogController@update');
+    Route::get('/admin/blog-search/{name}', 'BlogController@search'); 
+    Route::get('/admin/blog-remove/{id}', 'BlogController@delete');
+
+    //Questions
+    Route::get('/admin/question-list', 'QuestionnaireController@index');
+    Route::post('/admin/question-add', 'QuestionnaireController@create');
+    Route::get('/admin/question/{id}', 'QuestionnaireController@fetchById');
+    Route::post('/admin/question/{id}', 'QuestionnaireController@update');
+    Route::get('/admin/question-search/{name}', 'QuestionnaireController@search'); 
+    Route::get('/admin/question-remove/{id}', 'QuestionnaireController@delete');
+
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes

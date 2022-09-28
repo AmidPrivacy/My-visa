@@ -45,6 +45,7 @@
                                 <th class="table-primary">Ölkə</th>
                                 <th class="table-primary">Şəkil</th>
                                 <th class="table-primary">Rəng</th>
+                                <th class="table-primary">Xidmət haqqı</th>
                                 <th class="table-primary"></th>
                         </tr>
                 </thead>
@@ -57,6 +58,7 @@
                                         <img src="../public/assets/uploads/flags/{{ $item->picture }}" class="table-describe" />
                                 </td>
                                 <td class=""> {{ $item->color." - ".$item->type }} </td>
+                                <td class=""> {{ isset($item->price) ? $item->price."AZN" : "" }} </td>
                                 <td class="table-edit-field">
                                         <!-- <button type="button" class="btn btn-primary">düzəliş et</button> -->
                                         <button type="button" class="btn btn-danger" onClick="removeRow({{ $item->id }}, '/admin/country-remove/')">sil</button> 
@@ -77,8 +79,8 @@
                                 <form method="post" action="/admin/country-add" enctype="multipart/form-data">
                                         <div class="modal-body">
                                                 <div class="mb-3">
-                                                        <label for="countryName" class="form-label">Ölkə adı</label>
-                                                        <input type="text" class="form-control" name="name" id="countryName" placeholder="Ad daxil edin">
+                                                        <label for="countryName" class="form-label">Ölkə adı *</label>
+                                                        <input type="text" class="form-control" name="name" id="countryName" placeholder="Ad daxil edin" required>
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="countryName" class="form-label">Ölkə üçün rəng seçimi</label>
@@ -89,6 +91,10 @@
                                                                 @endforeach
                                                         </select>
                                                 </div>
+                                                <div class="mb-3">
+                                                        <label for="countryPrice" class="form-label">Viza rüsumu *</label>
+                                                        <input type="number" class="form-control" name="price" id="countryPrice" placeholder="Ödəniş daxil edin" required>
+                                                </div> 
                                                 <div class="mb-3">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">

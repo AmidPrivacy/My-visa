@@ -10,58 +10,21 @@
 				<h1>Turlar</h1>
 			</div>
 			<div class="cardsContainer">
+			@foreach($list as $index => $item)
 				<div class="card">
 					<div class="cardsContent">
-						<img src="assets/img/vaduz-castle-768x384 2.svg" alt="">
+						<img src="assets/uploads/tour-images/{{ $item->picture }}" alt="">
 						<div class="descrTourCont">
-							<h1>Lixteynşteyn</h1>
-							<p> Tarix: 20 avqust 2022 </p>
-							<p> Müddət: 5 gecə 6 gün </p>
-                            <p> Qiymət: 650 manat </p>
-                            <p> Qeyd: note </p>
+							<h1>{{ $item->title }}</h1>
+							<p> Tarix: {{ $item->created_at }} </p>
+							<p> Müddət: {{ $item->period }} </p>
+                            <p> Qiymət: {{ isset($item->price) ? $item->price."manat" : "" }}</p>
+                            <p> Qeyd: {{ $item->content }} </p>
 						</div>
-						<a href="Blog.html">Ətraflı</a>
+						<a href="#">Ətraflı</a>
 					</div>
 				</div>
-				<div class="card">
-					<div class="cardsContent">
-							<img src="assets/img/vaduz-castle-768x384 2.svg" alt="">
-						<div class="descrTourCont">
-							<h1>Lixteynşteyn</h1>
-							<p>Tarix: 20 avqust 2022 
-							Müddət: 5 gecə 6 gün
-							Qiymət: 650 manat
-							Qeyd: dsıflsdflsdılfsıdfəsı</p>
-						</div>
-						<a href="Blog.html">Ətraflı</a>
-					</div>
-				</div>
-				<div class="card">
-					<div class="cardsContent">
-							<img src="assets/img/vaduz-castle-768x384 2.svg" alt="">
-						<div class="descrTourCont">
-							<h1>Lixteynşteyn</h1>
-							<p>Tarix: 20 avqust 2022 
-							Müddət: 5 gecə 6 gün
-							Qiymət: 650 manat
-							Qeyd: dsıflsdflsdılfsıdfəsı</p>
-						</div>
-						<a href="Blog.html">Ətraflı</a>
-					</div>
-				</div>
-				<div class="card">
-					<div class="cardsContent">
-							<img src="assets/img/vaduz-castle-768x384 2.svg" alt="">
-						<div class="descrTourCont">
-							<h1>Lixteynşteyn</h1>
-							<p>Tarix: 20 avqust 2022 
-							Müddət: 5 gecə 6 gün
-							Qiymət: 650 manat
-							Qeyd: dsıflsdflsdılfsıdfəsı</p>
-						</div>
-						<a href="Blog.html">Ətraflı</a>
-					</div>
-				</div>
+			@endforeach 
 			</div>
 		</div>
 	</div>

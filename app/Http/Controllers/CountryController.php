@@ -11,7 +11,7 @@ class CountryController extends Controller
     public function index() 
     {
 
-        $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type, c.price from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
         $colors = DB::select("select id, name, type from visa_colors where status=1");
  
         return view('admin.country.index')->with(["list" => $list, "colors" => $colors]);
@@ -32,6 +32,7 @@ class CountryController extends Controller
         
         $new_country = new Countries();
         $new_country->name = $request->name; 
+        $new_country->price = $request->price; 
         $new_country->user_id = auth()->user()->id;
         $new_country->picture = $imageName; 
         $new_country->visa_color_id = isset($request->color)?$request->color:0; 
