@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Contacts;
 use App\Models\visaCalls;
 use App\Models\UserAppealRoles;
 use App\Models\UserAppeals;
@@ -13,67 +14,53 @@ class HomeController extends Controller
     public function index()
     { 
         $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
-        // dd($countries);
-        return view('client-side.index')->with(["countries"=>$countries]);
+        $services = DB::select("select s.id, s.name, s.picture, s.content from services s where s.is_deleted=0");
+        $contacts = DB::select("select * from contacts");
+        // dd($contacts);
+        return view('client-side.index')->with(["countries"=>$countries, "services" => $services, "contact"=>$contacts]);
     }
 
     public function tours()
     { 
         $list = DB::select("select * from tours where is_deleted=0"); 
-  
-        return view('client-side.tours')->with(["list" => $list]);
+        $contacts = DB::select("select * from contacts");
+        return view('client-side.tours')->with(["list" => $list, "contact"=>$contacts]);
     }
 
     public function visaServices()
     { 
         $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
-        return view('client-side.visaServices')->with(["countries"=>$countries]);
+        $contacts = DB::select("select * from contacts");
+        return view('client-side.visaServices')->with(["countries"=>$countries, "contact"=>$contacts]);
     }
 
     public function faq()
     { 
         $list = DB::select("select * from questionnaires where is_deleted=0"); 
-   
-        return view('client-side.faq')->with(["list" => $list]);
+        $contacts = DB::select("select * from contacts");
+        return view('client-side.faq')->with(["list" => $list, "contact"=>$contacts]);
     }
 
     public function blog()
     { 
         $list = DB::select("select * from blogs where is_deleted=0"); 
-        return view('client-side.blog')->with(["list" => $list]);
+        $contacts = DB::select("select * from contacts");
+        return view('client-side.blog')->with(["list" => $list, "contact"=>$contacts]);
     }
     
     public function visaAppeal($id)
     { 
         $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.id=?",[$id]);
-        // dd($countries[0]);
-        return view('client-side.visaAppeal')->with("countries", $countries);
+        $contacts = DB::select("select * from contacts");
+        return view('client-side.visaAppeal')->with(["countries" => $countries, "contact"=>$contacts]);
     }
 
     public function appeal() 
     {
         $types = DB::select("select id, name, path from appeal_types where is_deleted=0");
-        return view('home.index')->with(["types"=>$types]);
+        $contacts = DB::select("select * from contacts");
+        return view('home.index')->with(["types"=>$types, "contact"=>$contacts]);
     }
-
-    // public function setStatus(Request $request) {
-
-    //     $user = User::find($request->id); 
-    //     $user->status = $request->status; 
-
-    //     if($user->save()) {
-    //         return response()->json([
-    //             'data' => null,
-    //             'error' => null,
-    //         ]);
-    //     } else {
-    //         return response()->json([
-    //             'data' => null,
-    //             'error' => "Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin",
-    //         ]);
-    //     }
-
-    // }
 
     public function crm() {
 
@@ -92,7 +79,7 @@ class HomeController extends Controller
 
         $countries = DB::select("select c.id, c.name from countries c where c.status=1 ORDER BY c.name");
         // dd($calls);
-        return view('admin.crm.index')->with(["countries"=>$countries, "calls"=>$calls]);
+        return view('admin.crm.index')->with(["countries"=>$countries, "calls"=>$calls, "contact"=>$contacts]);
 
     }
 
@@ -317,6 +304,26 @@ class HomeController extends Controller
 
         if($user->save()) { 
             return back()->with('success','Məlumat silindi');
+        } else {
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
+
+    }
+
+    public function contact() {
+
+        $list = DB::select("select * from contacts");
+       
+        return view('admin.contact.index')->with(["list" => $list]);
+    }
+    
+    public function setContactStatus($id, $status) {
+
+        $contact = Contacts::find($id); 
+        $contact->is_deleted = $status==0 ? 1 : 0;
+
+        if($contact->save()) { 
+            return back()->with('success','Aktivlik yeniləndi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
         }

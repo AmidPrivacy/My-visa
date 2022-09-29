@@ -53,30 +53,43 @@
         <div class="footer-main">
             <div class="container">
                 <div class="footer-item">
-                    <h2>Bizimlə əlaqə</h2>
-                    <p>+994 00 000 00 00</p>
-                    <p>Bakı şəhəri X rayonu X küçəsi X</p>
+                    <h2>Bizimlə əlaqə</h2> 
+                    @if($contact[0]->is_deleted===0)
+                    <p>{{ $contact[0]->name }}</p>
+                    @endif
+                    @if($contact[1]->is_deleted===0)
+                    <p>{{ $contact[1]->name }}</p> 
+                    @endif
                 </div>
                 <div class="footer-item">
                     <img src="/assets/img/footer-logo.svg" alt="" />
                 </div>
                 <div class="footer-item">
-                    <a href="#" target="_blank">
+                    @if($contact[2]->is_deleted===0)
+                    <a href="{{ $contact[2]->name }}" target="_blank">
                         <img src="/assets/img/facebook.svg" alt="">
                     </a>
-                    <a href="#" target="_blank">
+                    @endif
+                    @if($contact[3]->is_deleted===0)
+                    <a href="{{ $contact[3]->name }}" target="_blank">
                         <img src="/assets/img/instagram.svg" alt="">
                     </a>
-                    <a href="#" target="_blank">
+                    @endif
+                    @if($contact[4]->is_deleted===0)
+                    <a href="{{ $contact[4]->name }}" target="_blank">
                         <img src="/assets/img/youtube.svg" alt="">
                     </a>
-                    
-                    <a href="#" target="_blank">
+                    @endif
+                    @if($contact[5]->is_deleted===0)
+                    <a href="{{ $contact[5]->name }}" target="_blank">
                         <img src="/assets/img/mail.svg" alt="">
                     </a>
-                    <a href="#" target="_blank">
+                    @endif
+                    @if($contact[6]->is_deleted===0)
+                    <a href="{{ $contact[6]->name }}" target="_blank">
                         <img src="/assets/img/twitter.svg" alt="">
                     </a>
+                    @endif 
                 </div>
             </div>
         </div>

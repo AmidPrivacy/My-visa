@@ -17,11 +17,13 @@ class VisaTypeController extends Controller
         $list = [];
 
         foreach($countries as $country) {
-            $types = DB::select("select id, name from visa_types where status=1 and country_id=?",[$country->id]);
+            $types = DB::select("select id, name, period from visa_types where status=1 and country_id=?",[$country->id]);
             if(count($types)>0) {
                 array_push($list, ["country"=>$country, "types"=>$types]);
             }
         }
+
+        // dd($list);
 
         return view('admin.type.index')->with(["list" => $list, "countries" => $countries]);
     }
@@ -32,7 +34,12 @@ class VisaTypeController extends Controller
         try {
             foreach ($request->name as $key => $value) {
                 $ids[] = VisaTypes::insertGetId(
-                    ['name' => $value, 'stay_period' => $request->stay_period[$key], 'country_id' => $request->country_id, "user_id" => auth()->user()->id]
+                    [
+                    'name' => $value, 
+                    'period' => $request->period[$key], 
+                    'stay_period' => $request->stay_period[$key], 
+                    'country_id' => $request->country_id, 
+                    "user_id" => auth()->user()->id]
                 );
             }
 
@@ -47,10 +54,38 @@ class VisaTypeController extends Controller
             } else {
                 return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
             }
+
         } catch(Exception $e) {
             echo 'Message: ' .$e->getMessage();
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
         } 
+
+    }
+
+    public function fetchById($id) {
+
+        $type = VisaTypes::find($id);
+
+        return response()->json([
+            'data' => $type,
+            'error' => null,
+        ]);
+ 
+    }
+
+    public function update($id, Request $request) {
+
+        $type = VisaTypes::find($id);
+ 
+        $type->name = $request->name[0]; 
+        $type->period = $request->period[0]; 
+        $type->stay_period = $request->stay_period[0]; 
+
+        if($type->save()) { 
+            return back()->with('success','Məlumat yeniləndi');
+        } else {
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
 
     }
 

@@ -234,8 +234,6 @@
 
         }
 
-
-
     });
 </script>
 @endsection

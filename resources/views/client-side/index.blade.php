@@ -47,30 +47,14 @@
         <div class="container serviceSec">
             <p>Xidmətlərimiz:</p>
             <div class="serviceCard">
+                @foreach($services as $service)
                 <div class="card">
                     <button id="visaService">
-                        <img src="assets/img/passport.png" alt="">
-                        <p>Viza xidmətləri</p>
+                        <img src="assets/uploads/service-images/{{ $service->picture }}" alt="">
+                        <p>{{ $service->name }}</p>
                     </button>
                 </div>
-                <div class="card">
-                    <button id="insurance">
-                        <img src="assets/img/sigorta.png" alt="">
-                        <p>Sığorta xidmətləri</p>
-                    </button>
-                </div>
-                <div class="card">
-                    <button id="carRent">
-                        <img src="assets/img/avtobilet.png" alt="">
-                        <p>Avtobiletlərin rezervi</p>
-                    </button> 
-                </div>
-                <div class="card">
-                    <button id="hotelRent">
-                        <img src="assets/img/hotel.png" alt="">
-                        <p>Otellərin rezervi</p>
-                    </button>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="popularSec container">

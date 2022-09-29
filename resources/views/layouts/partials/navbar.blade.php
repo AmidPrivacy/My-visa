@@ -16,6 +16,8 @@
         <li><a href="/admin/tour-list" class="nav-link px-2 text-white">Turlar</a></li> 
         <li><a href="/admin/blog-list" class="nav-link px-2 text-white">Bloqlar</a></li> 
         <li><a href="/admin/question-list" class="nav-link px-2 text-white">Suallar</a></li> 
+        <li><a href="/admin/service-list" class="nav-link px-2 text-white">Xidmətlər</a></li> 
+        <li><a href="/admin/contact" class="nav-link px-2 text-white">Əlaqə</a></li> 
       </ul>
       
       <div class="form-check form-switch" id="user-activate" data-id="{{auth()->user()->id}}" style="margin-right: 22px; width: 100px; padding: 6px;">

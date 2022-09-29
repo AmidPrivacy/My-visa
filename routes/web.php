@@ -36,6 +36,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/admin/type-list', 'VisaTypeController@index');
     Route::post('/admin/type-add', 'VisaTypeController@create');
+    Route::get('/admin/type/{id}', 'VisaTypeController@fetchById');
+    Route::post('/admin/type/{id}', 'VisaTypeController@update');
     Route::get('/admin/type-search/{name}', 'VisaTypeController@search'); 
     Route::get('/admin/type-remove/{id}', 'VisaTypeController@delete');
 
@@ -108,6 +110,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/question/{id}', 'QuestionnaireController@update');
     Route::get('/admin/question-search/{name}', 'QuestionnaireController@search'); 
     Route::get('/admin/question-remove/{id}', 'QuestionnaireController@delete');
+
+    Route::get('/admin/service-list', 'ServiceController@index'); 
+    Route::get('/admin/service-search', 'ServiceController@search'); 
+    Route::post('/admin/service-add', 'ServiceController@create');
+    Route::get('/admin/service/{id}', 'ServiceController@fetchById');
+    Route::post('/admin/service/{id}', 'ServiceController@update');
+    Route::get('/admin/service-remove/{id}', 'ServiceController@delete');
+
+    Route::get('/admin/contact', 'HomeController@contact'); 
+
+    Route::get('/admin/contact/{id}/{status}', 'HomeController@setContactStatus'); 
 
     Route::group(['middleware' => ['guest']], function() {
         /**
