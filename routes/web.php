@@ -67,6 +67,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/home', 'VisaTypeDetailController@all');
     Route::get('/country/{id}', 'VisaTypeDetailController@selectedCountry');
+    Route::get('/service-appeal/{id}', 'HomeController@serviceAppeal');
+
+    Route::get('/search-country', 'HomeController@searchCountry');
+ 
 
     //Appeals...
     Route::get('/admin/appeals', 'AppealController@index');
@@ -121,6 +125,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/contact', 'HomeController@contact'); 
 
     Route::get('/admin/contact/{id}/{status}', 'HomeController@setContactStatus'); 
+
+    Route::post('/country-appeal', 'HomeController@newCountryAppeal');
 
     Route::group(['middleware' => ['guest']], function() {
         /**

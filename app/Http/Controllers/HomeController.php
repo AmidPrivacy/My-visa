@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Contacts;
+use App\Models\Services;
 use App\Models\visaCalls;
 use App\Models\UserAppealRoles;
+use App\Models\VisaCountryAppeals;
 use App\Models\UserAppeals;
 
 class HomeController extends Controller
@@ -29,9 +31,38 @@ class HomeController extends Controller
 
     public function visaServices()
     { 
-        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        $countries = DB::select("select c.id, c.name, c.price, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
         $contacts = DB::select("select * from contacts");
+
+        // dd($countries);
         return view('client-side.visaServices')->with(["countries"=>$countries, "contact"=>$contacts]);
+    }
+
+    public function searchCountry(Request $request) {
+
+        $query = "";
+        if(strlen($request->inputValue)>0) {
+            $query .=  " and c.name LIKE '%".$request->inputValue."%'";
+        }
+
+        if(strlen($request->visaRequire) > 0) {
+            $query .= " and c.visa_color_id = ".$request->visaRequire;
+        }
+
+        if(strlen($request->orderPrice) > 0) {
+            $query .= " order by c.price asc ";
+        } else {
+            $query .= " order by c.name asc ";
+        }
+
+        // dd($query);
+        $list = DB::select("select c.id, c.name, c.price, c.picture, v.name as color, v.type as type FROM `countries` c left join visa_colors v on c.visa_color_id = v.id WHERE c.status = 1".$query);
+    
+        return response()->json([
+            'data' => $list,
+            'error' => null,
+        ]);
+
     }
 
     public function faq()
@@ -50,9 +81,19 @@ class HomeController extends Controller
     
     public function visaAppeal($id)
     { 
-        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.id=?",[$id]);
+        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type, c.price from countries c left join visa_colors v on c.visa_color_id = v.id where c.id=?",[$id]);
+        $types = DB::select("select id, name, period from visa_types where country_id = ?",[$id]);
         $contacts = DB::select("select * from contacts");
-        return view('client-side.visaAppeal')->with(["countries" => $countries, "contact"=>$contacts]);
+        // dd($countries);
+        return view('client-side.visaAppeal')->with(["countries" => $countries, "contact"=>$contacts, "types"=>$types]);
+    }
+
+    public function serviceAppeal($id)
+    { 
+        $service = Services::find($id);
+        $contacts = DB::select("select * from contacts");
+        // dd($countries);
+        return view('client-side.serviceAppeal')->with(["service" => $service, "contact"=>$contacts]);
     }
 
     public function appeal() 
@@ -324,6 +365,26 @@ class HomeController extends Controller
 
         if($contact->save()) { 
             return back()->with('success','Aktivlik yeniləndi');
+        } else {
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
+
+    }
+
+
+    public function newCountryAppeal(Request $request) {
+ 
+        $appeal = new VisaCountryAppeals();
+
+        $appeal->type_id = $request->type_of_visa; 
+        $appeal->insure = $request->Ins_val; 
+        $appeal->full_name = $request->name." ".$request->surName; 
+        $appeal->mail = $request->mail; 
+        $appeal->number = $request->number; 
+        $appeal->mail = $request->mail; 
+
+        if($appeal->save()) { 
+            return back()->with('success','Müraciət uğurla göndərildi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
         }

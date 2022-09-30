@@ -1,35 +1,14 @@
 .detailSec{
     height: 900px;
-}
-.detailP{
-    width: 50%;
-    height: 180px;
-    padding-top: 25px;
-}
-.detailP  p{
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 54px;
-    color: #555555;
-    margin-bottom: 0px;
-}
-.detailP h3{
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 54px;
-    margin: 0px;
-    color: #555555;
-}
+} 
+
 .detailDiv{
     height: 80px;
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
+
 .detailCard{
     width: 21.5%;
    display: flex;
@@ -74,12 +53,18 @@
 
 color: #555555;
 }
+.detailCard input[type=radio], 
 .detailCard input[type=checkbox]{
     padding-left: 10px;
     transform: scale(1.8);
     color: white;
+    /* width: 30px;
+    height: 30px; */
 }
-.detailCard input[type=checkbox]:checked{
+
+
+.detailCard input[type=checkbox]:checked, 
+.detailCard input[type=radio]:checked {
     accent-color: green;
 }
 
