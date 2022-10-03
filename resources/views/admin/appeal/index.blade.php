@@ -26,8 +26,8 @@
             </div>
         @endif
         <div class="appeal-search-area">
-               <h3> Müraciətlər </h3> 
-               <div class="search-fields">
+                <h3> Müraciətlər </h3> 
+                <div class="search-fields">
                         <input id="search-fist-name" placeholder="Ad" />
                         <input id="search-last-name" placeholder="Soyad" />
                         <input id="search-number" placeholder="Nömrə"/>
@@ -42,7 +42,7 @@
                                 <input type="text" class="form-control range-second" placeholder="Son  tarix" data-date-format="yyyy-mm-dd">
                         </div>
                         <button>Axtar</button>
-               </div>
+                </div>
         </div>
         <table class="table">
                 <thead class="table-dark">

@@ -65,6 +65,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/crm/create-call', 'HomeController@createCall');
     Route::post('/crm/update-call', 'HomeController@updateCall');
 
+
+
     Route::get('/home', 'VisaTypeDetailController@all');
     Route::get('/country/{id}', 'VisaTypeDetailController@selectedCountry');
     Route::get('/service-appeal/{id}', 'HomeController@serviceAppeal');
@@ -80,6 +82,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/appoint-user', 'AppealController@appointUser');
     Route::get('/admin/appeal-search', 'AppealController@search');
     Route::get('/admin/appeal-note-list/{id}', 'AppealController@fetchNotes');
+
+    //country and service appeals
+    Route::get('/admin/country-appeals', 'CountryAppealController@index');
+    Route::get('/admin/service-appeals', 'ServiceAppealController@index');
+
+    Route::post('/country-appeal', 'HomeController@newCountryAppeal');
+    Route::post('/service-appeal', 'HomeController@newServiceAppeal');
+
+
 
     //User status
     Route::put('/set-status', 'HomeController@setStatus');
@@ -126,7 +137,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/admin/contact/{id}/{status}', 'HomeController@setContactStatus'); 
 
-    Route::post('/country-appeal', 'HomeController@newCountryAppeal');
+    Route::get('/admin/type/{id}/{status}', 'VisaTypeController@setShowStatus'); 
+ 
 
     Route::group(['middleware' => ['guest']], function() {
         /**

@@ -10,6 +10,7 @@ use App\Models\visaCalls;
 use App\Models\UserAppealRoles;
 use App\Models\VisaCountryAppeals;
 use App\Models\UserAppeals;
+use App\Models\VisaServiceAppeals;
 
 class HomeController extends Controller
 {
@@ -18,8 +19,15 @@ class HomeController extends Controller
         $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
         $services = DB::select("select s.id, s.name, s.picture, s.content from services s where s.is_deleted=0");
         $contacts = DB::select("select * from contacts");
-        // dd($contacts);
-        return view('client-side.index')->with(["countries"=>$countries, "services" => $services, "contact"=>$contacts]);
+        $types = DB::select("select v.id, v.name as type, v.period, v.is_showed, c.name as country, c.picture 
+            from visa_types v inner join countries c on v.country_id = c.id where v.status=1 and v.is_showed=1");
+        // dd($types);
+        return view('client-side.index')->with([
+            "countries" => $countries, 
+            "services" => $services, 
+            "contact" => $contacts,
+            "types" => $types
+        ]);
     }
 
     public function tours()
@@ -85,7 +93,11 @@ class HomeController extends Controller
         $types = DB::select("select id, name, period from visa_types where country_id = ?",[$id]);
         $contacts = DB::select("select * from contacts");
         // dd($countries);
-        return view('client-side.visaAppeal')->with(["countries" => $countries, "contact"=>$contacts, "types"=>$types]);
+        return view('client-side.visaAppeal')->with([
+            "countries" => $countries, 
+            "contact"=>$contacts, 
+            "types"=>$types
+        ]);
     }
 
     public function serviceAppeal($id)
@@ -93,7 +105,11 @@ class HomeController extends Controller
         $service = Services::find($id);
         $contacts = DB::select("select * from contacts");
         // dd($countries);
-        return view('client-side.serviceAppeal')->with(["service" => $service, "contact"=>$contacts]);
+        return view('client-side.serviceAppeal')->with([
+            "service" => $service, 
+            "contact"=>$contacts,
+            "id"=>$id
+        ]);
     }
 
     public function appeal() 
@@ -378,10 +394,26 @@ class HomeController extends Controller
 
         $appeal->type_id = $request->type_of_visa; 
         $appeal->insure = $request->Ins_val; 
-        $appeal->full_name = $request->name." ".$request->surName; 
+        $appeal->full_name = $request->fName." ".$request->lName; 
+        $appeal->mail = $request->mail; 
+        $appeal->number = $request->number;  
+
+        if($appeal->save()) { 
+            return back()->with('success','Müraciət uğurla göndərildi');
+        } else {
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
+
+    }
+
+    public function newServiceAppeal(Request $request) {
+ 
+        $appeal = new VisaServiceAppeals();
+ 
+        $appeal->service_id = $request->status; 
+        $appeal->full_name = $request->fName." ".$request->lName; 
         $appeal->mail = $request->mail; 
         $appeal->number = $request->number; 
-        $appeal->mail = $request->mail; 
 
         if($appeal->save()) { 
             return back()->with('success','Müraciət uğurla göndərildi');

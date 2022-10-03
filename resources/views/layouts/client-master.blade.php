@@ -116,6 +116,56 @@
                 }
             }
         }
+
+        function validateMyForm() {
+
+            let check = true;
+
+            //error tags
+            var fNameErrorTag = document.getElementById("first-name-error");
+            var lNameErrorTag = document.getElementById("last-name-error");
+            var mailErrorTag = document.getElementById("mail-error");
+            var numberErrorTag = document.getElementById("number-error"); 
+
+            let fName = document.forms["my-form"]["fName"].value;
+            let lName = document.forms["my-form"]["lName"].value;
+            let mail = document.forms["my-form"]["mail"].value;
+            let number = document.forms["my-form"]["number"].value;
+
+            if (fName.length < 3) {
+                check = false;
+                fNameErrorTag.textContent = "Zəhmət olmasa adınızı daxil edin" 
+            } else {
+                fNameErrorTag.textContent = "" 
+            }
+
+            if (lName.length < 3) {
+                check = false;
+                lNameErrorTag.textContent = "Zəhmət olmasa soyadınızı daxil edin" 
+            } else {
+                lNameErrorTag.textContent = "" 
+            }
+
+            if (mail.length < 4) {
+                check = false;
+                mailErrorTag.textContent = "Zəhmət olmasa email daxil edin" 
+            } else {
+                mailErrorTag.textContent = "" 
+            }
+
+            if (number.length < 9) {
+                check = false;
+                numberErrorTag.textContent = "Zəhmət olmasa mobil nömrənizi düzgün formatda daxil edin" 
+            } else {
+                numberErrorTag.textContent = "" 
+            }
+
+            if(!check) { 
+                return false;
+            }
+
+        };
+        
     </script>
 </body>
 </html>

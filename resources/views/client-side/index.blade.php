@@ -61,75 +61,20 @@
             <p style="margin-bottom:40px;"> Ən çox tələb edilən vizalar:</p>
                 
             <div class="popularVisa">
+                @foreach($types as $type)
                 <div class="popularCard">
-                    <img src="assets/img/Turkey.svg" alt="">
-                    <p>Türkiyə</p>
+                    <img src="assets/uploads/flags/{{ $type->picture }}" alt="">
+                    <p>{{ $type->country }}</p>
                     <div class="cardParent">
-                        <div class="cardChild1">
-                            <h3>30 Gün</h3>
+                        <div class="cardChild">
+                            <h3>{{ $type->period }}</h3>
                             <p> Vizanin verilmə müddəti</p>
-                        </div>
-                        <hr class="divider" />
-                        <div class="cardChild2">
-                            <h3>3256 vətəndaş
-                                </h3>
-                            <p> Xidmətdən istifadə etmiş vətəndaş sayı</p>
                         </div>
                     </div>
                     <button class="popularMore" id="morePopular">Ətraflı bax</button>
-                </div>
-                <div class="popularCard">
-                    <img src="assets/img/England.svg" alt="">
-                    <p>İngiltərə</p>
-                    <div class="cardParent">
-                        <div class="cardChild1">
-                            <h3>30 Gün</h3>
-                            <p> Vizanin verilmə müddəti</p>
-                        </div>
-                        <hr class="divider" />
-                        <div class="cardChild2">
-                            <h3>3256 vətəndaş
-                                </h3>
-                            <p> Xidmətdən istifadə etmiş vətəndaş sayı</p>
-                        </div>
-                    </div>
-                    <button class="popularMore" id="morePopular">Ətraflı bax</button>
-                </div>
-                <div class="popularCard">
-                    <img src="assets/img/France.svg" alt="">
-                    <p>Fransa</p>
-                    <div class="cardParent">
-                        <div class="cardChild1">
-                            <h3>30 Gün</h3>
-                            <p> Vizanin verilmə müddəti</p>
-                        </div>
-                        <hr class="divider" />
-                        <div class="cardChild2">
-                            <h3>3256 vətəndaş
-                                </h3>
-                            <p> Xidmətdən istifadə etmiş vətəndaş sayı</p>
-                        </div>
-                    </div>
-                    <button class="popularMore" id="morePopular">Ətraflı bax</button>
-                </div>
-                <div class="popularCard">
-                    <img src="assets/img/Poland.svg" alt="">
-                    <p>Polşa</p>
-                    <div class="cardParent">
-                        <div class="cardChild1">
-                            <h3>30 Gün</h3>
-                            <p> Vizanin verilmə müddəti</p>
-                        </div>
-                        <hr class="divider" />
-                        <div class="cardChild2">
-                            <h3>3256 vətəndaş
-                                </h3>
-                            <p> Xidmətdən istifadə etmiş vətəndaş sayı</p>
-                        </div>
-                    </div>
-                    <button class="popularMore" id="morePopular">Ətraflı bax</button>
-                 </div>
-         </div>
+                </div> 
+                @endforeach 
+            </div>
         </div>
     </section>
 @endsection

@@ -17,7 +17,7 @@ class VisaTypeController extends Controller
         $list = [];
 
         foreach($countries as $country) {
-            $types = DB::select("select id, name, period from visa_types where status=1 and country_id=?",[$country->id]);
+            $types = DB::select("select id, name, period, is_showed from visa_types where status=1 and country_id=?",[$country->id]);
             if(count($types)>0) {
                 array_push($list, ["country"=>$country, "types"=>$types]);
             }
@@ -71,6 +71,19 @@ class VisaTypeController extends Controller
             'error' => null,
         ]);
  
+    }
+
+    public function setShowStatus($id, $status) {
+
+        $type = VisaTypes::find($id); 
+        $type->is_showed = $status==0 ? 1 : 0;
+
+        if($type->save()) { 
+            return back()->with('success','Aktivlik yeniləndi');
+        } else {
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
+
     }
 
     public function update($id, Request $request) {

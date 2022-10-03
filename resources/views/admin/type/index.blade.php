@@ -62,6 +62,15 @@
                                                                                 <td class="table-light table-edit-field">
                                                                                         <button type="button" class="btn btn-primary type-edit" data-id="{{ $type->id }}">düzəliş et</button>
                                                                                         <button type="button" class="btn btn-danger" onClick="removeRow({{ $type->id }}, '/admin/type-remove/')">sil</button> 
+                                                                                        <a href="/admin/type/{{ $type->id }}/{{ $type->is_showed }}">
+                                                                                                <button type="button" class="btn {{ $type->is_showed===0 ? 'btn-primary' : 'btn-danger' }}" style="position: relative; bottom: 4px; top: 4px">  
+                                                                                                        @if($type->is_showed===0)       
+                                                                                                                Aktiv et
+                                                                                                        @else
+                                                                                                                Deaktiv et
+                                                                                                        @endif
+                                                                                                </button>
+                                                                                        </a>
                                                                                 </td>
                                                                         </tr>
                                                                 
