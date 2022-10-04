@@ -14,6 +14,7 @@ header {
     width: 100%;
     height: 110px;
     line-height: 110px;
+    display: inline-block;
 }
 
 header .brand {
@@ -687,3 +688,73 @@ border: none;
     margin-bottom: 0;
     margin-top: 4px;
 }
+
+.mobilePopular {
+    margin-bottom:40px;
+}
+
+.mobile-menu{
+    display: none;
+ }
+ .mobile-nav{
+     display: none;
+ }
+ .mobile-button{
+     position: relative;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 50px;
+     height: 50px;
+     cursor: pointer;
+     transition: all .5s ease-in-out;
+    padding-left: 20px;
+ }
+ .mobile-burger{
+     width: 35px;
+     height: 4px;
+     background: #000;
+     border-radius: 5px;
+     box-shadow: 0 2px 5px rgba(176, 190, 197, 0.32);
+     transition: all .5s ease-in-out;
+ }
+ .mobile-burger::before,
+ .mobile-burger::after{
+     content: '';
+     position: absolute;
+     width: 35px;
+     height: 4px;
+     left: 29px;
+     background: #000;
+     border-radius: 5px;
+     box-shadow: 0 2px 5px rgba(176, 190, 197, 0.32);
+     transition: all .5s ease-in-out;
+ }
+ .mobile-burger::before{
+     transform: translateY(-16px);
+ }
+ .mobile-burger::after{
+     transform: translateY(16px);
+ }
+ .mobile-button.open .mobile-burger{
+     transform: translateX(-50px);
+     background: transparent;
+     box-shadow: none;
+ }
+ .mobile-button.open .mobile-burger::before{
+     transform: rotate(45deg) translate(35px,-35px );
+ }
+ .mobile-button.open .mobile-burger::after{
+     transform:rotate(-45deg) translate(35px,35px) ;
+ }
+ .hamburgerUL{
+     width: 100%;
+     background-color: #F5F7F9;
+     list-style: none;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 0;
+     position: relative;
+     z-index: 10000;
+ }

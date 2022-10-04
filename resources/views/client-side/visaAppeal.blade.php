@@ -1,6 +1,7 @@
 @extends('layouts.client-master')
 @section('css')
     <link type="text/css" rel="stylesheet" href="/assets/css/client-side/custom.css" /> 
+	<link type="text/css" rel="stylesheet" href="assets/css/client-side/footer.css" />
 @endsection
 @section('public-content') 
 	<div class="mainContent">

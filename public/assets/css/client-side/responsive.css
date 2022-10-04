@@ -1,0 +1,349 @@
+
+@media only screen and (max-width: 1250px) {
+    .container{
+        width: 1000px;
+    }
+    header .lang{
+        width: 9%;
+    }
+    .selectionImg img{
+        width: 500px;
+    }
+    .dropdown{
+        height: 65px;
+    }
+    .filter{
+        width: 65px;
+        height: 65px;
+    }
+    .filter img{
+        height: 33px;
+        width: 33px;
+    }
+    .confirmRequest{
+        height: 65px;
+    } 
+    footer .footer-main .container {
+        padding-top: 20%;
+    }
+    .selections{
+        width: 30%;
+    }
+    .faqHead p{
+        font-size: 30px;
+    }
+    .faqs p{
+        font-size: 17px;
+    }
+}
+@media only screen and (max-width: 1050px) {
+    .container{
+        width: 850px;
+    }
+    
+    .selectionImg img{
+        width: 450px;
+    }
+    .popularCard{
+        width: 23.5%;
+    }
+    .confirmRequest {
+        width: 80%;
+        height: 50px;
+    }
+    .detailP{
+        width:85%;
+        
+    }
+    .detailCard{
+        width: 20%;
+    }
+    .iconSearch{
+        width: 15px;
+        height: 15px;
+    }
+    #searchDetail:placeholder-show{
+        font-size: 15px;
+    }
+    .detailCard input[type=checkbox]{
+        transform: scale(1.5);
+    }
+    .detailCard label{
+        line-height: 20px;
+        font-size: 15px;
+    }
+    
+}
+@media only screen and (max-width:900px){
+    .container{
+        width: 735px;
+    }
+    footer .footer-main .container{
+        padding-top: 25%;
+    }
+    .selection{
+        height: 60%;
+    }
+    .selectionImg img{
+        width: 380px;
+    }
+    .selections{
+        width: 28%;
+    }
+    .detailP p , .detailP h3{
+        font-size: 25px;
+    }
+    .faqHead p{
+        font-size: 25px;
+        padding-left: 30px;
+    }
+    .faqs{
+        height: 100px;
+    }
+    .faqs p{
+        font-size: 14px;
+        line-height: 28px;
+        padding-top: 22px;
+        padding-left: 35px;
+    }
+}
+@media only screen and (max-width:768px) {
+    .container{
+        width: 768px;
+        text-align: center;
+    }
+    .nameOfCountry { 
+        text-align: left;
+    }
+    .descrTourCont h1 { 
+        margin-top: 20px !important;
+    }
+    .mobile-menu{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mobile-nav{
+        width: 100%;
+    }
+    header .lang{
+        width: 10%;
+    }
+    .selectionImg img{
+        width: 300px;
+    }
+    header .lang{
+        width: 9%;
+        margin: 0;
+        margin-right: 2%;
+    }
+    header .brand{
+        width: 25%;
+        margin-top: 15px;
+    }
+    .desktop{
+        display: none;
+    }
+    .selection{
+        width: 80%;
+        margin: 0 auto;
+    }
+    .selection span p,.selection span h3{
+        font-size: 30px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .filterFlex{
+        justify-content: center;
+    }
+    .dropdown{
+        width: 80%;
+    }
+    .drpInp{
+        padding-top: 2%;
+    }
+    .confirmRequest{
+        width: 100%;
+        margin-top: 10px;
+        height: 60px;
+    }
+    .selectionImg{
+        display: none;
+    }
+    .serviceSec{
+        height: 1300px;
+       
+       background-color: #F5F7F9;
+    }
+    .mainSec{
+        background-color: #fff;
+        height: 2840px;
+    }
+    .serviceCard{
+        flex-direction: column;
+        height: 850px;
+    }
+    .mobileService{
+        width: 20%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        padding-top: 50px;
+    }
+    .mobilePopular{
+        width: 31%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        padding-top: 50px;
+    }
+    .card{
+        width: 50%;
+        margin-bottom: 25px;
+        height: 190px;
+    }
+    .popularSec{
+        height: 1700px;
+    }
+    .popularVisa{
+        flex-direction: column;
+        height: 1700px;
+    }
+    .popularCard{
+        width: 45%;
+        height: 400px
+    }
+    .mobile-footer{
+        width: 768px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-top: 0% !important;
+    }
+    .footer-item{
+        margin-bottom: 50px;
+    
+    }
+    .selections{
+        width: 45%;
+    }
+    .detailP{
+        margin-left: 5%;
+    }
+    
+}
+
+
+
+
+@media screen and (max-width:1200px){
+	.blogImage {
+    width: 65%;
+	}
+
+	.blogImage img {
+		width: 100%;
+	}
+
+	.blogParagraphs {
+    width: 50%;
+	}
+}
+
+
+
+@media screen and (max-width:800px) {
+
+    .nameOfServ h1 {
+        text-align: left;
+    }
+    footer .footer-main {
+        height: 430px; 
+        padding-top: 38px;
+    }
+	.blogImage{
+		width: 50%;
+	}
+
+	.blogParagraphs p{
+		font-size: 12px;
+	}
+
+    .blogHead { 
+        text-align: left;
+        margin-top: 50px;
+        margin-left: 2%;
+    }
+    .formContent div { 
+        width: 40%;
+        padding: 2%;
+        margin-left: 2%;
+        margin-right: 2%;
+        text-align: left;
+    }
+
+    .formContent .valBtn { 
+        margin-right: 2%;
+    }
+}
+
+/* 
+@media screen and (max-width:700px){
+	.blogParagraphs h3{
+		font-size: 29px;
+		line-height: 36px;
+	}
+
+	.blogParagraphs p {
+    font-size: 10px;
+	}
+
+	.blogHead {
+		margin-bottom: 50px;
+		margin-left: 15px;
+        text-align: left;
+	}
+
+	.blogs {
+        margin-bottom: 80px;
+    }
+ 
+}
+
+@media screen and (max-width: 650px){
+	.container {
+    	width: 500px !important;
+	}
+
+	.blogParagraphs h3 {
+		font-size: 21px;
+		line-height: 30px;
+	}
+}
+
+@media screen and (max-width: 500px){
+	.blogParagraphs h3 {
+    font-size: 18px;
+    line-height: 27px;
+	}
+	.blogParagraphs p {
+    font-size: 8px;
+	}
+
+	.blogHead p {
+		font-size: 25px;
+	}
+
+	.blogs {
+    margin-bottom: 55px;
+	}
+
+	.container {
+    width: 400px !important;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.container {
+    width: 350px !important;
+	}
+} */

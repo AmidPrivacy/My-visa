@@ -2,12 +2,11 @@
 @section('css')
     <link type="text/css" rel="stylesheet" href="assets/css/client-side/custom.css" />
     <link type="text/css" rel="stylesheet" href="assets/css/client-side/blog.css" />
+    <link type="text/css" rel="stylesheet" href="assets/css/client-side/footer.css" />
 @endsection
 @section('public-content') 
     <section class="blogSection container">
-        <div class="blogHead"> 
-            <p>Blog</p>
-        </div>
+        <div class="blogHead">Blog</div>
 
         @foreach($list as $index => $item)
         @if($index%2===0)

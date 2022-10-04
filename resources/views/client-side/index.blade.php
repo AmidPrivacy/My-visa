@@ -45,7 +45,7 @@
     </section>
     <section class="mainSec" >
         <div class="container serviceSec">
-            <p>Xidmətlərimiz:</p>
+            <p class="mobileService">Xidmətlərimiz:</p>
             <div class="serviceCard">
                 @foreach($services as $service)
                 <div class="card">
@@ -58,8 +58,7 @@
             </div>
         </div>
         <div class="popularSec container">
-            <p style="margin-bottom:40px;"> Ən çox tələb edilən vizalar:</p>
-                
+            <p class="mobilePopular"> Ən çox tələb edilən vizalar:</p> 
             <div class="popularVisa">
                 @foreach($types as $type)
                 <div class="popularCard">

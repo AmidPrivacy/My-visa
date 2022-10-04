@@ -1,0 +1,12 @@
+footer { 
+    height: 400px;
+}
+
+footer .footer-main {
+    height: 370px; 
+    padding-top: 0;
+}
+
+footer .footer-main .container {
+    padding-top: 8%;
+}

@@ -7,27 +7,28 @@
     <title>My visa</title>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'> 
     @yield('css')
+    <link href="{!! url('assets/css/client-side/responsive.css') !!}" rel="stylesheet"> 
 </head>
 <body> 
     <header>
-        <div class="container">
+        <div class="desktop container">
             <div class="brand">
                <a href="/">
-                <img src="/assets/img/logo.svg" alt="">
+                <img src="assets/img/logo.svg" alt="">
                </a> 
             </div>
             <div class="lang">
                 <div class="lang-item">
                     <span>Az</span>
-                    <img src="/assets/img/az.svg" alt="">
+                    <img src="assets/img/az.svg" alt="">
+                </div>
+                <div class="lang-item">
+                    <span>Ru</span>
+                    <img src="assets/img/ru.svg" alt="">
                 </div>
                 <div class="lang-item">
                     <span>En</span>
-                    <img src="/assets/img/ru.svg" alt="">
-                </div>
-                <div class="lang-item"> 
-                    <span>Ru</span>
-                    <img src="/assets/img/en.svg" alt="">
+                    <img src="assets/img/en.svg" alt="">
                 </div>
             </div>
             <nav> 
@@ -45,13 +46,57 @@
                 </div>
             </nav> 
         </div>
+        <div class="mobile-menu container">
+            <div class="mobile-button">
+                <div class="mobile-burger"></div>
+            </div>
+             
+            <div class="brand">
+                <a href="/">
+                 <img src="assets/img/logo.svg" alt="">
+                </a> 
+             </div>
+             <div class="lang">
+                 <div class="lang-item">
+                     <span>Az</span>
+                     <img src="assets/img/az.svg" alt="">
+                 </div>
+                 <div class="lang-item">
+                     <span>Ru</span>
+                     <img src="assets/img/ru.svg" alt="">
+                 </div>
+                 <div class="lang-item">
+                     <span>En</span>
+                     <img src="assets/img/en.svg" alt="">
+                 </div>
+             </div>
+
+             
+            
+        </div>
+        <nav class="mobile-nav "> 
+            <ul class="hamburgerUL container">
+               <li class="hamburgerItem">
+                   <a href="/visa-services">Viza xidmətləri</a> 
+               </li>
+               <li class="hamburgerItem">
+                   <a href="/tours" class="menu">Turlar</a>
+               </li>
+               <li class="hamburgerItem">
+                   <a href="/blog" class="menu">Blog</a>
+               </li>
+               <li class="hamburgerItem"> 
+                   <a href="/faq" class="menu">FAQ</a>
+               </li>
+            </ul>
+        </nav>
     </header>
 
     @yield('public-content')
 
-    <footer>
+    <footer class="mobile-footer">
         <div class="footer-main">
-            <div class="container">
+            <div class="container mobile-footer">
                 <div class="footer-item">
                     <h2>Bizimlə əlaqə</h2> 
                     @if($contact[0]->is_deleted===0)
@@ -101,6 +146,23 @@
     </footer>
     @yield('js')
     <script>
+
+        const menuBtn= document.querySelector('.mobile-button');
+        const mobileNav= document.querySelector('.mobile-nav');
+        let menuOpen=false;
+        menuBtn.addEventListener('click',()=>{
+            if (!menuOpen) {
+                menuBtn.classList.add('open');
+                mobileNav.style.display="block"
+                menuOpen=true;
+            }
+            else{
+                menuBtn.classList.remove('open');
+                mobileNav.style.display="none"
+                menuOpen=false;
+            }
+        });
+
         function myFunction(tag, boxSelection) {
             var input, filter, ul, li, a, i, txtValue;
             input = tag;

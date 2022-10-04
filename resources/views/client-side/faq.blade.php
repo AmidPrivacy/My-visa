@@ -2,6 +2,7 @@
 @section('css')
     <link type="text/css" rel="stylesheet" href="assets/css/client-side/custom.css" />
     <link type="text/css" rel="stylesheet" href="assets/css/client-side/faq.css" />
+    <link type="text/css" rel="stylesheet" href="assets/css/client-side/footer.css" />
 @endsection
 @section('public-content') 
     <section class="faqSec container">
