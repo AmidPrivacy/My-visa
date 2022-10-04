@@ -16,8 +16,8 @@ class HomeController extends Controller
 {
     public function index()
     { 
-        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
-        $services = DB::select("select s.id, s.name, s.picture, s.content from services s where s.is_deleted=0");
+        $countries = DB::select("select c.id, c.name, c.picture, c.uuid, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        $services = DB::select("select s.id, s.name, s.picture, s.uuid, s.content from services s where s.is_deleted=0");
         $contacts = DB::select("select * from contacts");
         $types = DB::select("select v.id, v.name as type, v.period, v.is_showed, c.name as country, c.picture 
             from visa_types v inner join countries c on v.country_id = c.id where v.status=1 and v.is_showed=1");
@@ -89,8 +89,8 @@ class HomeController extends Controller
     
     public function visaAppeal($id)
     { 
-        $countries = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type, c.price from countries c left join visa_colors v on c.visa_color_id = v.id where c.id=?",[$id]);
-        $types = DB::select("select id, name, period from visa_types where country_id = ?",[$id]);
+        $countries = DB::select("select c.id, c.name, c.picture, c.uuid, v.name as color, v.type as type, c.price from countries c left join visa_colors v on c.visa_color_id = v.id where c.uuid=?",[$id]);
+        $types = DB::select("select v.id, v.name, v.period from visa_types v inner join countries c on v.country_id=c.id where  c.uuid= ?",[$id]);
         $contacts = DB::select("select * from contacts");
         // dd($countries);
         return view('client-side.visaAppeal')->with([
@@ -102,7 +102,7 @@ class HomeController extends Controller
 
     public function serviceAppeal($id)
     { 
-        $service = Services::find($id);
+        $service = Services::where('uuid', '=', $id)->first();
         $contacts = DB::select("select * from contacts");
         // dd($countries);
         return view('client-side.serviceAppeal')->with([

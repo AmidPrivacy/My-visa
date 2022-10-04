@@ -33,11 +33,11 @@ class CountryController extends Controller
         $new_country = new Countries();
         $new_country->name = $request->name; 
         $new_country->price = $request->price; 
+        $new_country->uuid = $this->gen_uuid(); 
         $new_country->user_id = auth()->user()->id;
         $new_country->picture = $imageName; 
         $new_country->visa_color_id = isset($request->color)?$request->color:0; 
-        
-
+ 
         if($new_country->save()) {
 
             (new ArchiveController())->create(1, $new_country->id, 0);
@@ -84,7 +84,27 @@ class CountryController extends Controller
 
     }
 
+    public function gen_uuid() {
+		return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+			// 32 bits for "time_low"
+			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
 
+			// 16 bits for "time_mid"
+			mt_rand( 0, 0xffff ),
+
+			// 16 bits for "time_hi_and_version",
+			// four most significant bits holds version number 4
+			mt_rand( 0, 0x0fff ) | 0x4000,
+
+			// 16 bits, 8 bits for "clk_seq_hi_res",
+			// 8 bits for "clk_seq_low",
+			// two most significant bits holds zero and one for variant DCE1.1
+			mt_rand( 0, 0x3fff ) | 0x8000,
+
+			// 48 bits for "node"
+			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+		);
+	}
     
 
 }

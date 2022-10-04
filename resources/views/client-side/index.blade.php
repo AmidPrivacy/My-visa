@@ -20,7 +20,7 @@
                         </div>
                         <div class="dropdown-content">
                             @foreach($countries as $index => $item)
-                                <a href="/visa-appeal/{{ $item->id }}">
+                                <a href="/visa-appeal/{{ $item->uuid }}">
                                     <img src="assets/uploads/flags/{{ $item->picture }}"  style="width: 20px; height: 20px;" alt=""> 
                                     <span>{{ $item->name }}</span>
                                 </a>
@@ -49,7 +49,7 @@
             <div class="serviceCard">
                 @foreach($services as $service)
                 <div class="card">
-                    <a href="/service-appeal/{{ $service->id }}" class="visaService" target="_blank">
+                    <a href="/service-appeal/{{ $service->uuid }}" class="visaService" target="_blank">
                         <img src="assets/uploads/service-images/{{ $service->picture }}" alt="">
                         <p>{{ $service->name }}</p>
                     </a>
