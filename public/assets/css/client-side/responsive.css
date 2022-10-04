@@ -32,7 +32,7 @@
     .faqHead p{
         font-size: 30px;
     }
-    .faqs p{
+    .faqs .faq-according-header{
         font-size: 17px;
     }
 }
@@ -100,7 +100,7 @@
     .faqs{
         height: 100px;
     }
-    .faqs p{
+    .faqs .faq-according-header{
         font-size: 14px;
         line-height: 28px;
         padding-top: 22px;

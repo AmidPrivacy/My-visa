@@ -21,7 +21,7 @@ color: #555555;
     margin-bottom: 23px;
     cursor: pointer;
 }
-.faqs p{
+.faqs .faq-according-header {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -29,4 +29,18 @@ color: #555555;
     line-height: 80px;
      color: #555555;
      padding-left: 55px;
+}
+
+.faqs .faq-according-header.active {
+    background-color: #f3f3f38c;
+}
+
+.faqs .faq-according-body {
+    width: 98%;
+    padding: 1%;
+    min-height: 150px;
+    background-color: #f3f3f3;
+    margin-top: -5px;
+    position: relative;
+    display: none;
 }

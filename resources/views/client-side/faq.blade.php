@@ -13,10 +13,29 @@
 
             @foreach($list as $index => $item)
             <div class="faqs">
-                <p>{{ $item->title }}</p>
+                <div class="faq-according-header">{{ $item->title }}</div>
+                <div class="faq-according-body">sdfd</div>
             </div>
             @endforeach
             
         </div>
     </section>
+
+    <script>
+
+        var acc = document.getElementsByClassName("faq-according-header"); 
+
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+        
+    </script>
 @endsection

@@ -47,7 +47,7 @@
     </div>
     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="/admin/crm" class="nav-link px-2 text-white">CRM</a></li>
-        <li><a href="/admin/appeals" class="nav-link px-2 text-white">Ümumi müraciətlər</a></li>
+        <li><a href="/admin/appeals" class="nav-link px-2 text-white">Ümumi müraciətlər</a></li> 
         <li><a href="/admin/country-appeals" class="nav-link px-2 text-white">Müraciətlər - ölkə</a></li>
         <li><a href="/admin/service-appeals" class="nav-link px-2 text-white">Müraciətlər - xidmət</a></li>
         <li><a href="/admin/country-list" class="nav-link px-2 text-white">Ölkələr</a></li>
@@ -55,11 +55,13 @@
         <li><a href="/admin/file-list" class="nav-link px-2 text-white">Fayllar</a></li>
         <li><a href="/admin/excell-list" class="nav-link px-2 text-white">Excell</a></li>
         <li><a href="/admin/faq-list" class="nav-link px-2 text-white">FAQ kontent</a></li> 
+        @if(auth()->user()->role_id !== 1)
         <li><a href="/admin/tour-list" class="nav-link px-2 text-white">Turlar</a></li> 
         <li><a href="/admin/blog-list" class="nav-link px-2 text-white">Bloqlar</a></li> 
         <li><a href="/admin/question-list" class="nav-link px-2 text-white">Suallar</a></li> 
         <li><a href="/admin/service-list" class="nav-link px-2 text-white">Xidmətlər</a></li> 
         <li><a href="/admin/contact" class="nav-link px-2 text-white">Əlaqə</a></li> 
+        @endif
       </ul>
   </div>
 </header>

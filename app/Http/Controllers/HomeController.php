@@ -136,7 +136,7 @@ class HomeController extends Controller
 
         $countries = DB::select("select c.id, c.name from countries c where c.status=1 ORDER BY c.name");
         // dd($calls);
-        return view('admin.crm.index')->with(["countries"=>$countries, "calls"=>$calls, "contact"=>$contacts]);
+        return view('admin.crm.index')->with(["countries"=>$countries, "calls"=>$calls]);
 
     }
 
