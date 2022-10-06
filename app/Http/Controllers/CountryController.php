@@ -51,6 +51,32 @@ class CountryController extends Controller
 
     }
 
+    public function fetchById($id) {
+
+        $countries = Countries::find($id);
+
+        return response()->json([
+            'data' => $countries,
+            'error' => null,
+        ]);
+ 
+    }
+
+    public function update($id, Request $request) {
+
+        $country = Countries::find($id); 
+        $country->name = $request->name; 
+        $country->visa_color_id = $request->color;  
+        $country->price = $request->price;  
+        
+        if($country->save()) { 
+            return back()->with('success','Məlumat yeniləndi');
+        } else { 
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
+
+    }
+
     public function search(Request $request) {
 
         $query = "";

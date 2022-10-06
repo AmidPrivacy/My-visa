@@ -60,7 +60,7 @@
                                 <td class=""> {{ $item->color." - ".$item->type }} </td>
                                 <td class=""> {{ isset($item->price) ? $item->price."AZN" : "" }} </td>
                                 <td class="table-edit-field">
-                                        <!-- <button type="button" class="btn btn-primary">düzəliş et</button> -->
+                                <button type="button" class="btn btn-primary country-edit" data-id="{{ $item->id }}">düzəliş et</button>
                                         <button type="button" class="btn btn-danger" onClick="removeRow({{ $item->id }}, '/admin/country-remove/')">sil</button> 
                                 </td>
                         </tr>
@@ -76,7 +76,7 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Ölkə əlavəsi</h5>
                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form method="post" action="/admin/country-add" enctype="multipart/form-data">
+                                <form method="post" action="/admin/country-add" enctype="multipart/form-data" id="my-form">
                                         <div class="modal-body">
                                                 <div class="mb-3">
                                                         <label for="countryName" class="form-label">Ölkə adı *</label>
@@ -84,7 +84,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="countryName" class="form-label">Ölkə üçün rəng seçimi</label>
-                                                        <select class="form-select" aria-label="Default select example" name="color">
+                                                        <select class="form-select" id="countryColor" name="color">
                                                                 <option selected value="0">Rəng seçin</option>
                                                                 @foreach($colors as $color)
                                                                         <option value="{{ $color->id }}" style="background-color: {{ $color->name }}">{{ $color->type }}</option>
@@ -114,6 +114,35 @@
         <script>
 
                 $(function(){
+
+                        $(".add-new-row").click(function(){  
+                                $("#my-form").attr("action", "/admin/country-add");
+                                document.getElementById("my-form").reset()
+                                $("#summernote").summernote("code", "")
+                        });
+
+                        $(document).on("click", ".country-edit", function(){
+
+                                        let id = $(this).attr("data-id");
+
+                                        $("#my-form").attr("action", "/admin/country/"+id);
+
+                                        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                                
+                                        $.ajax({
+                                                url: "/admin/country/"+id,
+                                                method: "get",
+                                                success: (res)=> { 
+
+                                                        $("#countryName").val(res.data.name); 
+                                                        $("#countryColor").val(res.data.visa_color_id); 
+                                                        $("#countryPrice").val(res.data.price); 
+                                                         
+                                                }
+                                        })
+
+                                        myModal.show();
+                        })
 
                         $(".country-filter input").keypress(function(event){
                                 let val = $(this).val();

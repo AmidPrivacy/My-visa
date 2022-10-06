@@ -24,6 +24,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/country-search', 'CountryController@search'); 
     Route::post('/admin/country-add', 'CountryController@create');
     Route::get('/admin/country-remove/{id}', 'CountryController@delete');
+    Route::get('/admin/country/{id}', 'CountryController@fetchById');
+    Route::post('/admin/country/{id}', 'CountryController@update');
 
     Route::get('/admin/file-list', 'FileController@index');
     Route::post('/admin/file-add', 'FileController@create');
