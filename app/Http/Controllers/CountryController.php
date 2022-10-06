@@ -14,6 +14,8 @@ class CountryController extends Controller
         $list = DB::select("select c.id, c.name, c.picture, v.name as color, v.type as type, c.price from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
         $colors = DB::select("select id, name, type from visa_colors where status=1");
  
+        // $this->updateUuid($list);
+
         return view('admin.country.index')->with(["list" => $list, "colors" => $colors]);
 
     }
@@ -82,6 +84,15 @@ class CountryController extends Controller
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
         }
 
+    }
+
+    public function updateUuid($list)
+    {
+        foreach($list as $item) {
+            $new_country = Countries::find($item->id);
+            $new_country->uuid = $this->gen_uuid(); 
+            $new_country->save();
+        } 
     }
 
     public function gen_uuid() {

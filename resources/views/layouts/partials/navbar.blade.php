@@ -19,12 +19,24 @@
         <a href="/home" target="_blank"
           style=" color: #fff;
                   padding: 10px 18px;
-                  margin-right: 26px;
+                  margin-right: 25px;
                   background-color: black;
                   border-radius: 20px;
                   text-decoration: none;"
         >
           FAQ üçün keçid edin
+        </a>  
+      </div>
+      <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <a href="/admin/crm" target="_blank"
+          style=" color: #fff;
+                  padding: 10px 18px;
+                  margin-right: 25px;
+                  background-color: black;
+                  border-radius: 20px;
+                  text-decoration: none;"
+        >
+          CRM üçün keçid edin
         </a>  
       </div>
       @auth
@@ -45,11 +57,10 @@
       
       
     </div>
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/admin/crm" class="nav-link px-2 text-white">CRM</a></li>
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"> 
         <li><a href="/admin/appeals" class="nav-link px-2 text-white">Ümumi müraciətlər</a></li> 
-        <li><a href="/admin/country-appeals" class="nav-link px-2 text-white">Müraciətlər - ölkə</a></li>
-        <li><a href="/admin/service-appeals" class="nav-link px-2 text-white">Müraciətlər - xidmət</a></li>
+        <li><a href="/admin/country-appeals" class="nav-link px-2 text-white">Müraciətlər(ölkə)</a></li>
+        <li><a href="/admin/service-appeals" class="nav-link px-2 text-white">Müraciətlər(xidmət)</a></li>
         <li><a href="/admin/country-list" class="nav-link px-2 text-white">Ölkələr</a></li>
         <li><a href="/admin/type-list" class="nav-link px-2 text-white">Viza növləri</a></li> 
         <li><a href="/admin/file-list" class="nav-link px-2 text-white">Fayllar</a></li>

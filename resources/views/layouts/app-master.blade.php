@@ -38,8 +38,6 @@
 <body>
     
     
-
-    
         @auth
         @include('layouts.partials.navbar')
         <main class="container">

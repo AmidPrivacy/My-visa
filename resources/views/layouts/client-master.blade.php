@@ -8,27 +8,29 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'> 
     @yield('css')
     <link href="{!! url('assets/css/client-side/responsive.css') !!}" rel="stylesheet"> 
+    <link rel="icon" href="/assets/img/logo1.svg" type="image/svg" sizes="21x16">
 </head>
 <body> 
     <header>
         <div class="desktop container">
             <div class="brand">
-               <a href="/">
-                <img src="assets/img/logo.svg" alt="">
+               <!-- <a href="/"> -->
+               <a href="/landingpage">
+                <img src="/assets/img/logo.svg" alt="">
                </a> 
             </div>
             <div class="lang">
                 <div class="lang-item">
                     <span>Az</span>
-                    <img src="assets/img/az.svg" alt="">
+                    <img src="/assets/img/az.svg" alt="">
                 </div>
                 <div class="lang-item">
                     <span>Ru</span>
-                    <img src="assets/img/ru.svg" alt="">
+                    <img src="/assets/img/ru.svg" alt="">
                 </div>
                 <div class="lang-item">
                     <span>En</span>
-                    <img src="assets/img/en.svg" alt="">
+                    <img src="/assets/img/en.svg" alt="">
                 </div>
             </div>
             <nav> 
@@ -107,7 +109,7 @@
                     @endif
                 </div>
                 <div class="footer-item">
-                    <img src="/assets/img/footer-logo.svg" alt="" />
+                    <img src="/assets/img/footer-logo.png" alt="" />
                 </div>
                 <div class="footer-item">
                     @if($contact[2]->is_deleted===0)

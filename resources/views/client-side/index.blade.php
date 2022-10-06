@@ -49,7 +49,7 @@
             <div class="serviceCard">
                 @foreach($services as $service)
                 <div class="card">
-                    <a href="/service-appeal/{{ $service->uuid }}" class="visaService" target="_blank">
+                    <a href="public/service-appeal/{{ $service->uuid }}" class="visaService" target="_blank">
                         <img src="assets/uploads/service-images/{{ $service->picture }}" alt="">
                         <p>{{ $service->name }}</p>
                     </a>
