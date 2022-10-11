@@ -57,6 +57,11 @@
 						<input class="phoneNumF field" placeholder ="(+994) xx xxx xx xx" maxlength="13" tabindex="4" type="number" name="number">
 						<p id="number-error" class="form-validate"></p>
 					</div> 
+					<div id="note-box">
+						<label>Qeyd:</label>
+						<textarea class="appealNote field" placeholder="Qeyd" maxlength="290" name="note"></textarea>
+						<p id="note-error" class="form-validate"></p>
+					</div> 
 					<input type="hidden" name="status" value="{{ $id }}" />
 					{!! csrf_field() !!}
 					<button class="valBtn" tabindex="5" type="submit">Müraciət et</button>

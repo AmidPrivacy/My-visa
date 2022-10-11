@@ -188,12 +188,12 @@
             //error tags
             var fNameErrorTag = document.getElementById("first-name-error");
             var lNameErrorTag = document.getElementById("last-name-error");
-            var mailErrorTag = document.getElementById("mail-error");
+            // var mailErrorTag = document.getElementById("mail-error");
             var numberErrorTag = document.getElementById("number-error"); 
 
             let fName = document.forms["my-form"]["fName"].value;
             let lName = document.forms["my-form"]["lName"].value;
-            let mail = document.forms["my-form"]["mail"].value;
+            // let mail = document.forms["my-form"]["mail"].value;
             let number = document.forms["my-form"]["number"].value;
 
             if (fName.length < 3) {
@@ -210,12 +210,12 @@
                 lNameErrorTag.textContent = "" 
             }
 
-            if (mail.length < 4) {
-                check = false;
-                mailErrorTag.textContent = "Zəhmət olmasa email daxil edin" 
-            } else {
-                mailErrorTag.textContent = "" 
-            }
+            // if (mail.length < 4) {
+            //     check = false;
+            //     mailErrorTag.textContent = "Zəhmət olmasa email daxil edin" 
+            // } else {
+            //     mailErrorTag.textContent = "" 
+            // }
 
             if (number.length < 9) {
                 check = false;

@@ -35,6 +35,7 @@
                         <tr> 
                                 <th class="table-primary">№</th>
                                 <th class="table-primary">Ad soyad</th>
+                                <th class="table-primary">Ölkə</th> 
                                 <th class="table-primary">Visa tipi</th> 
                                 <th class="table-primary">Sığorta</th>
                                 <th class="table-primary">E-mail</th>
@@ -48,6 +49,7 @@
                         <tr> 
                                 <th class="">{{ $index+1 }}</th>
                                 <td class=""> {{ $item->full_name }} </td>
+                                <td class=""> {{ $item->country }} </td>
                                 <td class=""> {{ $item->type }} </td> 
                                 <td class=""> {{ $item->insure ==0 ? "Yoxdur" : "Var" }} </td>
                                 <td class=""> {{ $item->mail }} </td>

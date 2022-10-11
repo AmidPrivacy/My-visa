@@ -60,6 +60,32 @@ class TourController extends Controller
  
     }
 
+    public function updateImg($id, Request $request) {
+
+        $tour = Tours::find($id); 
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->image->extension();  
+     
+        $request->image->move(public_path('assets/uploads/tour-images/'), $imageName);
+
+        $oldPicture = $tour->picture;
+
+        $tour->picture = $imageName; 
+
+        if(unlink(public_path('assets/uploads/tour-images/'.$oldPicture)))
+            if($tour->save()) { 
+                
+                return back()->with('success','Məlumat yeniləndi');
+            } else { 
+                return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            }
+
+    }
+
     public function update($id, Request $request) {
 
         $tour = Tours::find($id); 

@@ -71,6 +71,32 @@ class ServiceController extends Controller
 
     }
 
+    public function updateImg($id, Request $request) {
+
+        $service = Services::find($id); 
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->image->extension();  
+     
+        $request->image->move(public_path('assets/uploads/service-images/'), $imageName);
+
+        $oldPicture = $service->picture;
+
+        $service->picture = $imageName; 
+
+        if(unlink(public_path('assets/uploads/service-images/'.$oldPicture)))
+            if($service->save()) { 
+                
+                return back()->with('success','Məlumat yeniləndi');
+            } else { 
+                return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            }
+
+    }
+
     public function delete($id) {
 
         $service = Services::find($id);

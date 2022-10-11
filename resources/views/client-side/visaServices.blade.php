@@ -32,7 +32,7 @@
             <ul class="boxUl">
                 @foreach($countries as $index => $item)
                     <li class="selections" data-price="{{ $item->price }}" data-required="{{ $item->color }}">
-                        <a href="/visa-appeal/{{ $item->id }}"> 
+                        <a href="/visa-appeal/{{ $item->uuid }}"> 
                             <img src="assets/uploads/flags/{{ $item->picture }}"  style="width: 20px; height: 20px;" alt=""> 
                             <span>{{ $item->name }}<span>
                         </a>

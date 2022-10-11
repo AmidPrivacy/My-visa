@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     public function visaServices()
     { 
-        $countries = DB::select("select c.id, c.name, c.price, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
+        $countries = DB::select("select c.id, c.uuid, c.name, c.price, c.picture, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
         $contacts = DB::select("select * from contacts");
 
         // dd($countries);

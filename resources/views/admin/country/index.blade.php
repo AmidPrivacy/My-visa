@@ -55,7 +55,7 @@
                                 <th class="">{{ $index+1 }}</th>
                                 <td class=""> <a href="/country/{{ $item->id }}" target="_blank" style="color: black"> {{ $item->name }} </a> </td>
                                 <td class="">
-                                        <img src="../public/assets/uploads/flags/{{ $item->picture }}" class="table-describe" />
+                                        <img src="../public/assets/uploads/flags/{{ $item->picture }}" class="table-describe" data-id="{{ $item->id }}" />
                                 </td>
                                 <td class=""> {{ $item->color." - ".$item->type }} </td>
                                 <td class=""> {{ isset($item->price) ? $item->price."AZN" : "" }} </td>
@@ -80,7 +80,7 @@
                                         <div class="modal-body">
                                                 <div class="mb-3">
                                                         <label for="countryName" class="form-label">Ölkə adı *</label>
-                                                        <input type="text" class="form-control" name="name" id="countryName" placeholder="Ad daxil edin" required>
+                                                        <input type="text" class="form-control" name="name" id="countryName" placeholder="Ad daxil edin">
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="countryName" class="form-label">Ölkə üçün rəng seçimi</label>
@@ -93,9 +93,9 @@
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="countryPrice" class="form-label">Viza rüsumu *</label>
-                                                        <input type="number" class="form-control" name="price" id="countryPrice" placeholder="Ödəniş daxil edin" required>
+                                                        <input type="number" class="form-control" name="price" id="countryPrice" placeholder="Ödəniş daxil edin">
                                                 </div> 
-                                                <div class="mb-3">
+                                                <div class="mb-3" id="picture">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
@@ -115,10 +115,19 @@
 
                 $(function(){
 
-                        $(".add-new-row").click(function(){  
+                        $(".add-new-row").click(function() {  
                                 $("#my-form").attr("action", "/admin/country-add");
-                                document.getElementById("my-form").reset()
-                                $("#summernote").summernote("code", "")
+                                document.getElementById("my-form").reset();
+                                $(".modal-body>div").show();
+                        });
+
+                        $(document).on("click", ".table-describe", function() {
+                                let id = $(this).attr("data-id");
+                                $("#my-form").attr("action", "/admin/country-image/"+id);
+                                $(".modal-body>div").hide();
+                                $("#picture").show();
+                                var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                                myModal.show();
                         });
 
                         $(document).on("click", ".country-edit", function(){
@@ -126,6 +135,8 @@
                                         let id = $(this).attr("data-id");
 
                                         $("#my-form").attr("action", "/admin/country/"+id);
+                                        $(".modal-body>div").show();
+                                        $("#picture").hide();
 
                                         var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
                                 
@@ -175,7 +186,7 @@
                                                                         <th class="">${index+1}</th>
                                                                         <td class=""> <a href="/country/${item.id}" target="_blank" style="color: black"> ${item.name} </a> </td>
                                                                         <td class="">
-                                                                                <img src="../public/assets/uploads/flags/${item.picture}" class="table-describe" />
+                                                                                <img src="../public/assets/uploads/flags/${item.picture}" class="table-describe" data-id="${item.id}" />
                                                                         </td>
                                                                         <td class="">${item.color != null ? item.color : ""} - ${ item.type != null ? item.type : "" } </td>
                                                                         <td class="table-edit-field">

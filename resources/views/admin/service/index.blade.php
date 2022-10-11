@@ -53,7 +53,7 @@
                                        {!! $item->content !!}
                                 </td>
                                 <td class="">
-                                        <img src="../public/assets/uploads/service-images/{{ $item->picture }}" class="table-describe" />
+                                        <img src="../public/assets/uploads/service-images/{{ $item->picture }}" class="table-describe" data-id="{{ $item->id }}" />
                                 </td> 
                                 <td class="table-edit-field">
                                         <button type="button" class="btn btn-primary row-edit" data-id="{{ $item->id }}">düzəliş et</button>
@@ -76,13 +76,13 @@
                                         <div class="modal-body">
                                                 <div class="mb-3">
                                                         <label for="serviceName" class="form-label">Xidmət adı *</label>
-                                                        <input type="text" class="form-control" name="name" id="serviceName" placeholder="Ad daxil edin" required>
+                                                        <input type="text" class="form-control" name="name" id="serviceName" placeholder="Ad daxil edin">
                                                 </div> 
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Kontent</label>
-                                                        <textarea id="summernote" name="content" required></textarea>
+                                                        <textarea id="summernote" name="content"></textarea>
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3" id="picture">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
@@ -104,8 +104,18 @@
 
                         $(".add-new-row").click(function() {  
                                 $("#my-form").attr("action", "/admin/service-add");
+                                $(".modal-body>div").show();
                                 document.getElementById("my-form").reset()
                                 $("#summernote").summernote("code", "")
+                        });
+
+                        $(document).on("click", ".table-describe", function() {
+                                let id = $(this).attr("data-id");
+                                $("#my-form").attr("action", "/admin/service-image/"+id);
+                                $(".modal-body>div").hide();
+                                $("#picture").show();
+                                var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                                myModal.show();
                         });
 
                         $('#summernote').summernote({
@@ -130,7 +140,8 @@
                                 let id = $(this).attr("data-id");
 
                                 $("#my-form").attr("action", "/admin/service/"+id);
-
+                                $(".modal-body>div").show();
+                                $("#picture").hide();
                                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 
                                 $.ajax({

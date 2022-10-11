@@ -48,7 +48,7 @@
                                 <td class=""> {{ $item->title }} </td>
                                 <td class=""> {!! $item->content !!} </td> 
                                 <td class="">
-                                        <img src="../public/assets/uploads/tour-images/{{ $item->picture }}" class="table-describe" />
+                                        <img src="../public/assets/uploads/tour-images/{{ $item->picture }}" class="table-describe" data-id="{{ $item->id }}" />
                                 </td>
                                 <td class=""> {{ $item->period }} </td>
                                 <td class=""> {{ isset($item->price) ? $item->price."AZN" : "" }} </td>
@@ -70,13 +70,13 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Tur əlavəsi</h5>
                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form method="post" action="/admin/tour-add" id="my-form" enctype="multipart/form-data" id="my-form">
+                                <form method="post" action="/admin/tour-add" id="my-form" enctype="multipart/form-data">
                                         <div class="modal-body"> 
                                                 <div class="mb-3">
                                                         <label for="title" class="form-label">Başlıq</label>
                                                         <input type="text" class="form-control" name="title" id="title" placeholder="Kontent başlığını daxil edin">
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3" id="picture">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
@@ -90,7 +90,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Kontent</label>
-                                                        <textarea id="summernote" name="content" required></textarea>
+                                                        <textarea id="summernote" name="content"></textarea>
                                                 </div>
                                                 
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -116,19 +116,30 @@
                 focus: true
                 // airMode: true
         });
+ 
+        $(".add-new-row").click(function(){  
+                $("#my-form").attr("action", "/admin/tour-add");
+                $(".modal-body>div").show();
+                document.getElementById("my-form").reset()
+                $("#summernote").summernote("code", "") 
+        });
 
-      $(".add-new-row").click(function(){  
-        $("#my-form").attr("action", "/admin/tour-add");
-        document.getElementById("my-form").reset()
-        $("#summernote").summernote("code", "")
-      });
-
-      $(document).on("click", ".faq-edit", function(){
+        $(document).on("click", ".table-describe", function() {
+                let id = $(this).attr("data-id");
+                $("#my-form").attr("action", "/admin/tour-image/"+id);
+                $(".modal-body>div").hide();
+                $("#picture").show();
+                var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                myModal.show();
+        });
+ 
+        $(document).on("click", ".faq-edit", function(){
 
                 let id = $(this).attr("data-id");
 
                 $("#my-form").attr("action", "/admin/tour/"+id);
-
+                $(".modal-body>div").show();
+                $("#picture").hide();
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
             
                 $.ajax({

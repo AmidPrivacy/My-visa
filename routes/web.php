@@ -26,6 +26,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/country-remove/{id}', 'CountryController@delete');
     Route::get('/admin/country/{id}', 'CountryController@fetchById');
     Route::post('/admin/country/{id}', 'CountryController@update');
+    Route::post('/admin/country-image/{id}', 'CountryController@updateImg');
 
     Route::get('/admin/file-list', 'FileController@index');
     Route::post('/admin/file-add', 'FileController@create');
@@ -111,6 +112,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/tour/{id}', 'TourController@update');
     Route::get('/admin/tour-search/{name}', 'TourController@search'); 
     Route::get('/admin/tour-remove/{id}', 'TourController@delete');
+    Route::post('/admin/tour-image/{id}', 'TourController@updateImg');
 
     //Blogs
     Route::get('/admin/blog-list', 'BlogController@index');
@@ -119,6 +121,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/blog/{id}', 'BlogController@update');
     Route::get('/admin/blog-search/{name}', 'BlogController@search'); 
     Route::get('/admin/blog-remove/{id}', 'BlogController@delete');
+    Route::post('/admin/blog-image/{id}', 'BlogController@updateImg');
 
     //Questions
     Route::get('/admin/question-list', 'QuestionnaireController@index');
@@ -134,6 +137,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/service/{id}', 'ServiceController@fetchById');
     Route::post('/admin/service/{id}', 'ServiceController@update');
     Route::get('/admin/service-remove/{id}', 'ServiceController@delete');
+    Route::post('/admin/service-image/{id}', 'ServiceController@updateImg');
 
     Route::get('/admin/contact', 'HomeController@contact'); 
 

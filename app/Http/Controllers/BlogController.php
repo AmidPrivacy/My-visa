@@ -70,6 +70,32 @@ class BlogController extends Controller
 
     }
 
+    public function updateImg($id, Request $request) {
+
+        $blog = Blogs::find($id); 
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->image->extension();  
+     
+        $request->image->move(public_path('assets/uploads/blog-files/'), $imageName);
+
+        $oldPicture = $blog->picture;
+
+        $blog->picture = $imageName; 
+
+        if(unlink(public_path('assets/uploads/blog-files/'.$oldPicture)))
+            if($blog->save()) { 
+                
+                return back()->with('success','Məlumat yeniləndi');
+            } else { 
+                return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            }
+
+    }
+
     public function delete($id) {
 
         $blog = Blogs::find($id);

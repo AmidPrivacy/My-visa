@@ -592,7 +592,7 @@ border: none;
 }
 
 #main-fields {
-    height: 425px;
+    height: 610px;
 }
 
 .formContent div {
@@ -758,3 +758,13 @@ border: none;
      position: relative;
      z-index: 10000;
  }
+ 
+ #note-box {
+    width: 98.5% !important;
+    height: 145px !important;
+  }
+  
+  #note-box .appealNote {
+    padding-top: 10px;
+    height: 120px;
+  }

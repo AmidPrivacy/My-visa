@@ -45,7 +45,7 @@
                                 <td class=""> {{ $item->title }} </td>
                                 <td class=""> {!! $item->content !!} </td> 
                                 <td class="">
-                                        <img src="../public/assets/uploads/tour-images/{{ $item->picture }}" class="table-describe" />
+                                        <img src="../public/assets/uploads/blog-files/{{ $item->picture }}" class="table-describe" data-id="{{ $item->id }}" />
                                 </td>
                                 <td class=""> {{ $item->created_at }} </td>
                                 <td class="table-light table-edit-field">
@@ -65,19 +65,19 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Bloq əlavəsi</h5>
                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form method="post" action="/admin/blog-add" id="my-form" enctype="multipart/form-data" id="my-form">
+                                <form method="post" action="/admin/blog-add" id="my-form" enctype="multipart/form-data">
                                         <div class="modal-body"> 
                                                 <div class="mb-3">
                                                         <label for="title" class="form-label">Başlıq</label>
                                                         <input type="text" class="form-control" name="title" id="title" placeholder="Kontent başlığını daxil edin">
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3" id="picture">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Kontent</label>
-                                                        <textarea id="summernote" name="content" required></textarea>
+                                                        <textarea id="summernote" name="content"></textarea>
                                                 </div>
                                                 
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -93,7 +93,6 @@
 
 <script src="{!! url('assets/js/summernote.min.js') !!}"></script>
 
-
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({
@@ -104,17 +103,30 @@
                 // airMode: true
         });
 
-      $(".add-new-row").click(function(){  
-        $("#my-form").attr("action", "/admin/blog-add");
-        document.getElementById("my-form").reset()
-        $("#summernote").summernote("code", "")
-      });
+        $(".add-new-row").click(function(){  
+                $("#my-form").attr("action", "/admin/blog-add");
+                $(".modal-body>div").show();
+                document.getElementById("my-form").reset();
+                $("#summernote").summernote("code", "");
+        });
+
+        $(document).on("click", ".table-describe", function() {
+                let id = $(this).attr("data-id");
+                $("#my-form").attr("action", "/admin/blog-image/"+id);
+                $(".modal-body>div").hide();
+                $("#picture").show();
+                var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                myModal.show();
+        });
 
       $(document).on("click", ".faq-edit", function(){
 
                 let id = $(this).attr("data-id");
 
                 $("#my-form").attr("action", "/admin/blog/"+id);
+
+                $(".modal-body>div").show();
+                $("#picture").hide();
 
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
             

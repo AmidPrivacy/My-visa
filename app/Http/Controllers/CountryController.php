@@ -5,6 +5,8 @@ use App\Models\Countries;
 use App\Http\Controllers\ArchiveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 class CountryController extends Controller
 {
@@ -54,12 +56,38 @@ class CountryController extends Controller
     public function fetchById($id) {
 
         $countries = Countries::find($id);
-
+ 
         return response()->json([
             'data' => $countries,
             'error' => null,
         ]);
  
+    }
+
+    public function updateImg($id, Request $request) {
+
+        $country = Countries::find($id); 
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->image->extension();  
+     
+        $request->image->move(public_path('assets/uploads/flags/'), $imageName);
+
+        $oldPicture = $country->picture;
+
+        $country->picture = $imageName; 
+
+        if(unlink(public_path('assets/uploads/flags/'.$oldPicture)))
+            if($country->save()) { 
+                
+                return back()->with('success','Məlumat yeniləndi');
+            } else { 
+                return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            }
+
     }
 
     public function update($id, Request $request) {
