@@ -89,10 +89,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     //country and service appeals
     Route::get('/admin/country-appeals', 'CountryAppealController@index');
     Route::get('/admin/service-appeals', 'ServiceAppealController@index');
+    Route::post('/admin/service-appeal-status', 'ServiceAppealController@editStatus');
+    Route::post('/admin/service-assign-user', 'ServiceAppealController@appointUser');
 
     Route::post('/country-appeal', 'HomeController@newCountryAppeal');
     Route::post('/service-appeal', 'HomeController@newServiceAppeal');
-
 
 
     //User status
@@ -138,6 +139,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/service/{id}', 'ServiceController@update');
     Route::get('/admin/service-remove/{id}', 'ServiceController@delete');
     Route::post('/admin/service-image/{id}', 'ServiceController@updateImg');
+ 
 
     Route::get('/admin/contact', 'HomeController@contact'); 
 

@@ -40,13 +40,19 @@ header nav a {
     width: 25%;
     font-family: "Poppins-Regular";
 }
-#active{
+
+header nav a img {
+    margin-top: 44px;
+}
+
+#active {
     background: linear-gradient(270deg, #D14C92 15.87%, #F6B426 43.05%, #4E9437 64.5%, #8EC9EE 84.52%);
     transform: rotate(180deg);
     height: 3px;
     position: relative;
     bottom: 40%;  
 }
+
 header .lang {
     width: 6%;
     margin-left: 3%;
@@ -573,7 +579,7 @@ border: none;
 
 .mainContent .chooseVisa {
     width: 46%;
-    margin: 2%;
+    margin: 1%;
 }
 
 .formContent .nameOfService h1 {
@@ -741,12 +747,15 @@ border: none;
      background: transparent;
      box-shadow: none;
  }
- .mobile-button.open .mobile-burger::before{
+
+ .mobile-button.open .mobile-burger::before {
      transform: rotate(45deg) translate(35px,-35px );
  }
- .mobile-button.open .mobile-burger::after{
+
+ .mobile-button.open .mobile-burger::after {
      transform:rotate(-45deg) translate(35px,35px) ;
  }
+
  .hamburgerUL{
      width: 100%;
      background-color: #F5F7F9;

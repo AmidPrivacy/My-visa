@@ -13,8 +13,7 @@
 <body> 
     <header>
         <div class="desktop container">
-            <div class="brand">
-               <!-- <a href="/"> -->
+            <div class="brand"> 
                <a href="/landingpage">
                 <img src="/assets/img/logo.svg" alt="">
                </a> 
@@ -34,6 +33,11 @@
                 </div>
             </div>
             <nav> 
+                <div class="menu">
+                    <a href="/landingpage">
+                        <img src="/assets/img/home.svg" alt="">
+                    </a>
+                </div>
                 <div class="menu">
                     <a href="/visa-services">Viza xidmətləri</a>
                 </div>

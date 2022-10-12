@@ -37,8 +37,10 @@
                                 <th class="table-primary">Xidmət</th> 
                                 <th class="table-primary">E-mail</th>
                                 <th class="table-primary">Mob nömrə</th> 
+                                <th class="table-primary">Status</th> 
+                                <th class="table-primary">Qeyd</th> 
                                 <th class="table-primary">Tarix</th> 
-                                <!-- <th class="table-primary"></th> -->
+                                <th class="table-primary">Əməkdaş</th>
                         </tr>
                 </thead>
                 <tbody>
@@ -49,23 +51,85 @@
                                 <td class=""> {{ $item->service }} </td> 
                                 <td class=""> {{ $item->mail }} </td>
                                 <td class=""> {{ $item->number }} </td>
+                                <td class=""> 
+                                        <button type="button"  class="btn btn-primary step-edit" data-id="{{ $item->id }}"> {{ $item->step }} </button> 
+                                </td> 
+                                <td class=""> {{ $item->note }} </td>
                                 <td class=""> {{ $item->date }} </td>
-                                <!-- <td class="table-light table-edit-field">
-                                        <button type="button" class="btn btn-primary faq-edit" data-id="{{ $item->id }}">düzəliş et</button>
-                                        <button type="button" class="btn btn-danger" onClick="removeRow({{ $item->id }}, '/admin/question-remove/')">sil</button> 
-                                </td> -->
+                                <td class="table-light table-edit-field">
+                                        <button type="button" class="btn btn-{{ $item->user_id !==null ? 'primary' :'danger'}} appoint-user" data-id="{{ $item->id }}">{{ $item->user_id !==null ? $item->user : "Qəbul et" }}</button> 
+                                </td> 
                         </tr>
                         @endforeach
                 </tbody>
         </table>
  
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+                <div class="modal-content" style="width:900px; margin-left: -180px">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Müraciət növü seçin</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="/admin/service-appeal-status" id="my-form" enctype="multipart/form-data">
+                                <div class="modal-body"> 
+                                        <div class="mb-3">
+                                                <select class="form-select" name="step" required id="visa-type">
+                                                        @foreach($steps as $item)
+                                                                <option value="{{ $item->id }}"> {{ $item->name }} </option> 
+                                                        @endforeach
+                                                </select>      
+                                                <select class="form-select" name="user" required id="selected-user">
+                                                        @foreach($users as $item)
+                                                                <option value="{{ $item->id }}" {{ $item->id===auth()->user()->id ? "selected":"" }} > {{ $item->name }} </option> 
+                                                        @endforeach
+                                                </select>                                              
+                                        </div>
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                        <input type="hidden" id="selected-row" name="id" value="" />
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Göndər</button>
+                                </div>
+                        </form>
+                </div>
+        </div>
+</div>
 
 <script src="{!! url('assets/js/summernote.min.js') !!}"></script>
 
 
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
+        $(document).on("click", ".step-edit", function(){
+
+                let id = $(this).attr("data-id");
+
+                $("#my-form").attr("action", "/admin/service-appeal-status");
+                $("#selected-row").val(id);
+                $("#exampleModalLabel").text("Müraciət növü seçin");
+                var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                $("#visa-type").css("display", "block");
+                $("#selected-user").css("display", "none");
+                myModal.show();
+        })
+
+        $(document).on("click", ".appoint-user", function() {
+
+                let id = $(this).attr("data-id");
+
+                $("#my-form").attr("action", "/admin/service-assign-user");
+                $("#selected-row").val(id);
+                $("#exampleModalLabel").text("İstifadəçi seçin");
+                var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                $("#visa-type").css("display", "none");
+                $("#selected-user").css("display", "block");
+                myModal.show();
+
+        });
+
         $('#summernote').summernote({
                 placeholder: 'Kontent daxil edin',
                 tabsize: 2,

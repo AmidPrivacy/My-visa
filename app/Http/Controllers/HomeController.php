@@ -102,10 +102,12 @@ class HomeController extends Controller
 
     public function serviceAppeal($id)
     { 
+        $countries = DB::select("select c.id, c.name, c.picture, c.uuid, v.name as color, v.type as type from countries c left join visa_colors v on c.visa_color_id = v.id where c.status=1 ORDER BY c.name");
         $service = Services::where('uuid', '=', $id)->first();
         $contacts = DB::select("select * from contacts");
         // dd($countries);
         return view('client-side.serviceAppeal')->with([
+            "countries" => $countries, 
             "service" => $service, 
             "contact"=>$contacts,
             "id"=>$id
@@ -413,6 +415,8 @@ class HomeController extends Controller
         $appeal->service_id = $request->status; 
         $appeal->full_name = $request->fName." ".$request->lName; 
         $appeal->mail = $request->mail; 
+        $appeal->country_id = $request->country; 
+        $appeal->note = $request->note; 
         $appeal->number = $request->number; 
 
         if($appeal->save()) { 

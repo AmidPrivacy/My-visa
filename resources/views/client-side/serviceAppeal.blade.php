@@ -10,33 +10,41 @@
 				<p>{{ $service->name }}nə</p> 
 				<h3>müraciət edin</h3>
 			</div>
-			<div class="chooseCont" id="service-contect">
-				{!! $service->content !!}
-			</div> 
-			@if ($message = Session::get('success'))
-				<div class="alert alert-success alert-block"> 
-					<strong>{{ $message }}</strong>
-				</div> 
-			@endif
-
-			@if ($error = Session::get('error'))
-				<div class="alert alert-error alert-block"> 
-					<strong>{{ $error }}</strong>
-				</div> 
-			@endif
-
-			@if (count($errors) > 0)
-				<div class="alert alert-danger"> 
-					<ul>
-						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
+			<form class="formWithValidation" method="post" action="/service-appeal" id="my-form" onsubmit="return validateMyForm()">
+				<div class="chooseVisa">
+					<h4>Ölkə seçin:</h4>
+					<select class="selectBtn" name="country" required>
+						@foreach($countries as $country)
+						<option value="{{ $country->id }}">{{ $country->name }}</option>
 						@endforeach
-					</ul>
+					</select>
 				</div>
-			@endif
-			<div class="formContent" id="main-fields">
-				
-				<form class="formWithValidation" method="post" action="/service-appeal" id="my-form" onsubmit="return validateMyForm()">
+				<div class="chooseCont" id="service-contect">
+					{!! $service->content !!}
+				</div> 
+				@if ($message = Session::get('success'))
+					<div class="alert alert-success alert-block"> 
+						<strong>{{ $message }}</strong>
+					</div> 
+				@endif
+
+				@if ($error = Session::get('error'))
+					<div class="alert alert-error alert-block"> 
+						<strong>{{ $error }}</strong>
+					</div> 
+				@endif
+
+				@if (count($errors) > 0)
+					<div class="alert alert-danger"> 
+						<ul>
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
+				<div class="formContent" id="main-fields">
+					
 					<div>
 						<label>Ad:</label>
 						<input class="nameF field" placeholder ="Ad" maxlength="21" type="text" name="fName">
@@ -62,11 +70,12 @@
 						<textarea class="appealNote field" placeholder="Qeyd" maxlength="290" name="note"></textarea>
 						<p id="note-error" class="form-validate"></p>
 					</div> 
-					<input type="hidden" name="status" value="{{ $id }}" />
+					<input type="hidden" name="status" value="{{ $service->id }}" />
 					{!! csrf_field() !!}
 					<button class="valBtn" tabindex="5" type="submit">Müraciət et</button>
-				</form>
-			</div>
+					
+				</div>
+			</form>
 		</div>
 	</div>
 	<script>
