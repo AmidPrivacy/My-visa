@@ -67,6 +67,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/get-calls', 'HomeController@getCalls');
     Route::get('/crm/create-call', 'HomeController@createCall');
     Route::post('/crm/update-call', 'HomeController@updateCall');
+    Route::post('/crm/create-call', 'HomeController@createManuallyCall');
 
 
 

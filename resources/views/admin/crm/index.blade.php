@@ -35,7 +35,7 @@
                         </li> 
                 </ul>
                 <div class="tab-content" id="myTabContent" style="padding-top: 25px">
-                        <form action="/crm/update-call" method="post">
+                        <form action="/crm/update-call" method="post" id="my-form">
                                 <div class="row">
                                         <div class="col">
                                                 <select class="form-select" id="selected-country" name="country">
@@ -61,7 +61,7 @@
                                                         </div>
                                                 </div>
                                                 <div class="col"> 
-                                                        <input type="number" name="number" readonly class="form-control" placeholder="050 522 17 86">
+                                                        <input type="number" name="number" class="form-control" placeholder="050 522 17 86">
                                                 </div>
                                         </div> 
                                         
@@ -198,8 +198,8 @@
                 </div>
         </div>
         
-         
-        <table class="table" style="margin-top: 120px">
+        <button type="button" class="btn btn-primary add-new-row" id="new-appeal">Yeni müraciət</button>
+        <table class="table" style="margin-top: 65px">
                 <thead class="table-dark">
                         <tr> 
                                 <th class="table-primary">№</th>
@@ -243,9 +243,15 @@
                                 $(this).datepicker("clearDates");
                         });
 
+                        $("#new-appeal").click(function() {
+                                $(".call-form").addClass("is-active");   
+                                $(this).hide();
+                                $("#my-form").attr("action", "/crm/create-call");
+                        })
+
                         $(document).on("click", ".call-form #close-form", function(){
 
-
+                                $("#new-appeal").show();
                                 $(".call-form").removeClass("is-active"); 
                                 let rowList = $(".table tbody tr");
 
@@ -275,6 +281,8 @@
 
                         $(document).on("click", ".call-edit", function(){
 
+                                $("#my-form").attr("action", "/crm/update-call");
+                                $("#new-appeal").hide();
                                 $(".call-form").addClass("is-active");
 
                                 $(this).parent().parent().css("background", "#0062ff8a");
@@ -334,17 +342,12 @@
                                 $.ajax({
                                         url: "/admin/get-calls",
                                         method: "get",
-                                        success: (res)=>{
-                                                console.log(res.data);
-
+                                        success: (res)=>{ 
 
                                                 let str = "";
 
                                                 (res.data).forEach((item, index)=>{
                                                         str += `
-
-
-
 
                                                         <tr> 
                                                                 <th> ${index+1} </th>

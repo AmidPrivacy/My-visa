@@ -170,6 +170,45 @@ class HomeController extends Controller
 
     }
 
+    public function createManuallyCall(Request $request) { 
+
+        $call = new visaCalls();
+
+        $call->citizen_number = $request->number;
+        $call->operator_number = isset(auth()->user()->internal_number) ? auth()->user()->internal_number : 0; 
+
+        $call->type	= $request->request_type;
+        $call->country_id = $request->country==0 ? null : $request->country;  
+        $call->note = !isset($request->note) ? null : $request->note; 
+        $call->wp_number = !isset($request->wp_number) ? null : $request->wp_number; 
+
+        if($request->request_type == "1") {
+            $call->document_date = $request->document_date;
+            $call->city = !isset($request->city) ? null : $request->city; 
+            $call->address = !isset($request->address) ? null : $request->address; 
+            $call->has_travel = !isset($request->has_travel) ? null : $request->has_travel; 
+            $call->family_case = !isset($request->family_case) ? null : $request->family_case; 
+            $call->has_work = !isset($request->has_work) ? null : $request->has_work; 
+            $call->has_bank_account = !isset($request->has_bank_account) ? null : $request->has_bank_account; 
+        } else {
+            $call->birthday = $request->birth_date;
+            $call->full_name = !isset($request->full_name) ? null : $request->full_name; 
+            $call->education = !isset($request->education) ? null : $request->education; 
+            $call->document = !isset($request->document) ? null : $request->document; 
+        }
+
+        if($call->save()) {
+    
+            return back()->with('success','Məlumat yeniləndi');
+
+        } else {
+
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+            
+        }
+      
+    }
+
     public function updateCall(Request $request) {
  
         $call = visaCalls::find($request->id);
