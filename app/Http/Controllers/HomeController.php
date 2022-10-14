@@ -466,4 +466,15 @@ class HomeController extends Controller
 
     }
 
+    public function additionalFiles($id, $type) 
+    {
+        
+        $files = DB::select("select id, file from media_files where section_id=? and type=?", [$id, $type]); 
+
+        return response()->json([
+            'data' => $files,
+            'error' => null,
+        ]);
+    }
+
 }

@@ -69,6 +69,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/crm/update-call', 'HomeController@updateCall');
     Route::post('/crm/create-call', 'HomeController@createManuallyCall');
 
+    Route::get('/admin/get-files/{id}/{type}', 'HomeController@additionalFiles');
 
 
     Route::get('/home', 'VisaTypeDetailController@all');

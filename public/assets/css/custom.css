@@ -168,4 +168,19 @@
   display: block !important;
 }
 
+.additional-file-item {
+  width: 73px;
+  height: 70px;
+  float: left;
+  margin-left: 15px;
+}
 
+.additional-file-item button {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  position: absolute;
+  font-size: 12px;
+  margin-left: -13px;
+  margin-top: 6px;
+}

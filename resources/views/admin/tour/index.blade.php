@@ -76,10 +76,29 @@
                                                         <label for="title" class="form-label">Başlıq</label>
                                                         <input type="text" class="form-control" name="title" id="title" placeholder="Kontent başlığını daxil edin">
                                                 </div>
-                                                <div class="mb-3" id="picture">
+                                                <div class="mb-3 picture" id="select-priority">
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="fileType"  value="0" checked>
+                                                                <label class="form-check-label">
+                                                                        Əsas şəkil
+                                                                </label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="fileType" value="1">
+                                                                <label class="form-check-label">
+                                                                        Əlavə şəkil(lər)
+                                                                </label>
+                                                        </div>
+                                                </div>
+                                                <div class="mb-3 picture">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
+
+                                                <div class="mb-3 picture" id="additional-files-box">
+                                                        
+                                                </div>
+
                                                 <div class="mb-3">
                                                         <label for="period" class="form-label">Müddət</label>
                                                         <input type="text" class="form-control" name="period" id="period" placeholder="tarix aralığı daxil edin">
@@ -122,24 +141,46 @@
                 $(".modal-body>div").show();
                 document.getElementById("my-form").reset()
                 $("#summernote").summernote("code", "") 
+                $("#select-priority").hide();
+                $("#additional-files-box").hide();
         });
 
         $(document).on("click", ".table-describe", function() {
                 let id = $(this).attr("data-id");
                 $("#my-form").attr("action", "/admin/tour-image/"+id);
                 $(".modal-body>div").hide();
-                $("#picture").show();
+                $("#select-priority").show();
+                $(".picture").show();
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
-                myModal.show();
+                $.ajax({
+                        url: "/admin/get-files/"+id+"/1",
+                        method: "get",
+                        success: (res)=> { 
+                                let str = "";
+                                (res.data).forEach((item, index)=>{
+                                        str += `
+                                                <div class="additional-file-item">
+                                                        <img src="/assets/uploads/tour-images/${item.file}" class="table-describe" />
+                                                        <button type="button" class="btn btn-danger">sil</button> 
+                                                </div> 
+                                        `;
+                                })
+
+                                $("#additional-files-box").html(str);
+                                 
+                        }
+                });
+                myModal.show(); 
         });
  
         $(document).on("click", ".faq-edit", function(){
 
                 let id = $(this).attr("data-id");
-
+                $("#select-priority").hide();
+                $("#additional-files-box").hide();
                 $("#my-form").attr("action", "/admin/tour/"+id);
                 $(".modal-body>div").show();
-                $("#picture").hide();
+                $(".picture").hide();
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
             
                 $.ajax({
@@ -154,7 +195,7 @@
                                 
                                 $("#summernote").summernote("code",res.data.content);
                         }
-                })
+                });
 
                 myModal.show();
       })
