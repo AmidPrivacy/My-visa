@@ -177,7 +177,7 @@
                         processData: false,
                         contentType: false,
                         success: function (res) {
-                                $(".file-lists .list-group").prepend("<li class='list-group-item'>https://visa.e-beledci.az/../public/assets/uploads/files/"+res.data.file+" <span>"+res.data.name+"</span></li>")
+                                $(".file-lists .list-group").prepend("<li class='list-group-item'>https://myvisa.az/../public/assets/uploads/files/"+res.data.file+" <span>"+res.data.name+"</span></li>")
                                 alert("Fayl uğurla əlavə edildi");
                                 $("#special-file-name").val("");
                                 $("#inputGroupFile04").val("");

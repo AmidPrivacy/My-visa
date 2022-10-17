@@ -161,7 +161,8 @@
                                         str += `
                                                 <div class="additional-file-item">
                                                         <img src="/assets/uploads/tour-images/${item.file}" class="table-describe" />
-                                                        <button type="button" class="btn btn-danger">sil</button> 
+                                                        <button type="button" class="btn btn-danger delete-media-file" data-id="${item.id}"
+                                                        row-id="${id}" data-path="tour-images">sil</button> 
                                                 </div> 
                                         `;
                                 })
@@ -170,7 +171,7 @@
                                  
                         }
                 });
-                myModal.show(); 
+                myModal.show();
         });
  
         $(document).on("click", ".faq-edit", function(){
@@ -211,7 +212,7 @@
                         processData: false,
                         contentType: false,
                         success: function (res) {
-                                $(".file-lists .list-group").prepend("<li class='list-group-item'>https://visa.e-beledci.az/../public/assets/uploads/files/"+res.data.file+" <span>"+res.data.name+"</span></li>")
+                                $(".file-lists .list-group").prepend("<li class='list-group-item'>https://myvisa.az/../public/assets/uploads/files/"+res.data.file+" <span>"+res.data.name+"</span></li>")
                                 alert("Fayl uğurla əlavə edildi");
                                 $("#special-file-name").val("");
                                 $("#inputGroupFile04").val("");

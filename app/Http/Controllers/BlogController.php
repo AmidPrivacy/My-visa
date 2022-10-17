@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;  
 use App\Models\Blogs; 
+use App\Models\MediaFiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -72,27 +73,43 @@ class BlogController extends Controller
 
     public function updateImg($id, Request $request) {
 
-        $blog = Blogs::find($id); 
-
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $imageName = time().'.'.$request->image->extension();  
-     
+
         $request->image->move(public_path('assets/uploads/blog-files/'), $imageName);
 
-        $oldPicture = $blog->picture;
+        if($request->fileType == "0") {
 
-        $blog->picture = $imageName; 
+            $blog = Blogs::find($id); 
+  
+            $oldPicture = $blog->picture;
+    
+            $blog->picture = $imageName; 
+    
+            if(unlink(public_path('assets/uploads/blog-files/'.$oldPicture)))
+                if($blog->save()) {  
+                    return back()->with('success','Məlumat yeniləndi');
+                } else { 
+                    return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+                }
+        } else {
 
-        if(unlink(public_path('assets/uploads/blog-files/'.$oldPicture)))
-            if($blog->save()) { 
-                
-                return back()->with('success','Məlumat yeniləndi');
+            $media = new MediaFiles();
+
+            $media->section_id = $id;
+            $media->section_id = $id;
+            $media->type = 2;
+            $media->file = $imageName; 
+
+            if($media->save()) {  
+                return back()->with('success','Şəkil əlavə olundu');
             } else { 
                 return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
             }
+        }
 
     }
 

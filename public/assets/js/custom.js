@@ -6,7 +6,49 @@ function removeRow(id, path) {
   }
 }
 
-$(function(){
+$(function() {
+
+  $(document).on("click", ".delete-media-file", function() {
+
+    let rowId = $(this).attr("row-id");
+    let id = $(this).attr("data-id");
+    let path = $(this).attr("data-path");
+    let check = confirm("Silmək istədiyinizə əminsiniz?");
+
+    if(check) {
+      $.ajax({
+        url: "/admin/delete-file/"+id+"/"+path,
+        method: "get",
+        data: {},
+        success: (res)=>{  
+          if(res.error===null) {
+            $.ajax({
+              url: "/admin/get-files/"+rowId+"/1",
+              method: "get",
+              success: (res)=> { 
+                      let str = "";
+                      (res.data).forEach((item, index)=>{
+                              str += `
+                                      <div class="additional-file-item">
+                                              <img src="/assets/uploads/tour-images/${item.file}" class="table-describe" />
+                                              <button type="button" class="btn btn-danger delete-media-file" data-id="${item.id}"
+                                              row-id="${id}" data-path="${path}">sil</button> 
+                                      </div> 
+                              `;
+                      })
+
+                      $("#additional-files-box").html(str);
+                       
+              }
+            });
+          }
+        }, 
+        error: (err) => {
+          console.log(err)
+        }
+      })
+    }
+  })
 
   $("#user-activate input").change(function() {
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Contacts;
 use App\Models\Services;
+use App\Models\MediaFiles;
 use App\Models\visaCalls;
 use App\Models\UserAppealRoles;
 use App\Models\VisaCountryAppeals;
@@ -466,10 +467,28 @@ class HomeController extends Controller
 
     }
 
+    public function deleteMediaFile($id, $path) {
+
+        $file = MediaFiles::find($id); 
+
+        if($file->delete() && unlink(public_path('assets/uploads/'.$path.'/'.$file->file))) {
+            return response()->json([
+                'data' => ["status"=>200, "message"=>"Məlumat silindi"],
+                'error' => null,
+            ]);
+        } else {
+            return response()->json([
+                'data' => null,
+                'error' => ["status"=>500, "message"=>"Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin"],
+            ]);
+        }
+
+    }
+
     public function additionalFiles($id, $type) 
     {
         
-        $files = DB::select("select id, file from media_files where section_id=? and type=?", [$id, $type]); 
+        $files = DB::select("select id, file from media_files where section_id=? and type=? and is_deleted=0", [$id, $type]); 
 
         return response()->json([
             'data' => $files,

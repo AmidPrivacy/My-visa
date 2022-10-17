@@ -70,6 +70,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/crm/create-call', 'HomeController@createManuallyCall');
 
     Route::get('/admin/get-files/{id}/{type}', 'HomeController@additionalFiles');
+    Route::get('/admin/delete-file/{id}/{path}', 'HomeController@deleteMediaFile');
 
 
     Route::get('/home', 'VisaTypeDetailController@all');

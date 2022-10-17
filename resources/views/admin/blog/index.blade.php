@@ -71,10 +71,29 @@
                                                         <label for="title" class="form-label">Başlıq</label>
                                                         <input type="text" class="form-control" name="title" id="title" placeholder="Kontent başlığını daxil edin">
                                                 </div>
-                                                <div class="mb-3" id="picture">
+                                                <div class="mb-3 picture" id="select-priority">
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="fileType"  value="0" checked>
+                                                                <label class="form-check-label">
+                                                                        Əsas şəkil
+                                                                </label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="fileType" value="1">
+                                                                <label class="form-check-label">
+                                                                        Əlavə şəkil(lər)
+                                                                </label>
+                                                        </div>
+                                                </div>
+                                                <div class="mb-3 picture">
                                                         <label for="formFile" class="form-label">Şəkil daxil edin</label>
                                                         <input class="form-control" type="file" id="formFile" name="image">
                                                 </div>
+
+                                                <div class="mb-3 picture" id="additional-files-box">
+                                                        
+                                                </div>
+
                                                 <div class="mb-3">
                                                         <label for="type" class="form-label">Kontent</label>
                                                         <textarea id="summernote" name="content"></textarea>
@@ -107,16 +126,42 @@
                 $("#my-form").attr("action", "/admin/blog-add");
                 $(".modal-body>div").show();
                 document.getElementById("my-form").reset();
-                $("#summernote").summernote("code", "");
+                $("#summernote").summernote("code", ""); 
+                $("#select-priority").hide();
+                $("#additional-files-box").hide();
+
         });
 
         $(document).on("click", ".table-describe", function() {
+
                 let id = $(this).attr("data-id");
                 $("#my-form").attr("action", "/admin/blog-image/"+id);
                 $(".modal-body>div").hide();
-                $("#picture").show();
+
+                $("#select-priority").show();
+                $(".picture").show();
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+                $.ajax({
+                        url: "/admin/get-files/"+id+"/2",
+                        method: "get",
+                        success: (res)=> { 
+                                let str = "";
+                                (res.data).forEach((item, index)=>{
+                                        str += `
+                                                <div class="additional-file-item">
+                                                        <img src="/assets/uploads/blog-files/${item.file}" class="table-describe" />
+                                                        <button type="button" class="btn btn-danger delete-media-file" data-id="${item.id}"
+                                                        row-id="${id}" data-path="blog-files">sil</button> 
+                                                </div> 
+                                        `;
+                                })
+
+                                $("#additional-files-box").html(str);
+                                 
+                        }
+                });
                 myModal.show();
+
         });
 
       $(document).on("click", ".faq-edit", function(){
@@ -125,8 +170,10 @@
 
                 $("#my-form").attr("action", "/admin/blog/"+id);
 
+                $("#select-priority").hide();
+                $("#additional-files-box").hide();
                 $(".modal-body>div").show();
-                $("#picture").hide();
+                $(".picture").hide();
 
                 var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
             
@@ -142,32 +189,7 @@
                 })
 
                 myModal.show();
-      })
-
-      $(".addition-file-upload").click(function() {
-              if(($("#special-file-name").val()).length>0 && document.getElementById("inputGroupFile04").files.length > 0) {
-                var form = $('#my-form')[0];
-                var formData = new FormData(form);
-                $.ajax({
-                        url: "/admin/file-add",
-                        method: "post",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (res) {
-                                $(".file-lists .list-group").prepend("<li class='list-group-item'>https://visa.e-beledci.az/../public/assets/uploads/files/"+res.data.file+" <span>"+res.data.name+"</span></li>")
-                                alert("Fayl uğurla əlavə edildi");
-                                $("#special-file-name").val("");
-                                $("#inputGroupFile04").val("");
-                        },
-                        error: function (e) {
-                                alert("Uğursuz")
-                        }
-                })
-
-              } else {
-                      alert("Zəhmət olmasa fayl və başlıq daxil edin");
-              }
+ 
       })
 
 
