@@ -16,7 +16,9 @@
                     <img src="assets/img/vaduz-castle.png" alt="">
                 </div>
                 <div class="blogParagraphs">
-                    <h3> {{ $item->title }} </h3>
+                    <h3> 
+                        <a href="/blog/{{ $item->uuid }}">{{ $item->title }}</a> 
+                    </h3>
                     <p>
                     {{ $item->content }}
                     </p>
@@ -35,7 +37,7 @@
             <div class="blogsInfo">
                 
                 <div class="blogParagraphs">
-                    <h3> {{ $item->title }} </h3>
+                    <h3> <a href="#">{{ $item->title }}</a> </h3>
                     <p>
                         {{ $item->content }}
                     </p>

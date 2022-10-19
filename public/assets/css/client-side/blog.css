@@ -39,7 +39,7 @@ border-radius: 20px;
 .blogParagraphs{
     width: 48%;
 }
-.blogParagraphs h3{
+.blogParagraphs h3 {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
@@ -48,7 +48,12 @@ border-radius: 20px;
     color: #555555;
     margin: 0;
 }
-.blogParagraphs p{
+
+.blogParagraphs h3 a {
+    color: #555555;
+    text-decoration: none;
+}
+.blogParagraphs p {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;

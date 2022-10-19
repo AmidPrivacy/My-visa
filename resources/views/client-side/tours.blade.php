@@ -16,13 +16,15 @@
 					<div class="cardsContent">
 						<img src="assets/uploads/tour-images/{{ $item->picture }}" alt="">
 						<div class="descrTourCont">
-							<h1>{{ $item->title }}</h1>
+							<h1> 
+								<a href="/tour/{{ $item->uuid }}">{{ $item->title }}</a> 
+							</h1>
 							<p> Tarix: {{ $item->created_at }} </p>
 							<p> Müddət: {{ $item->period }} </p>
                             <p> Qiymət: {{ isset($item->price) ? $item->price."manat" : "" }}</p>
                             <p> Qeyd: {{ $item->content }} </p>
 						</div>
-						<a href="#">Ətraflı</a>
+						<a href="/tour/{{ $item->uuid }}">Ətraflı</a>
 					</div>
 				</div>
 			@endforeach 

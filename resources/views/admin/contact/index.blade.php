@@ -29,7 +29,7 @@
        <section style="margin-top: 50px">
                 @foreach($list as $item)
 
-                <form class="form-inline" method="post" action="admin/contact-update/{{ $item->id }}">
+                <form class="form-inline" method="post" action="/admin/contact-update/{{ $item->id }}">
        
                         <div class="form-group mx-sm-3 mb-2">
                                 <label for="inputPassword2" class="sr-only" style="display: block">
@@ -49,7 +49,8 @@
                                            Twitter
                                         @endif 
                                 </label>
-                                <input type="text" class="form-control" style="width: 70%; float: left" {{ $item->is_deleted===0 ? "" : "disabled" }}  value="{{ $item->name }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                <input type="text" class="form-control" name="name" style="width: 70%; float: left" {{ $item->is_deleted===0 ? "" : "disabled" }}  value="{{ $item->name }}">
                                 <button type="submit" class="btn btn-primary mb-2" style="margin-left: 1%" {{ $item->is_deleted===0 ? "" : "disabled" }}>Yenilə</button>
                                 <a href="/admin/contact/{{ $item->id }}/{{ $item->is_deleted }}">
                                         <button type="button" class="btn btn-danger" style="position: relative; bottom: 4px">  

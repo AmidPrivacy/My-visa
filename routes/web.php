@@ -55,10 +55,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/', 'HomeController@index');
     Route::get('/tours', 'HomeController@tours');
+    Route::get('/tour/{uuid}', 'HomeController@tourDetail');
     Route::get('/visa-services', 'HomeController@visaServices');
     Route::get('/visa-appeal/{id}', 'HomeController@visaAppeal');
     Route::get('/faq', 'HomeController@faq');
     Route::get('/blog', 'HomeController@blog');
+    Route::get('/blog/{uuid}', 'HomeController@blogDetail');
 
     // Route::get('/appeal', 'HomeController@index')->name('home.index');
     Route::get('/appeal', 'HomeController@appeal')->name('home.index');
@@ -147,6 +149,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/admin/contact', 'HomeController@contact'); 
 
     Route::get('/admin/contact/{id}/{status}', 'HomeController@setContactStatus'); 
+
+    Route::post('/admin/contact-update/{id}', 'HomeController@setContactData'); 
 
     Route::get('/admin/type/{id}/{status}', 'VisaTypeController@setShowStatus'); 
  

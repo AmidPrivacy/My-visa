@@ -1,0 +1,30 @@
+.media-detail .media-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #555555;
+    margin-bottom: 5px;
+}
+
+.media-detail {
+    padding-top: 40px;
+}
+
+.main-description {
+    width: 100%;
+}
+
+.main-description img {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+ 
+.media-detail .detail-info {
+    margin: 20px 0;
+}
+
+.media-detail .additional-images .file-item {
+    width: 31%;
+    margin: 1%;
+}

@@ -71,7 +71,7 @@
                             @foreach($types as $item)
                                 <a href="#visa-type-{{ $item->id }}" class="visatype-headerbox mr-3 mb-4">
                                     <div class="visatype-headerbox_icon">
-                                    <img alt="{{ $selected->name }}"  src="/assets/img/1.svg" >
+                                    <img alt="{{ $selected->name }}"  src="/assets/img/1.png" >
                                     </div>
                                     <span>{{ $item->name }}</span>
                                 </a>
@@ -88,7 +88,7 @@
                                         <div class="visatype-cardlbox">
                                             <div>
                                                 <div class="visatype-headerbox_icon">
-                                                <img alt="{{ $type->name }} Qısamüddətli Viza" src="/assets/img/1.svg">
+                                                <img alt="{{ $type->name }} Qısamüddətli Viza" src="/assets/img/1.png">
                                                 </div>
                                             </div>
                                             <h3 class="visatype-cardlbox_title">

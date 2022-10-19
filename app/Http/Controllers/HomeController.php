@@ -8,6 +8,8 @@ use App\Models\Contacts;
 use App\Models\Services;
 use App\Models\MediaFiles;
 use App\Models\visaCalls;
+use App\Models\Blogs; 
+use App\Models\Tours; 
 use App\Models\UserAppealRoles;
 use App\Models\VisaCountryAppeals;
 use App\Models\UserAppeals;
@@ -86,6 +88,22 @@ class HomeController extends Controller
         $list = DB::select("select * from blogs where is_deleted=0"); 
         $contacts = DB::select("select * from contacts");
         return view('client-side.blog')->with(["list" => $list, "contact"=>$contacts]);
+    }
+
+    public function blogDetail($uuid)
+    { 
+        $blog = Blogs::where('uuid', '=', $uuid)->first();
+        $blog->additionalFiles = DB::select("select id, file from media_files where type=2 and section_id=?", [$blog->id]);
+        $contacts = DB::select("select * from contacts"); 
+        return view('client-side.mediaDetail')->with(["media" => $blog, "contact"=>$contacts, "isBlog"=>"1"]);
+    }
+
+    public function tourDetail($uuid)
+    { 
+        $blog = Tours::where('uuid', '=', $uuid)->first();
+        $blog->additionalFiles = DB::select("select id, file from media_files where type=1 and section_id=?", [$blog->id]);
+        $contacts = DB::select("select * from contacts"); 
+        return view('client-side.mediaDetail')->with(["media" => $blog, "contact"=>$contacts, "isBlog"=>"2"]);
     }
     
     public function visaAppeal($id)
@@ -429,6 +447,18 @@ class HomeController extends Controller
 
     }
 
+    public function setContactData($id, Request $request) {
+
+        $contact = Contacts::find($id); 
+        $contact->name = $request->name;
+
+        if($contact->save()) { 
+            return back()->with('success','Məlumat yeniləndi');
+        } else {
+            return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
+        }
+
+    }
 
     public function newCountryAppeal(Request $request) {
  

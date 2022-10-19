@@ -30,7 +30,7 @@ $(function() {
                       (res.data).forEach((item, index)=>{
                               str += `
                                       <div class="additional-file-item">
-                                              <img src="/assets/uploads/tour-images/${item.file}" class="table-describe" />
+                                              <img src="/public/assets/uploads/tour-images/${item.file}" class="table-describe" />
                                               <button type="button" class="btn btn-danger delete-media-file" data-id="${item.id}"
                                               row-id="${id}" data-path="${path}">sil</button> 
                                       </div> 

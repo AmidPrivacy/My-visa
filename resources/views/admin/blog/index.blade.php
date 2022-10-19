@@ -149,7 +149,7 @@
                                 (res.data).forEach((item, index)=>{
                                         str += `
                                                 <div class="additional-file-item">
-                                                        <img src="/assets/uploads/blog-files/${item.file}" class="table-describe" />
+                                                        <img src="/public/assets/uploads/blog-files/${item.file}" class="table-describe" />
                                                         <button type="button" class="btn btn-danger delete-media-file" data-id="${item.id}"
                                                         row-id="${id}" data-path="blog-files">sil</button> 
                                                 </div> 

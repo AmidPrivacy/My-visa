@@ -558,3 +558,7 @@ input[type=number] {
         width: 84%;
     }
 }
+
+main section.banner {
+    display: none;
+}
