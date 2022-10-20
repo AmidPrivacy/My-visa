@@ -1,7 +1,7 @@
 <header class="p-3 bg-primary text-white">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center" style="justify-content: right; margin-bottom: 15px;">
-
+ 
       <div class="form-check form-switch" id="user-activate" data-id="{{auth()->user()->id}}" style="margin-left: 22px; width: 100px; padding: 6px;">
         <input type="hidden" name="_token" id="request_csrf" value="{{ csrf_token() }}" />
         <label class="form-check-label" >{{auth()->user()->status==0? 'Offline': 'Online'}}</label>
@@ -39,6 +39,18 @@
           CRM üçün keçid edin
         </a>  
       </div>
+      
+      <div class="dropdown">
+        <button type="button" class="btn btn-dark dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+          Bildirişlər <span class="badge badge-light">4</span>
+        </button> 
+
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
       @auth
         <div class="text-end" style="min-width: 200px">
         {{auth()->user()->name}}
@@ -52,8 +64,6 @@
           <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
         </div>
       @endguest
- 
-
       
       
     </div>

@@ -11,6 +11,7 @@ use App\Models\visaCalls;
 use App\Models\Blogs; 
 use App\Models\Tours; 
 use App\Models\UserAppealRoles;
+use App\Models\Notifications;
 use App\Models\VisaCountryAppeals;
 use App\Models\UserAppeals;
 use App\Models\VisaServiceAppeals;
@@ -470,7 +471,13 @@ class HomeController extends Controller
         $appeal->mail = $request->mail; 
         $appeal->number = $request->number;  
 
+        $notification = new Notifications();
+ 
+        $notification->type = "Ölkə üzrə müraciət";
+
         if($appeal->save()) { 
+            $notification->appeal_id = $appeal->id;
+            $notification->save();
             return back()->with('success','Müraciət uğurla göndərildi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
@@ -489,7 +496,15 @@ class HomeController extends Controller
         $appeal->note = $request->note; 
         $appeal->number = $request->number; 
 
+        $notification = new Notifications();
+ 
+        $notification->type = "Xidmət üzrə müraciət";
+
         if($appeal->save()) { 
+
+            $notification->appeal_id = $appeal->id;
+            $notification->save();
+            
             return back()->with('success','Müraciət uğurla göndərildi');
         } else {
             return back()->with('error','Xəta baş verdi, zəhmət olmasa biraz sora yenidən cəhd edin');
