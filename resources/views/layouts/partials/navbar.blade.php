@@ -41,12 +41,20 @@
       </div>
       
       <div class="dropdown">
-        <button type="button" class="btn btn-dark dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+        <button type="button" class="btn btn-dark notification-toggle">
           Bildirişlər <span class="badge badge-light">4</span>
         </button> 
 
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
+        <div class="dropdown-menu notification-window">
+          <ul class="list-group">
+            <a class="dropdown-item" href="#">
+              <li class="">
+                <p>Yeni müraciət</p>
+                <span>Xidmət üzrə müraciət</span>
+              </li>
+            </a> 
+          </ul>
+         
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>

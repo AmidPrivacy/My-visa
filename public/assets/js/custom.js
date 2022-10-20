@@ -7,6 +7,14 @@ function removeRow(id, path) {
 }
 
 $(function() {
+ 
+  $(document).on("click", ".notification-toggle", function() {
+    if($(".notification-window").hasClass("is-active")) {
+      $(".notification-window").removeClass("is-active");
+    } else {
+      $(".notification-window").addClass("is-active");
+    }
+  });
 
   $(document).on("click", ".delete-media-file", function() {
 

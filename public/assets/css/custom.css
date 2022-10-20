@@ -184,3 +184,27 @@
   margin-left: -13px;
   margin-top: 6px;
 }
+
+/* .notification-window {
+  display: block;
+} */
+
+.notification-window li {
+  text-align: center; 
+  border-bottom: solid 1px;
+  margin: 0 0 10px 9px;
+}
+
+.notification-window li::marker {
+  color: red;
+}
+
+.notification-window p {
+  margin-bottom: 0;
+}
+
+.notification-window span {
+  font-size: 10px;
+  color: red;
+  font-weight: 700;
+}
