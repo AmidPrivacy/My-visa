@@ -153,6 +153,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::post('/admin/contact-update/{id}', 'HomeController@setContactData'); 
 
     Route::get('/admin/type/{id}/{status}', 'VisaTypeController@setShowStatus'); 
+
+    
+    Route::get('/admin/fetch-notifications', 'HomeController@fetchNotifications'); 
+    Route::get('/admin/read-notification/{id}', 'HomeController@readNotification'); 
+    Route::get('/admin/notification-count', 'HomeController@fetchNotificationCount'); 
  
 
     Route::group(['middleware' => ['guest']], function() {

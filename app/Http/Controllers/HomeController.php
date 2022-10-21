@@ -10,6 +10,7 @@ use App\Models\MediaFiles;
 use App\Models\visaCalls;
 use App\Models\Blogs; 
 use App\Models\Tours; 
+use App\Models\NotificationReadingStatus; 
 use App\Models\UserAppealRoles;
 use App\Models\Notifications;
 use App\Models\VisaCountryAppeals;
@@ -539,6 +540,44 @@ class HomeController extends Controller
             'data' => $files,
             'error' => null,
         ]);
+    }
+
+    public function fetchNotifications() 
+    { 
+
+        $data = DB::select("select n.id, n.type from notifications n left join notification_reading_statuses s 
+            on s.appeal_id=n.id where s.user_id is null or s.user_id != ".auth()->user()->id." order by n.id desc limit 10");
+
+        return response()->json([
+            'data' => $data,
+            'error' => null,
+        ]);
+
+    }
+
+    public function fetchNotificationCount() 
+    { 
+
+        $data = DB::select("select n.id, n.type from notifications n left join notification_reading_statuses s 
+            on s.appeal_id=n.id where s.user_id is null or s.user_id != ".auth()->user()->id." order by n.id desc");
+
+        return response()->json([
+            'data' => count($data),
+            'error' => null,
+        ]);
+
+    }
+
+    public function readNotification($id) 
+    {
+        $row = new NotificationReadingStatus();
+        $row->appeal_id = $id;
+        $row->user_id = auth()->user()->id;
+        if($row->save()) {
+            return response()->json([ 'data' => ["status"=>200, "message"=>"Bildiriş tərəfinizdən oxunuldu"], 'error' => null, ]);
+        } else {
+            return response()->json([ 'data' => null, 'error' => ["status" => 500, "message" => "Sistem xətası"], ]);
+        }
     }
 
 }

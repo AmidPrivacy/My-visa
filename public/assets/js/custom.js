@@ -7,14 +7,114 @@ function removeRow(id, path) {
 }
 
 $(function() {
+
+  $.ajax({
+    url: "/admin/notification-count",
+    method: "get",
+    success: (res)=> { 
+      $(".notification-toggle span").text(res.data)
+    }
+  })
  
+  setInterval(() => { 
+    $.ajax({
+      url: "/admin/notification-count",
+      method: "get",
+      success: (res)=> { 
+        $(".notification-toggle span").text(res.data)
+      }
+    })
+    
+  }, 20000);
+
   $(document).on("click", ".notification-toggle", function() {
     if($(".notification-window").hasClass("is-active")) {
       $(".notification-window").removeClass("is-active");
+
     } else {
       $(".notification-window").addClass("is-active");
+      $.ajax({
+        url: "/admin/fetch-notifications",
+        method: "get",
+        success: (res)=> { 
+    
+                let str = "";
+                if(res.data.length>0) {
+                  (res.data).forEach((item, index)=>{
+                          str += ` <li class="">
+                              <p>Yeni müraciət</p>
+                              <span>${item.type}</span>
+                              <div class="notification-detail-box"> 
+                                <button type="button" class="btn btn-info" data-id="${item.id}">OXU</button>
+                                <a href="${item.type==="Xidmət üzrə müraciət" ? "/admin/service-appeals" : "/admin/country-appeals" }" onclick="return false">Ətraflı</a> 
+                              </div>
+                            </li> `;
+                  });
+                } else {
+                  str = `<li style="border: none; margin: 0">Yeni bildiriş yoxdur</li>`
+                }
+                $(".notification-window ul").html(str);
+                 
+        }
+      });
     }
   });
+
+  $(document).on("click", ".notification-window .notification-detail-box a", function() {
+    var id = $(this).prev().attr("data-id");
+    var href = $(this).attr("href");
+    $.ajax({
+      url: "/admin/read-notification/"+id,
+      method: "get",
+      success: (res)=> {  
+        if(res.error==null) {
+         window.location.href = href;
+        }  else {
+          alert(res.error.message)
+        }  
+      }
+    });
+    console.log(id)
+  });
+
+  $(document).on("click", ".notification-window .btn-info", function() {
+    var id = $(this).attr("data-id");
+    $.ajax({
+      url: "/admin/read-notification/"+id,
+      method: "get",
+      success: (res)=> {  
+        if(res.error==null) {
+          alert(res.data.message)
+          $.ajax({
+            url: "/admin/fetch-notifications",
+            method: "get",
+            success: (res)=> { 
+        
+                    let str = "";
+                    if(res.data.length>0) {
+                      (res.data).forEach((item, index)=>{
+                              str += ` <li class="">
+                                  <p>Yeni müraciət</p>
+                                  <span>${item.type}</span>
+                                  <div class="notification-detail-box"> 
+                                    <button type="button" class="btn btn-info" data-id="${item.id}">OXU</button>
+                                    <a href="${item.type==="Xidmət üzrə müraciət" ? "/admin/service-appeals" : "/admin/country-appeals" }" onclick="return false">Ətraflı</a> 
+                                  </div>
+                                </li> `;
+                      });
+                    } else {
+                      str = `<li style="border: none; margin: 0">Yeni bildiriş yoxdur</li>`
+                    }
+                    $(".notification-window ul").html(str);
+                     
+            }
+          });
+        }  else {
+          alert(res.error.message)
+        }  
+      }
+    });
+  })
 
   $(document).on("click", ".delete-media-file", function() {
 
